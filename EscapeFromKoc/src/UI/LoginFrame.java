@@ -37,7 +37,7 @@ public class LoginFrame extends JFrame{
 		panel.setLayout(null);
 		
 		setBounds(300, 200, 1000, 600);
-		this.add(panel);
+		add(panel);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
@@ -66,6 +66,7 @@ public class LoginFrame extends JFrame{
 				else {
 					JOptionPane.showMessageDialog(null, "Username or Password mismatch ");
 				}*/
+				new BuildingModeFrame("xx");
 				dispose();
 			}
 		});
@@ -106,13 +107,12 @@ public class LoginFrame extends JFrame{
 					
 					else {
 						JOptionPane.showMessageDialog(null, "Ooops! It looks like this user already exists.");
-					}					
-					
+					}								
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "Ooops! It looks like some info is missing or invalid.");
 				}*/
-				
+				new BuildingModeFrame("xx");
 				dispose();
 			}
 		});
