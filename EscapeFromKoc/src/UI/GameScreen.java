@@ -22,7 +22,7 @@ public class GameScreen extends JFrame{
 	}
 	
 	public GameScreen() {
-		super("Escape From Koç Game");
+		super("Escape From Koc Game");
 		setBounds(300, 200, 1000, 600);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,7 +45,7 @@ public class GameScreen extends JFrame{
 
 	private void initializeTopPanel(JPanel mainPanel, JPanel topPanel) {
 		topPanel.setLayout(new GridBagLayout());
-		JLabel welcome = new JLabel("ESCAPE FROM KOÇ GAME");
+		JLabel welcome = new JLabel("ESCAPE FROM KOC GAME");
 		welcome.setSize(1000, 200);
 		welcome.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
 		topPanel.add(welcome);
