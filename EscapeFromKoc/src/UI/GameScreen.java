@@ -74,7 +74,7 @@ public class GameScreen extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				//BuildingModeFrame buildingModeFrame = 
 				new LoginFrame();
-				//dispose();				
+				dispose();				
 			}
 		});	
 	}
