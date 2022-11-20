@@ -1,0 +1,66 @@
+package UI;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.Scanner;
+
+import Domain.Game.EscapeFromKocGame;
+
+public class GameKeyListener implements KeyListener{
+    EscapeFromKocGame escapeFromKocGame;
+    int lastKey = -1;
+    Scanner scanner = new Scanner(System.in);
+    public GameKeyListener(EscapeFromKocGame escapeFromKocGame) {
+        this.escapeFromKocGame=escapeFromKocGame;
+    }
+
+    @Override
+    public void keyPressed(KeyEvent arg0) {
+        if(arg0.getKeyCode()==KeyEvent.VK_P) escapeFromKocGame.setPaused(true);
+
+        else if(arg0.getKeyCode()==KeyEvent.VK_R) escapeFromKocGame.setPaused(false);
+
+        else if(arg0.getKeyCode()==KeyEvent.VK_B) {
+            escapeFromKocGame.setPaused(true);
+            escapeFromKocGame.setInBlender(true);
+        }
+
+        if(escapeFromKocGame.inBlender()&&(arg0.getKeyCode()==KeyEvent.VK_1||arg0.getKeyCode()==KeyEvent.VK_2||
+                arg0.getKeyCode()==KeyEvent.VK_3||arg0.getKeyCode()==KeyEvent.VK_4)) {
+            if(lastKey==-1) lastKey= (int) (arg0.getKeyChar()-48);
+            else {
+                int first = lastKey;
+                int second = (int) (arg0.getKeyChar()-48);
+                lastKey=-1;
+                escapeFromKocGame.setPaused(false);
+            }
+        }
+
+        if(!escapeFromKocGame.isPaused()) {
+            if(arg0.getKeyCode()==KeyEvent.VK_RIGHT) escapeFromKocGame.moveAvatar("right");
+            else if(arg0.getKeyCode()==KeyEvent.VK_LEFT) escapeFromKocGame.moveAvatar("left");
+            else if(arg0.getKeyCode()==KeyEvent.VK_D) escapeFromKocGame.moveAvatar("right");
+            else if(arg0.getKeyCode()==KeyEvent.VK_A) escapeFromKocGame.moveAvatar("left");
+            else if(arg0.getKeyCode()==KeyEvent.VK_C) escapeFromKocGame.pickKey();
+
+        }
+
+        if(escapeFromKocGame.isPaused()) {
+            if(arg0.getKeyCode()==KeyEvent.VK_L) {
+                System.out.print("Enter username: ");
+                String username = scanner.next();
+                escapeFromKocGame.loadGame(username);
+            }
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent arg0) {
+
+    }
+
+    @Override
+    public void keyTyped(KeyEvent arg0) {
+
+    }
+
+}
