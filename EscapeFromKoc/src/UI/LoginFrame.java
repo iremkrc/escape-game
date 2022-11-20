@@ -66,7 +66,7 @@ public class LoginFrame extends JFrame{
 				else {
 					JOptionPane.showMessageDialog(null, "Username or Password mismatch ");
 				}*/
-				new Layout();
+				new Layout("Building Mode");
 				dispose();
 			}
 		});

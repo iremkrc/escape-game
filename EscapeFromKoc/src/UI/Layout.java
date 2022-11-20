@@ -5,7 +5,8 @@ import java.awt.*;
 
 
 public class Layout extends JFrame {
-    public Layout() {
+    public Layout(String title) {
+        super(title);
         setSize(1000, 800);
         setVisible(true);
     }
