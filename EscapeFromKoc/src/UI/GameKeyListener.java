@@ -21,10 +21,9 @@ public class GameKeyListener implements KeyListener{
 
         else if(arg0.getKeyCode()==KeyEvent.VK_B) {
             escapeFromKocGame.setPaused(true);
-            escapeFromKocGame.setInBlender(true);
         }
 
-        if(escapeFromKocGame.inBlender()&&(arg0.getKeyCode()==KeyEvent.VK_1||arg0.getKeyCode()==KeyEvent.VK_2||
+        if((arg0.getKeyCode()==KeyEvent.VK_1||arg0.getKeyCode()==KeyEvent.VK_2||
                 arg0.getKeyCode()==KeyEvent.VK_3||arg0.getKeyCode()==KeyEvent.VK_4)) {
             if(lastKey==-1) lastKey= (int) (arg0.getKeyChar()-48);
             else {
@@ -43,21 +42,13 @@ public class GameKeyListener implements KeyListener{
             else if(arg0.getKeyCode()==KeyEvent.VK_C) escapeFromKocGame.pickKey();
 
         }
-
-        if(escapeFromKocGame.isPaused()) {
-            if(arg0.getKeyCode()==KeyEvent.VK_L) {
-                System.out.print("Enter username: ");
-                String username = scanner.next();
-                escapeFromKocGame.loadGame(username);
-            }
-        }
     }
-
+    
     @Override
     public void keyReleased(KeyEvent arg0) {
 
     }
-
+    
     @Override
     public void keyTyped(KeyEvent arg0) {
 
