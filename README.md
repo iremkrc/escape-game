@@ -1,5 +1,4 @@
 # bambi
-comp 302 project 
 
 New github usage rules are added for the contributers. Please follow the rules below. 
 
