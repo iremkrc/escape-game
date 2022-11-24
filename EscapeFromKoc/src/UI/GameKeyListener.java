@@ -37,8 +37,8 @@ public class GameKeyListener implements KeyListener{
         if(!escapeFromKocGame.isPaused()) {
             if(arg0.getKeyCode()==KeyEvent.VK_RIGHT) escapeFromKocGame.moveAvatar("right");
             else if(arg0.getKeyCode()==KeyEvent.VK_LEFT) escapeFromKocGame.moveAvatar("left");
-            else if(arg0.getKeyCode()==KeyEvent.VK_D) escapeFromKocGame.moveAvatar("right");
-            else if(arg0.getKeyCode()==KeyEvent.VK_A) escapeFromKocGame.moveAvatar("left");
+            else if(arg0.getKeyCode()==KeyEvent.VK_UP) escapeFromKocGame.moveAvatar("up");
+            else if(arg0.getKeyCode()==KeyEvent.VK_DOWN) escapeFromKocGame.moveAvatar("down");
             else if(arg0.getKeyCode()==KeyEvent.VK_C) escapeFromKocGame.pickKey();
 
         }

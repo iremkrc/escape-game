@@ -15,6 +15,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Domain.Game.Avatar;
+import Domain.Game.EscapeFromKocGame;
+import Domain.Game.Player;
+
 public class LoginFrame extends JFrame{
 	
 	private static JLabel usernameLabel;
@@ -66,7 +70,11 @@ public class LoginFrame extends JFrame{
 				else {
 					JOptionPane.showMessageDialog(null, "Username or Password mismatch ");
 				}*/
-				new Layout("Building Mode");
+				
+				EscapeFromKocGame.getInstance().setPlayer(new Player());
+				EscapeFromKocGame.getInstance().timeLeft= 600*10000;
+				new RunningModeFrame();
+
 				dispose();
 			}
 		});
@@ -98,13 +106,10 @@ public class LoginFrame extends JFrame{
 				/*if(signUpName.length() > 0) {
 					
 					if(!(User.usernameList.contains(signUpNickname))) {
-						
 						JOptionPane.showMessageDialog(null, "Welcome on board");
 						User newUser = new User(signUpName);
-						LoginPage frame = new LoginPage();
-						
-					}
-					
+						LoginPage frame = new LoginPage();	
+					}					
 					else {
 						JOptionPane.showMessageDialog(null, "Ooops! It looks like this user already exists.");
 					}								

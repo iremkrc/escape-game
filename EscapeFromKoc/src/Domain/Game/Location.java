@@ -14,5 +14,12 @@ public class Location {
 		xLocation=newXLocation;
 		yLocation=newYLocation;
 	}
+	
+	public double getXLocation() {
+		return this.xLocation;
+	}
 
+	public double getYLocation() {
+		return this.yLocation;
+	}
 }

@@ -9,7 +9,7 @@ public class Player {
 	
 	public Player() {
 		inventory = new Inventory();
-		avatar = new Avatar(0);   //unitlength
+		avatar = new Avatar(25);   //unitlength
 		escapeFromKocGame = EscapeFromKocGame.getInstance();		
 	}
 
