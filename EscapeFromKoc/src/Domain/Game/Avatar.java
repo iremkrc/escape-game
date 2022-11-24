@@ -1,20 +1,29 @@
 package Domain.Game;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
+
 public class Avatar {
 
     public int width;
 	public int height;
 	int angle;
-	double speed;
+	double speed = 50;
 	Location location;
 	
     public Avatar(int unitLength) {
 		width = unitLength/2;
 		height = unitLength;
-		angle = 0;
-		//speed =
-		location= new Location(0, unitLength*10-height);
+		location= new Location(60, 60);
 	}
+    
+    public void draw(Graphics g) {
+    	Location loc = this.location;
+        g.setColor(Color.red);
+        g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), width, height);
+    }
+    
 	public int getWidth() {
 		return width;
 	}
@@ -23,64 +32,54 @@ public class Avatar {
 		return height;
 	}
 
-	public int getAngle() {
-		return angle;
-	}
 
 	public Location getLocation() {
 		return location;
 	}
 
-	public void setXLocation(double xLocation) {
-		location.xLocation=xLocation;
-	}
-
-    public void setYLocation(double yLocation) {
-		location.yLocation=yLocation;
-	}
-
-	public void setAngle(int angle) {
-		this.angle=angle;
+	public void setLocation(double xLocation, double yLocation) {
+		this.location = new Location(xLocation,yLocation);
 	}
 
     public void move(String direction) {
+    	if(direction.equals("right")) {
+			moveRight();
+		}
+    	else if(direction.equals("left")){
+			moveLeft();
+		}
+		else if(direction.equals("up")){
+			moveUp();
+		}
+		else{
+			moveDown();
+		}
     }  
 
-    public Key pickKey() {
+	private void moveLeft() {
+		if(location.xLocation>60) {
+			location.updateLocation(location.xLocation-speed, location.yLocation);
+		}
+	}
+	private void moveRight() {
+		if(location.xLocation<500-width) {
+			location.updateLocation(location.xLocation+speed, location.yLocation);
+		}
+	}
+	private void moveDown() {
+		if(location.yLocation<500-width) {
+			location.updateLocation(location.xLocation, location.yLocation+speed);
+		}
+	}
+	private void moveUp() {
+		if(location.yLocation>60) {
+			location.updateLocation(location.xLocation, location.yLocation-speed);
+		}
+	}
+
+	public Key pickKey() {
         return null;
     }
-
-	private void moveLeft() {
-
-	}
-
-	private void moveRight() {
-		  
-	}
-
-	public void rotate(String direction) {
-		if(direction.equals("right")) {
-			rotateRight();
-		}else {
-			rotateLeft();
-		}
-	}
-
-	private void rotateLeft() {
-		if(angle>=-80) {
-			angle-=10;
-		}else {
-			angle=-90;
-		}
-	}
-
-	private void rotateRight() {
-		if(angle<=80) {
-			angle+=10;
-		}else {
-			angle=90;
-		}	
-	}
 
     public Powerup activatePowerup() {
         return null;
