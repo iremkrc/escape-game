@@ -2,7 +2,7 @@ package Domain.Game;
 
 public class EscapeFromKocGame{
 
-    Player player;
+    private Player player;
     private static EscapeFromKocGame instance;
 	boolean isPaused = false;
 	boolean isOver = false;
