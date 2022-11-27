@@ -117,7 +117,7 @@ public class LoginFrame extends JFrame{
 				else {
 					JOptionPane.showMessageDialog(null, "Ooops! It looks like some info is missing or invalid.");
 				}*/
-				new BuildingModeFrame("xx");
+				new RunningModeFrame();
 				dispose();
 			}
 		});
