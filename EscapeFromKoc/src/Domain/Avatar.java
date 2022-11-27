@@ -1,4 +1,4 @@
-package Domain.Game;
+package Domain;
 
 import java.awt.Color;
 import java.awt.Graphics;

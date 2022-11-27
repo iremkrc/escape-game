@@ -1,16 +1,18 @@
-package Domain.Game;
+package Domain.Controller;
 
-public class EscapeFromKocGame{
+import UI.StartFrame;
 
-    private Player player;
-    private static EscapeFromKocGame instance;
+public class GameController{
+
+    private PlayerController player;
+    private static GameController instance;
 	boolean isPaused = false;
 	boolean isOver = false;
 	public int timeLeft;
 
-    public static EscapeFromKocGame getInstance() {
+    public static GameController getInstance() {
 		if (instance == null)
-			instance = new EscapeFromKocGame();
+			instance = new GameController();
 		return instance;
 	}
 
@@ -32,11 +34,11 @@ public class EscapeFromKocGame{
 		}
 	}
    
-    public void setPlayer(Player player) {
+    public void setPlayer(PlayerController player) {
 		this.player=player;
 	}
 
-    public Player getPlayer() {
+    public PlayerController getPlayer() {
 		return player;
 	}
 
@@ -62,6 +64,11 @@ public class EscapeFromKocGame{
 
 	public void incrementScore(double increment) {
 		player.incrementScore(increment);
+	}
+
+	public static void main(String[] args) {
+
+		new StartFrame();
 	}
 
 

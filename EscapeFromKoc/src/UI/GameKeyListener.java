@@ -3,13 +3,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Scanner;
 
-import Domain.Game.EscapeFromKocGame;
+import Domain.Controller.GameController;
 
 public class GameKeyListener implements KeyListener{
-    EscapeFromKocGame escapeFromKocGame;
+    GameController escapeFromKocGame;
     int lastKey = -1;
     Scanner scanner = new Scanner(System.in);
-    public GameKeyListener(EscapeFromKocGame escapeFromKocGame) {
+    public GameKeyListener(GameController escapeFromKocGame) {
         this.escapeFromKocGame=escapeFromKocGame;
     }
 

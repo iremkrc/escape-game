@@ -2,19 +2,19 @@ package UI;
 
 import javax.swing.*;
 
-import Domain.Game.Avatar;
-import Domain.Game.EscapeFromKocGame;
+import Domain.Avatar;
+import Domain.Controller.GameController;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class Layout extends JPanel {
-    EscapeFromKocGame game;
-	public Layout(String title) {
+public class LayoutPanel extends JPanel {
+    GameController game;
+	public LayoutPanel(String title) {
         super();
-        game = EscapeFromKocGame.getInstance();
+        game = GameController.getInstance();
         setSize(1000, 800);
         setVisible(true);
       		

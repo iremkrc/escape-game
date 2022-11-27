@@ -1,4 +1,4 @@
-package Domain.Game;
+package Domain;
 
 public class Key {
 
