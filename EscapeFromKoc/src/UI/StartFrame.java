@@ -16,10 +16,7 @@ public class StartFrame extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private static final Color BACKGROUND_COLOR = new Color(200, 0, 0);
-	public static void main(String[] args) {
-
-		new StartFrame();
-	}
+	
 	
 	public StartFrame() {
 		super("Escape From Koc Game");

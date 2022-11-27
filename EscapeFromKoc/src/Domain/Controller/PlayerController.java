@@ -1,16 +1,21 @@
-package Domain;
+package Domain.Controller;
 
-public class PlayerState {
+import Domain.Avatar;
+import Domain.Inventory;
+import Domain.Key;
+import Domain.Powerup;
+
+public class PlayerController {
 	public Avatar avatar;
 	public Inventory inventory;
 	double score=0;
 	double health=100;
-	GameState escapeFromKocGame;	
+	GameController escapeFromKocGame;	
 	
-	public PlayerState() {
+	public PlayerController() {
 		inventory = new Inventory();
 		avatar = new Avatar(25);   //unitlength
-		escapeFromKocGame = GameState.getInstance();		
+		escapeFromKocGame = GameController.getInstance();		
 	}
 
 	public Avatar getAvatar() {

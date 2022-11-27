@@ -13,8 +13,8 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
-import Domain.GameState;
-import Domain.PlayerState;
+import Domain.Controller.GameController;
+import Domain.Controller.PlayerController;
 
 
 
@@ -23,13 +23,13 @@ public class RunningModeFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
 	public int clockMiliSeconds;
 	private int gameStatus = 0;
-    GameState game;	
+    GameController game;	
     
     public RunningModeFrame() {
 		super("Running Mode");
 
-		game = GameState.getInstance();
-		game.setPlayer(new PlayerState());
+		game = GameController.getInstance();
+		game.setPlayer(new PlayerController());
 		clockMiliSeconds = 20;
 
 		//initialize frame

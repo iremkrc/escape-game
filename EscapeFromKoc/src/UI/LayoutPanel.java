@@ -3,7 +3,7 @@ package UI;
 import javax.swing.*;
 
 import Domain.Avatar;
-import Domain.GameState;
+import Domain.Controller.GameController;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,10 +11,10 @@ import java.awt.event.ActionListener;
 
 
 public class LayoutPanel extends JPanel {
-    GameState game;
+    GameController game;
 	public LayoutPanel(String title) {
         super();
-        game = GameState.getInstance();
+        game = GameController.getInstance();
         setSize(1000, 800);
         setVisible(true);
       		

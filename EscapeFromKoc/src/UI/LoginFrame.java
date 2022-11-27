@@ -16,8 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Domain.Avatar;
-import Domain.GameState;
-import Domain.PlayerState;
+import Domain.Controller.GameController;
+import Domain.Controller.PlayerController;
 
 public class LoginFrame extends JFrame{
 	
@@ -71,8 +71,8 @@ public class LoginFrame extends JFrame{
 					JOptionPane.showMessageDialog(null, "Username or Password mismatch ");
 				}*/
 				
-				GameState.getInstance().setPlayer(new PlayerState());
-				GameState.getInstance().timeLeft= 600*10000;
+				GameController.getInstance().setPlayer(new PlayerController());
+				GameController.getInstance().timeLeft= 600*10000;
 				new RunningModeFrame();
 
 				dispose();

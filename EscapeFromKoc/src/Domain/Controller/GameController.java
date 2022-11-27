@@ -1,16 +1,18 @@
-package Domain;
+package Domain.Controller;
 
-public class GameState{
+import UI.StartFrame;
 
-    private PlayerState player;
-    private static GameState instance;
+public class GameController{
+
+    private PlayerController player;
+    private static GameController instance;
 	boolean isPaused = false;
 	boolean isOver = false;
 	public int timeLeft;
 
-    public static GameState getInstance() {
+    public static GameController getInstance() {
 		if (instance == null)
-			instance = new GameState();
+			instance = new GameController();
 		return instance;
 	}
 
@@ -32,11 +34,11 @@ public class GameState{
 		}
 	}
    
-    public void setPlayer(PlayerState player) {
+    public void setPlayer(PlayerController player) {
 		this.player=player;
 	}
 
-    public PlayerState getPlayer() {
+    public PlayerController getPlayer() {
 		return player;
 	}
 
@@ -62,6 +64,11 @@ public class GameState{
 
 	public void incrementScore(double increment) {
 		player.incrementScore(increment);
+	}
+
+	public static void main(String[] args) {
+
+		new StartFrame();
 	}
 
 
