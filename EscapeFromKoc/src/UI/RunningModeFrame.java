@@ -12,8 +12,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.Timer;
-import Domain.Game.EscapeFromKocGame;
-import Domain.Game.Player;
+
+import Domain.GameState;
+import Domain.PlayerState;
 
 
 
@@ -22,13 +23,13 @@ public class RunningModeFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
 	public int clockMiliSeconds;
 	private int gameStatus = 0;
-    EscapeFromKocGame game;	
+    GameState game;	
     
     public RunningModeFrame() {
 		super("Running Mode");
 
-		game = EscapeFromKocGame.getInstance();
-		game.setPlayer(new Player());
+		game = GameState.getInstance();
+		game.setPlayer(new PlayerState());
 		clockMiliSeconds = 20;
 
 		//initialize frame
@@ -38,7 +39,7 @@ public class RunningModeFrame extends JFrame{
 
 
 		//add game panel
-		final Layout gamePanel = new Layout("Running Mode");
+		final LayoutPanel gamePanel = new LayoutPanel("Running Mode");
 		gamePanel.setOpaque(false);
 		add(gamePanel);
 		

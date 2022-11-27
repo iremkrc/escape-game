@@ -1,16 +1,16 @@
-package Domain.Game;
+package Domain;
 
-public class Player {
+public class PlayerState {
 	public Avatar avatar;
 	public Inventory inventory;
 	double score=0;
 	double health=100;
-	EscapeFromKocGame escapeFromKocGame;	
+	GameState escapeFromKocGame;	
 	
-	public Player() {
+	public PlayerState() {
 		inventory = new Inventory();
 		avatar = new Avatar(25);   //unitlength
-		escapeFromKocGame = EscapeFromKocGame.getInstance();		
+		escapeFromKocGame = GameState.getInstance();		
 	}
 
 	public Avatar getAvatar() {

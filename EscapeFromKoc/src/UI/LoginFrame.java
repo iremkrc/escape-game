@@ -15,9 +15,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import Domain.Game.Avatar;
-import Domain.Game.EscapeFromKocGame;
-import Domain.Game.Player;
+import Domain.Avatar;
+import Domain.GameState;
+import Domain.PlayerState;
 
 public class LoginFrame extends JFrame{
 	
@@ -71,8 +71,8 @@ public class LoginFrame extends JFrame{
 					JOptionPane.showMessageDialog(null, "Username or Password mismatch ");
 				}*/
 				
-				EscapeFromKocGame.getInstance().setPlayer(new Player());
-				EscapeFromKocGame.getInstance().timeLeft= 600*10000;
+				GameState.getInstance().setPlayer(new PlayerState());
+				GameState.getInstance().timeLeft= 600*10000;
 				new RunningModeFrame();
 
 				dispose();

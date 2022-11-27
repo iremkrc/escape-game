@@ -1,4 +1,4 @@
-package Domain.Game;
+package Domain;
 
 import java.util.Random;
 
@@ -11,7 +11,7 @@ public class Powerup {
 	private double speed;
 	public int angle;
 
-	public EscapeFromKocGame escapeFromKocGame= EscapeFromKocGame.getInstance();
+	public GameState escapeFromKocGame= GameState.getInstance();
 	Random rand = new Random();
 
 	public Powerup(int unitLength) {

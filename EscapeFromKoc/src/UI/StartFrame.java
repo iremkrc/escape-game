@@ -12,16 +12,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class GameScreen extends JFrame{
+public class StartFrame extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private static final Color BACKGROUND_COLOR = new Color(200, 0, 0);
 	public static void main(String[] args) {
 
-		new GameScreen();
+		new StartFrame();
 	}
 	
-	public GameScreen() {
+	public StartFrame() {
 		super("Escape From Koc Game");
 		setBounds(300, 200, 1000, 600);
 		setResizable(false);

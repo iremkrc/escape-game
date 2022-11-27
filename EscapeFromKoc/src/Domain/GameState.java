@@ -1,16 +1,16 @@
-package Domain.Game;
+package Domain;
 
-public class EscapeFromKocGame{
+public class GameState{
 
-    private Player player;
-    private static EscapeFromKocGame instance;
+    private PlayerState player;
+    private static GameState instance;
 	boolean isPaused = false;
 	boolean isOver = false;
 	public int timeLeft;
 
-    public static EscapeFromKocGame getInstance() {
+    public static GameState getInstance() {
 		if (instance == null)
-			instance = new EscapeFromKocGame();
+			instance = new GameState();
 		return instance;
 	}
 
@@ -32,11 +32,11 @@ public class EscapeFromKocGame{
 		}
 	}
    
-    public void setPlayer(Player player) {
+    public void setPlayer(PlayerState player) {
 		this.player=player;
 	}
 
-    public Player getPlayer() {
+    public PlayerState getPlayer() {
 		return player;
 	}
 
