@@ -1,5 +1,8 @@
 package Domain.Controller;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import Domain.GameObject;
 import UI.StartFrame;
 
@@ -10,9 +13,8 @@ public class GameController{
 	boolean isPaused = false;
 	boolean isOver = false;
 	public int timeLeft;
-	private GameObject obj1;
-	private GameObject obj2;
-
+	private LinkedList<GameObject> gameObjectList = new LinkedList<GameObject>();
+	
     public static GameController getInstance() {
 		if (instance == null)
 			instance = new GameController();
@@ -69,24 +71,14 @@ public class GameController{
 		player.incrementScore(increment);
 	}
 	
-	// game controller addition for displaying objects // imported domain.GameObject // hardcoded
+	// game controller addition for displaying objects // imported domain.GameObject
 	
-	public void setObj1(GameObject object) {
-		this.obj1 = object;
-	}
-	
-	public void setObj2(GameObject object) {
-		this.obj2 = object;
-		obj2.setLocation(170, 60);
-		obj2.setContainsKey(true);
-	}
-	
-	public GameObject getObj1() {
-		return obj1;
+	public void setObject(GameObject object) {
+		this.gameObjectList.add(object);
 	}
 
-	public GameObject getObj2() {
-		return obj2;
+	public LinkedList<GameObject> getObjectList() {
+		return gameObjectList;
 	}
 	
 	//

@@ -32,8 +32,8 @@ public class RunningModeFrame extends JFrame{
 		game = GameController.getInstance();
 		game.setPlayer(new PlayerController());
 		clockMiliSeconds = 20;
-		game.setObj1(new GameObject(25)); //hardcoded object1 for testing purposes
-		game.setObj2(new GameObject(25)); //hardcoded object2 for testing purposes
+		game.setObject(new GameObject(25)); //object1 for testing purposes
+		game.setObject(new GameObject(25)); //object2 for testing purposes
 
 		//GameObject obj1 = new GameObject(25);
 		//GameObject obj2 = new GameObject(25);		
