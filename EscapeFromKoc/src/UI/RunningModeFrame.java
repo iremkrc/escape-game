@@ -66,8 +66,10 @@ public class RunningModeFrame extends JFrame{
 
 		Timer timer = new Timer(clockMiliSeconds, tickListener);
 		timer.start();
-
-		addKeyListener(new GameKeyListener(game));
+		
+		GameKeyListener listeners = new GameKeyListener(game);
+		addKeyListener(listeners);
+		addMouseListener(listeners);
 	}
 
 }

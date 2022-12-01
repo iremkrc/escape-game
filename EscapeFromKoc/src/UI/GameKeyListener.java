@@ -1,11 +1,13 @@
 package UI;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Scanner;
 
 import Domain.Controller.GameController;
 
-public class GameKeyListener implements KeyListener{
+public class GameKeyListener implements KeyListener, MouseListener{
     GameController escapeFromKocGame;
     int lastKey = -1;
     Scanner scanner = new Scanner(System.in);
@@ -39,8 +41,6 @@ public class GameKeyListener implements KeyListener{
             else if(arg0.getKeyCode()==KeyEvent.VK_LEFT) escapeFromKocGame.moveAvatar("left");
             else if(arg0.getKeyCode()==KeyEvent.VK_UP) escapeFromKocGame.moveAvatar("up");
             else if(arg0.getKeyCode()==KeyEvent.VK_DOWN) escapeFromKocGame.moveAvatar("down");
-            else if(arg0.getKeyCode()==KeyEvent.VK_C) escapeFromKocGame.pickKey();
-
         }
     }
     
@@ -53,5 +53,34 @@ public class GameKeyListener implements KeyListener{
     public void keyTyped(KeyEvent arg0) {
 
     }
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		escapeFromKocGame.pickKey(e.getX(),e.getY());		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

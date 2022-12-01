@@ -54,7 +54,7 @@ public class GameController{
 		player.moveAvatar(direction);
 	}
 
-	public void pickKey() {
+	public void pickKey(int x, int y) {
 		player.pickKey();
 	}
 
