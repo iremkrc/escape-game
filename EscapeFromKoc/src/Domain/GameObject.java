@@ -13,7 +13,7 @@ public class GameObject {
 	Location location;
 	
     public GameObject(int unitLength) {
-		width = unitLength/2;
+		width = unitLength;
 		height = unitLength;
 		location = new Location(120, 60);
 		containsKey = false; 

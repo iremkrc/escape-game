@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import Domain.GameObject;
+import UI.KeyFoundAlert;
 import UI.StartFrame;
 
 public class GameController{
@@ -59,8 +60,26 @@ public class GameController{
 		player.moveAvatar(direction);
 	}
 
-	public void pickKey() {
-		player.pickKey();
+	public void pickKey(int x, int y) {
+		for(int i=0; i<gameObjectList.size(); i++) { 
+	    	GameObject obj = gameObjectList.get(i);
+	    	if(obj.isContainsKey()) {
+	    		double objX = obj.getLocation().getXLocation();
+		    	double objY = obj.getLocation().getYLocation();
+		    	int objH = obj.getHeight();
+		    	int objW = obj.getWidth();
+		    	if(x>=objX && x<=objX+objW && y>=objY && y<=objY+objH) {
+		    		double avtX = player.getAvatar().getLocation().xLocation;
+		    		double avtY = player.getAvatar().getLocation().yLocation;
+		    		if(Math.abs(avtY-objY)<20 && Math.abs(avtX-objX)<20) {
+		    			System.out.println("Key is found");
+		    			player.pickKey();
+		    			KeyFoundAlert alertkey = new KeyFoundAlert();
+		    			alertkey.alert();
+		    		}
+		    	}
+	    	}
+		}
 	}
 
 	public void catchPowerup(String type) {
@@ -71,7 +90,6 @@ public class GameController{
 		player.incrementScore(increment);
 	}
 	
-	// game controller addition for displaying objects // imported domain.GameObject
 	
 	public void setObject(GameObject object) {
 		this.gameObjectList.add(object);
@@ -80,33 +98,10 @@ public class GameController{
 	public LinkedList<GameObject> getObjectList() {
 		return gameObjectList;
 	}
-	
-	//
 
 	public static void main(String[] args) {
 
 		new StartFrame();
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
-
-
-
+	
