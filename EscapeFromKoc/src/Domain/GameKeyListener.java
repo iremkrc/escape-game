@@ -1,4 +1,4 @@
-package UI;
+package Domain;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;

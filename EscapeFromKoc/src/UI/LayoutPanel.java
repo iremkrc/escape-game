@@ -3,6 +3,7 @@ package UI;
 import javax.swing.*;
 
 import Domain.Avatar;
+import Domain.GameKeyListener;
 import Domain.GameObject;
 import Domain.Controller.GameController;
 
