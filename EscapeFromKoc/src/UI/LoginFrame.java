@@ -2,12 +2,16 @@ package UI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,7 +19,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import Domain.Avatar;
 import Domain.Controller.GameController;
 import Domain.Controller.PlayerController;
 
@@ -30,11 +33,26 @@ public class LoginFrame extends JFrame{
 	private JLabel signNameLabel;
 	private JTextField signNameField;
 	private JButton signUp;	
+
+	private static List<String> usernameList;
 	
 	public LoginFrame() {
 		
 		super("Login Page");
-		
+		usernameList = new ArrayList<String>();
+		Scanner scanner;
+		try {
+			scanner = new Scanner(new File("usernames.txt"));
+			while (scanner.hasNext()) {
+				usernameList.add(scanner.nextLine());
+			}
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+					
+
 		setLayout(new BorderLayout());
 		
 		JPanel panel = new JPanel();
@@ -62,20 +80,20 @@ public class LoginFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				username = usernameField.getText();//
-
-				/*if (User.usernameList.contains(userName)) {
-					JOptionPane.showMessageDialog(null, "Login Successful");
+				username = usernameField.getText();
+				
+				if (usernameList.contains(username)) {
+					new RunningModeFrame();
+					dispose();
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "Username or Password mismatch ");
-				}*/
+					JOptionPane.showMessageDialog(null, "Username does not exist");
+					usernameField.setText("");
+				}
 				
 				GameController.getInstance().setPlayer(new PlayerController());
 				GameController.getInstance().timeLeft= 600*10000;
-				new RunningModeFrame();
-
-				dispose();
+				
 			}
 		});
 		panel.add(loginButton);
@@ -103,22 +121,27 @@ public class LoginFrame extends JFrame{
 				// TODO Auto-generated method stub
 				String signUpName = signNameField.getText();
 				
-				/*if(signUpName.length() > 0) {
+			
+				try {
 					
-					if(!(User.usernameList.contains(signUpNickname))) {
-						JOptionPane.showMessageDialog(null, "Welcome on board");
-						User newUser = new User(signUpName);
-						LoginPage frame = new LoginPage();	
-					}					
-					else {
-						JOptionPane.showMessageDialog(null, "Ooops! It looks like this user already exists.");
-					}								
-				}
-				else {
-					JOptionPane.showMessageDialog(null, "Ooops! It looks like some info is missing or invalid.");
-				}*/
-				new RunningModeFrame();
-				dispose();
+					FileWriter writer = new FileWriter("usernames.txt", true);
+					
+					if(signUpName.equals("")) {
+						JOptionPane.showMessageDialog(null, "Please enter a username to sign up");
+					}else if (usernameList.contains(signUpName)) {
+						JOptionPane.showMessageDialog(null, "Username already exists");
+					}else{
+						writer.write(signUpName + "\n");
+						usernameList.add(signUpName);
+						JOptionPane.showMessageDialog(null, "Sign up successful");
+					}
+					signNameField.setText("");
+					writer.close();
+					
+				  } catch (IOException k) {
+					System.out.println("An error occurred.");
+					k.printStackTrace();
+				  }
 			}
 		});
 		panel.add(signUp);	
