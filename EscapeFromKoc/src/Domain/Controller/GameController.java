@@ -1,11 +1,11 @@
-package Domain.Controller;
+package domain.Controller;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import Domain.GameObject;
-import UI.KeyFoundAlert;
-import UI.StartFrame;
+import domain.GameObject;
+import ui.KeyFoundAlert;
+import ui.StartFrame;
 
 public class GameController{
 
