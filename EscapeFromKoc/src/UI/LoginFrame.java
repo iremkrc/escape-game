@@ -6,6 +6,15 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -30,11 +39,13 @@ public class LoginFrame extends JFrame{
 	private JLabel signNameLabel;
 	private JTextField signNameField;
 	private JButton signUp;	
+
+	private static List<String> usernameList;
 	
 	public LoginFrame() {
 		
 		super("Login Page");
-		
+		usernameList = new ArrayList<String>();
 		setLayout(new BorderLayout());
 		
 		JPanel panel = new JPanel();
@@ -103,22 +114,33 @@ public class LoginFrame extends JFrame{
 				// TODO Auto-generated method stub
 				String signUpName = signNameField.getText();
 				
-				/*if(signUpName.length() > 0) {
+			
+				try {
+					System.out.println("signUpName: " + signUpName);
+					Scanner scanner = new Scanner(new File("usernames.txt"));
+
+					while (scanner.hasNext()) {
+						usernameList.add(scanner.nextLine());
+					}
+					FileWriter writer = new FileWriter("usernames.txt", true);
 					
-					if(!(User.usernameList.contains(signUpNickname))) {
-						JOptionPane.showMessageDialog(null, "Welcome on board");
-						User newUser = new User(signUpName);
-						LoginPage frame = new LoginPage();	
-					}					
-					else {
-						JOptionPane.showMessageDialog(null, "Ooops! It looks like this user already exists.");
-					}								
-				}
-				else {
-					JOptionPane.showMessageDialog(null, "Ooops! It looks like some info is missing or invalid.");
-				}*/
-				new RunningModeFrame();
-				dispose();
+					if(signUpName.equals("")) {
+						JOptionPane.showMessageDialog(null, "Please enter a username to sign up");
+					}else if (usernameList.contains(signUpName)) {
+						JOptionPane.showMessageDialog(null, "Username already exists");
+					}else{
+						writer.write(signUpName + "\n");
+						JOptionPane.showMessageDialog(null, "Sign up successful");
+						signNameField.setText("");
+					}
+					
+					writer.close();
+					scanner.close();
+					
+				  } catch (IOException k) {
+					System.out.println("An error occurred.");
+					k.printStackTrace();
+				  }
 			}
 		});
 		panel.add(signUp);	
