@@ -62,20 +62,19 @@ public class RunningModeFrame extends JFrame{
 				}else {
 					if(gameStatus==0) {
 						gameStatus=1;
-						dispose();			
+						dispose();
 					}
 				}
 
 			}
 
 		};
-
+		
 		Timer timer = new Timer(clockMiliSeconds, tickListener);
 		timer.start();
 		
 		GameKeyListener listeners = new GameKeyListener(game);
 		addKeyListener(listeners);
-		addMouseListener(listeners);
 	}
 
 }

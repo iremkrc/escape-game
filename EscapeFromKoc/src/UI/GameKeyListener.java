@@ -21,9 +21,7 @@ public class GameKeyListener implements KeyListener, MouseListener{
 
         else if(arg0.getKeyCode()==KeyEvent.VK_R) escapeFromKocGame.setPaused(false);
 
-        else if(arg0.getKeyCode()==KeyEvent.VK_B) {
-            escapeFromKocGame.setPaused(true);
-        }
+        else if(arg0.getKeyCode()==KeyEvent.VK_B) escapeFromKocGame.setPaused(true);
 
         if((arg0.getKeyCode()==KeyEvent.VK_1||arg0.getKeyCode()==KeyEvent.VK_2||
                 arg0.getKeyCode()==KeyEvent.VK_3||arg0.getKeyCode()==KeyEvent.VK_4)) {
@@ -46,7 +44,7 @@ public class GameKeyListener implements KeyListener, MouseListener{
     
     @Override
     public void keyReleased(KeyEvent arg0) {
-
+    	if(arg0.getKeyCode()==KeyEvent.VK_RIGHT) System.out.println("hahahahah");;
     }
     
     @Override
@@ -56,7 +54,7 @@ public class GameKeyListener implements KeyListener, MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		escapeFromKocGame.pickKey(e.getX(),e.getY());		
+		escapeFromKocGame.pickKey(e.getX(),e.getY());	
 	}
 
 	@Override
@@ -82,5 +80,4 @@ public class GameKeyListener implements KeyListener, MouseListener{
 		// TODO Auto-generated method stub
 		
 	}
-
 }
