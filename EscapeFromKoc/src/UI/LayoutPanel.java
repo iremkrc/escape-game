@@ -3,6 +3,7 @@ package UI;
 import javax.swing.*;
 
 import Domain.Avatar;
+import Domain.GameObject;
 import Domain.Controller.GameController;
 
 import java.awt.*;
@@ -33,6 +34,10 @@ public class LayoutPanel extends JPanel {
         }
 	Avatar avatar = game.getPlayer().getAvatar();
     avatar.draw(g);
+    GameObject obj1 = game.getObj1();
+    GameObject obj2 = game.getObj2();
+    obj1.draw(g);
+    obj2.draw(g);
     }
     
     public Dimension getPreferredSize() {

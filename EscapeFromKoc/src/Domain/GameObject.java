@@ -15,7 +15,8 @@ public class GameObject {
     public GameObject(int unitLength) {
 		width = unitLength/2;
 		height = unitLength;
-		location= new Location(60, 60);
+		location = new Location(120, 60);
+		containsKey = false; 
 	}
     
     public void draw(Graphics g) {
@@ -42,6 +43,10 @@ public class GameObject {
 
 	public boolean isContainsKey() {
 		return containsKey;
+	}
+	
+	public void setContainsKey(boolean containsKey) {
+		this.containsKey = containsKey;
 	}
 
 	public String getType() {

@@ -13,6 +13,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
+import Domain.GameObject;
 import Domain.Controller.GameController;
 import Domain.Controller.PlayerController;
 
@@ -31,7 +32,12 @@ public class RunningModeFrame extends JFrame{
 		game = GameController.getInstance();
 		game.setPlayer(new PlayerController());
 		clockMiliSeconds = 20;
+		game.setObj1(new GameObject(25)); //hardcoded object1 for testing purposes
+		game.setObj2(new GameObject(25)); //hardcoded object2 for testing purposes
 
+		//GameObject obj1 = new GameObject(25);
+		//GameObject obj2 = new GameObject(25);		
+		
 		//initialize frame
 		setBounds(300,200, (4*1000)/3, 800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
