@@ -9,7 +9,6 @@ public class GameObject {
 	
 	public int width;
 	public int height;
-	int angle;
 	boolean containsKey;
 	public String type;
 	Location location;
