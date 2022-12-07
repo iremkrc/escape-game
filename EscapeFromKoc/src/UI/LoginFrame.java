@@ -19,8 +19,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import Domain.Controller.GameController;
-import Domain.Controller.PlayerController;
+import Domain.Controllers.GameController;
+import Domain.Controllers.PlayerController;
 
 public class LoginFrame extends JFrame{
 	

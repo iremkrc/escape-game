@@ -13,10 +13,10 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
-import Domain.GameKeyListener;
-import Domain.GameObject;
-import Domain.Controller.GameController;
-import Domain.Controller.PlayerController;
+import Domain.GameObjects.GameObject;
+import Domain.Controllers.GameController;
+import Domain.Controllers.PlayerController;
+import Domain.Game.GameKeyListener;
 
 
 

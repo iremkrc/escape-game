@@ -1,11 +1,11 @@
-package Domain;
+package Domain.Game;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Scanner;
 
-import Domain.Controller.GameController;
+import Domain.Controllers.GameController;
 
 public class GameKeyListener implements KeyListener, MouseListener{
     GameController escapeFromKocGame;

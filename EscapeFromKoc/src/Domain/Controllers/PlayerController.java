@@ -1,9 +1,9 @@
-package Domain.Controller;
+package Domain.Controllers;
 
-import Domain.Avatar;
-import Domain.Inventory;
-import Domain.Key;
-import Domain.Powerup;
+import Domain.GameObjects.Key;
+import Domain.GameObjects.Powerups.Powerup;
+import Domain.Player.Avatar;
+import Domain.Player.Inventory;
 
 public class PlayerController {
 	public Avatar avatar;
