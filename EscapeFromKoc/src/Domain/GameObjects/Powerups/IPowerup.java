@@ -1,7 +1,7 @@
 package Domain.GameObjects.Powerups;
 
 
-public interface Powerup {
+public interface IPowerup {
 	public String getType();
 	public void activatePowerup();
 }
