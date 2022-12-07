@@ -1,4 +1,4 @@
-package ui;
+package UI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -19,8 +19,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import domain.Controller.GameController;
-import domain.Controller.PlayerController;
+import Domain.Controller.GameController;
+import Domain.Controller.PlayerController;
 
 public class LoginFrame extends JFrame{
 	

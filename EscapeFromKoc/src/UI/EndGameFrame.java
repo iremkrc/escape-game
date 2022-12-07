@@ -1,4 +1,4 @@
-package ui;
+package UI;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import domain.Controller.GameController;
+import Domain.Controller.GameController;
 
 
 public class EndGameFrame extends JFrame{

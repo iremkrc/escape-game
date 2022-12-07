@@ -1,4 +1,4 @@
-package ui;
+package UI;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -13,10 +13,10 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
-import domain.GameKeyListener;
-import domain.GameObject;
-import domain.Controller.GameController;
-import domain.Controller.PlayerController;
+import Domain.GameKeyListener;
+import Domain.GameObject;
+import Domain.Controller.GameController;
+import Domain.Controller.PlayerController;
 
 
 

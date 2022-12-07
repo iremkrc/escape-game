@@ -1,4 +1,4 @@
-package domain;
+package Domain;
 
 import java.awt.Color;
 import java.awt.Graphics;
