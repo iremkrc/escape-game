@@ -1,7 +1,9 @@
-package Domain;
+package Domain.GameObjects;
 
 import java.awt.Color;
 import java.awt.Graphics;
+
+import Domain.Game.Location;
 
 public class GameObject {
 	
@@ -55,8 +57,6 @@ public class GameObject {
 
 	public void setType(String type) {
 		this.type = type;
-	}
-    
-    
+	} 
 
 }

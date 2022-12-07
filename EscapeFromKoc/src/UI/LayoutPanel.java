@@ -2,10 +2,10 @@ package UI;
 
 import javax.swing.*;
 
-import Domain.Avatar;
-import Domain.GameKeyListener;
-import Domain.GameObject;
-import Domain.Controller.GameController;
+import Domain.GameObjects.GameObject;
+import Domain.Controllers.GameController;
+import Domain.Game.GameKeyListener;
+import Domain.Player.Avatar;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

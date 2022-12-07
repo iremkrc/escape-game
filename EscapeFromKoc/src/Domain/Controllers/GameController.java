@@ -1,9 +1,9 @@
-package Domain.Controller;
+package Domain.Controllers;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import Domain.GameObject;
+import Domain.GameObjects.GameObject;
 import UI.KeyFoundAlert;
 import UI.StartFrame;
 

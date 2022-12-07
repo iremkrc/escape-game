@@ -1,4 +1,4 @@
-package Domain;
+package Domain.GameObjects.Powerups;
 
 
 public interface Powerup {

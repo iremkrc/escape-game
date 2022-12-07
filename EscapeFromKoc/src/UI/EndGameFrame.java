@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Domain.Controller.GameController;
+import Domain.Controllers.GameController;
 
 
 public class EndGameFrame extends JFrame{
