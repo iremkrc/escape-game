@@ -28,7 +28,8 @@ public class Building {
 		int xGrid = (int) (x/50);
 		int yGrid = (int) (y/50);
 		
-		if(xGrid <=10 && xGrid >=0 && yGrid <=10 && yGrid >=0) {
+		System.out.println("x: " + xGrid + " y: " + yGrid);
+		if(xGrid <=10 && xGrid >=1 && yGrid <=10 && yGrid >=1) {
 			boolean isContained = false;
 			for(GameObject obj: gameObjectList) {
 				if(obj.getLocation().xGrid == xGrid && obj.getLocation().yGrid == yGrid) {
