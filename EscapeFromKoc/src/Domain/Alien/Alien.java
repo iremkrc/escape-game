@@ -1,6 +1,9 @@
 package Domain.Alien;
+import java.awt.Graphics;
+
 
 public interface Alien {
-    int a = 5;
+
     public String getType();
+    public void draw(Graphics g);
 }
