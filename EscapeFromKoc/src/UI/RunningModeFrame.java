@@ -21,11 +21,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-
+import Domain.GameObjects.Powerups.IPowerup;
 import Domain.GameObjects.GameObject;
 import Domain.Alien.Alien;
 import Domain.Controllers.AlienController;
 import Domain.Controllers.GameController;
+import Domain.Controllers.PowerupController;
 import Domain.Controllers.PlayerController;
 import Domain.Game.GameKeyListener;
 
@@ -38,7 +39,7 @@ public class RunningModeFrame extends JFrame{
 	private static JLabel BuildingLabel;
 	private static JButton pauseButton;
 	private static JButton exitButton;
-	private int gameStatus=0;
+	private int gameStatus = 0;
     GameController game;	
 	Timer mainTimer;
     
@@ -49,6 +50,7 @@ public class RunningModeFrame extends JFrame{
 		setLayout(new BorderLayout());
 		game = GameController.getInstance();
 		game.setPlayer(new PlayerController());
+		game.setPowerupController(new PowerupController());
 		game.setAlienController(new AlienController());
 		clockMiliSeconds = 10;	
 		
@@ -133,20 +135,28 @@ public class RunningModeFrame extends JFrame{
 			}
 
 		};
-
-
 		
 		ActionListener alienListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(!game.isOver()) {
+				if(!game.isPaused()) {
 					Alien alien = game.getAlienController().createAlienRandomly();
 					game.getAlienController().setAlien(alien);
-				}else {
-						dispose();
 				}
 			}
 
+		};
+
+		//powerup timer tick
+		ActionListener powerupListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			
+				if(!game.isPaused()) {
+					IPowerup powerup = game.getPowerupController().createPowerupRandomly();
+					game.getPowerupController().setPowerup(powerup);	
+				}
+			}
 		};
 		
 		Timer timer = new Timer(clockMiliSeconds, tickListener);
@@ -156,6 +166,8 @@ public class RunningModeFrame extends JFrame{
 		Timer alienTimer = new Timer(10000, alienListener);
 		alienTimer.start();
 
+		Timer powerupTimer = new Timer(12000, powerupListener);
+		powerupTimer.start();
 		
 		GameKeyListener listeners = new GameKeyListener(game);
 		addKeyListener(listeners);

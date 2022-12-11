@@ -44,7 +44,7 @@ public class BuildingModeFrame extends JFrame{
 		
 		setLayout(new BorderLayout());
 		game = GameController.getInstance();
-		lastBuildingIndex = game.buildingCount;
+		lastBuildingIndex = game.getBuildingCount();
 		clockMiliSeconds = 5;
 		
 		//initialize frame
@@ -77,12 +77,12 @@ public class BuildingModeFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub	
-				if(game.currentBuildingIndex < lastBuildingIndex - 1) {
-					game.setCurrentBuilding(game.currentBuildingIndex + 1);
+				if(game.getCurrentBuildingIndex() < lastBuildingIndex - 1) {
+					game.setCurrentBuilding(game.getCurrentBuildingIndex() + 1);
 					BuildingLabel.setText("Current Building: " + game.currentBuilding.getBuildingName());
 					TotalObjectLabel.setText("Needed Object Amount: " + game.currentBuilding.getIntendedObjectCount());
 					ObjectsLeftLabel.setText("Current Object Amount: " + game.currentBuilding.getCurrentObjectCount());
-					if(game.currentBuildingIndex == lastBuildingIndex - 1) {
+					if(game.getCurrentBuildingIndex() == lastBuildingIndex - 1) {
 						passNextButton.setText("Start Running Mode");
 					}
 					passNextButton.setEnabled(false);
@@ -116,7 +116,7 @@ public class BuildingModeFrame extends JFrame{
 					ObjectsLeftLabel.setText("Current Object Amount: " + game.currentBuilding.getCurrentObjectCount());
 					if(game.currentBuilding.getCurrentObjectCount() == game.currentBuilding.getIntendedObjectCount()) {
 						passNextButton.setEnabled(true);
-						if(game.currentBuildingIndex == lastBuildingIndex - 1) {
+						if(game.getCurrentBuildingIndex() == lastBuildingIndex - 1) {
 							game.setBuildingModeDone(true);
 						}
 					}

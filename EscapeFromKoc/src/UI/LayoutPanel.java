@@ -3,8 +3,10 @@ package UI;
 import javax.swing.*;
 
 import Domain.GameObjects.GameObject;
+import Domain.GameObjects.Powerups.IPowerup;
 import Domain.Alien.Alien;
 import Domain.Controllers.GameController;
+import Domain.Controllers.PowerupController;
 import Domain.Game.GameKeyListener;
 import Domain.Game.GameMouseListener;
 import Domain.Player.Avatar;
@@ -41,15 +43,19 @@ public class LayoutPanel extends JPanel {
 	    	GameObject obj = objectList.get(i);
 	    	obj.draw(g);
 	    }
-	    
-		Avatar avatar = game.getPlayer().getAvatar();
-	    avatar.draw(g);
+
+        IPowerup powerup = game.getPowerupController().getPowerup();
+        if(powerup != null){
+            powerup.draw(g);
+        }
 
         Alien alien = game.getAlienController().getAlien();
         if(alien != null){
             alien.draw(g);
         }
-
+        
+        Avatar avatar = game.getPlayer().getAvatar();
+	    avatar.draw(g);
     }
     
     public Dimension getPreferredSize() {

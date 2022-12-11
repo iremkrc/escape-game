@@ -1,7 +1,7 @@
 package Domain.Controllers;
 
+import java.security.Key;
 import Domain.Game.PlayerState;
-import Domain.GameObjects.Powerups.Powerup;
 import Domain.Player.Avatar;
 import Domain.Player.Inventory;
 
@@ -32,13 +32,6 @@ public class PlayerController {
 
 	public void incrementScore(double increment) {
 		score+=increment;
-	}
-
-	public void catchPowerup() {
-		Powerup activatedPowerup = avatar.activatePowerup();
-		if(activatedPowerup!=null) {
-			//inventory.increaseNumberOfPowerups();
-		}
 	}
 
 	public void pickPowerup(String type) {

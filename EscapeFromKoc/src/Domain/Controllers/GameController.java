@@ -5,6 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import Domain.Game.Building;
 import Domain.Game.PlayerState;
+import Domain.Game.GameState;
 import Domain.GameObjects.GameObject;
 import UI.KeyFoundAlert;
 import UI.StartFrame;
@@ -14,28 +15,22 @@ public class GameController{
     private PlayerController player;
 	private PlayerState playerState;
 	private AlienController alienController;
+	private GameState gameState;
+	private PowerupController powerupController;
     private static GameController instance;
-	boolean isPaused = false;
-	boolean isOver = false;
 	private boolean buildingModeDone = false;
 	public int timeLeft;
-	public int currentBuildingIndex = 0;
 	public Building currentBuilding;
-	public final int buildingCount = 6;
-	private String[] buildingNames = {"Student Center","CASE","SOS","SCI","ENG","SNA"}; //
-
-	private int[] objCounts = {5,7,10,14,19,25};
-
 	private LinkedList<Building> buildings = new LinkedList<Building>();
 	private LinkedList<GameObject> gameObjectList = new LinkedList<GameObject>();
 	
-	
 	public GameController() {
-		for(int i=0;i<buildingCount;i++) {
-			Building building = new Building(buildingNames[i],objCounts[i]);
+		gameState = new GameState();
+		for(int i=0 ;i<gameState.getBuildingCount() ;i++) {
+			Building building = new Building(gameState.buildingNames[i],gameState.objCounts[i]);
 			buildings.add(building);
 		}
-		currentBuilding = buildings.get(currentBuildingIndex);
+		currentBuilding = buildings.get(gameState.getCurrentBuildingIndex());
 	}
 	
     public static GameController getInstance() {
@@ -45,18 +40,18 @@ public class GameController{
 	}
 
     public void setPaused(boolean isPaused) {
-		this.isPaused = isPaused;
+    	gameState.setPaused(isPaused);
 	}
 
     public boolean isPaused() {
-        return isPaused;
+        return gameState.isPaused();
     }
 
     public void isGameOver() {
 		boolean isDead = playerState.getHealth() <= 0;
 		boolean noTime = timeLeft <= 0;
-		isOver = isDead||noTime;
-		if(isOver) {
+		gameState.setIsOver(isDead||noTime);
+		if(gameState.isOver()) {
 			double collectionTime = (600000-timeLeft) / 1000;
 			player.incrementScore(1 / collectionTime);
 		}
@@ -78,9 +73,16 @@ public class GameController{
 		return alienController;
 	}
 
+	public void setPowerupController(PowerupController powerupController) {
+		this.powerupController = powerupController;
+	}
+
+	public PowerupController getPowerupController() {
+		return powerupController;
+	}
 
     public boolean isOver() {
-		return isOver;
+		return gameState.isOver();
 	}
     
     public boolean isBuildingModeDone() {
@@ -115,16 +117,16 @@ public class GameController{
 		    			//--------------------------------------------------------------------
 		    			// What to do when key is found
 		    			KeyFoundAlert alertkey = new KeyFoundAlert();
-		    			if(currentBuildingIndex == 5) {
-		    				alertkey.alert(currentBuildingIndex);
-		    				isOver = true;
+		    			if(gameState.getCurrentBuildingIndex() == 5) {
+		    				alertkey.alert(gameState.getCurrentBuildingIndex());
+		    				gameState.setIsOver(true);
 		    			}else {
-		    				boolean changeBuilding = alertkey.alert(currentBuildingIndex);
+		    				boolean changeBuilding = alertkey.alert(gameState.getCurrentBuildingIndex());
 			    			if(changeBuilding) {
-			    				setCurrentBuilding(currentBuildingIndex + 1);
+			    				setCurrentBuilding(gameState.getCurrentBuildingIndex() + 1);
 			    				player.avatar.putAvatarToInitialLocation();
 			    			}else {
-			    				isOver = true;
+			    				gameState.setIsOver(true);
 			    			}
 		    			}
 		    			//--------------------------------------------------------------------
@@ -134,9 +136,6 @@ public class GameController{
 		}
 	}
 
-	public void catchPowerup(String type) {
-		player.catchPowerup();
-	}
 
 	public void incrementScore(double increment) {
 		player.incrementScore(increment);
@@ -153,8 +152,12 @@ public class GameController{
 	}
 	
 	public void setCurrentBuilding(int x) {
-		currentBuildingIndex = x;
+		gameState.setCurrentBuildingIndex(x);
 		currentBuilding = buildings.get(x);
+	}
+	
+	public int getCurrentBuildingIndex() {
+		return gameState.getCurrentBuildingIndex();
 	}
 	
 	public void addObjectToCurrentBuilding(int x, int y) {
@@ -163,6 +166,10 @@ public class GameController{
 		}
 	}
 
+	public int getBuildingCount() {
+		return gameState.getBuildingCount();
+	}
+	
 	public static void main(String[] args) {
 		new StartFrame();
 	}
