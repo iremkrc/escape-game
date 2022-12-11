@@ -94,6 +94,7 @@ public class BuildingModeFrame extends JFrame{
 				}
 			}
 		});
+		passNextButton.setFocusable(false);
 		mainPanel.add(passNextButton);
 		passNextButton.setEnabled(false);
 		
