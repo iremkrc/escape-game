@@ -88,5 +88,9 @@ public class Avatar {
     public IPowerup activatePowerup() {
         return null;
     }
+    
+    public void putAvatarToInitialLocation(){
+    	this.setLocation(60, 60);
+    }
 
 }

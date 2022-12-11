@@ -49,7 +49,9 @@ public class LayoutPanel extends JPanel {
 	    avatar.draw(g);
 
         IPowerup powerup = game.getPowerupController().getPowerup();
-        powerup.draw(g);
+        if(powerup != null){
+            powerup.draw(g);
+        }
 
         Alien alien = game.getAlienController().getAlien();
         if(alien != null){

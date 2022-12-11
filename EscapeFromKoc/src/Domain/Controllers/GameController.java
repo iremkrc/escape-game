@@ -26,7 +26,6 @@ public class GameController{
 	private String[] buildingNames = {"Student Center","CASE","SOS","SCI","ENG","SNA"}; //
 
 	private int[] objCounts = {5,7,10,14,19,25};
-
 	private LinkedList<Building> buildings = new LinkedList<Building>();
 	private LinkedList<GameObject> gameObjectList = new LinkedList<GameObject>();
 	

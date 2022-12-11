@@ -20,36 +20,29 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Domain.Controllers.GameController;
+import Domain.Controllers.LoginController;
 import Domain.Controllers.PlayerController;
 
 public class LoginFrame extends JFrame{
 	
-	private static JLabel usernameLabel;
-	private JTextField usernameField;
+	private static JLabel userNameLabel;
+	private JTextField userNameField;
 	private JButton loginButton;
-	protected static String username;
+	protected static String userName;
 	protected static String password;
 	private JLabel askSign;
 	private JLabel signNameLabel;
 	private JTextField signNameField;
 	private JButton signUp;	
-
-	private static List<String> usernameList;
+	
+	private LoginController loginController;
+	
 	
 	public LoginFrame() {
 		
 		super("Login Page");
-		usernameList = new ArrayList<String>();
-		Scanner scanner;
-		try {
-			scanner = new Scanner(new File("usernames.txt"));
-			while (scanner.hasNext()) {
-				usernameList.add(scanner.nextLine());
-			}
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		this.loginController = new LoginController(GameController.getInstance());
+		 
 
 					
 
@@ -63,13 +56,13 @@ public class LoginFrame extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
-		usernameLabel = new JLabel("Username");
-		usernameLabel.setBounds(465, 50, 70, 20);
-		panel.add(usernameLabel);
+		userNameLabel = new JLabel("Username");
+		userNameLabel.setBounds(465, 50, 70, 20);
+		panel.add(userNameLabel);
 		
-		usernameField = new JTextField();
-		usernameField.setBounds(400, 80, 200, 28);
-		panel.add(usernameField);
+		userNameField = new JTextField();
+		userNameField.setBounds(400, 80, 200, 28);
+		panel.add(userNameField);
 		
 		loginButton = new JButton("Login");
 		loginButton.setBounds(455, 140, 90, 25);
@@ -80,15 +73,15 @@ public class LoginFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				username = usernameField.getText();
+				userName = userNameField.getText();
 				
-				if (usernameList.contains(username)) {
+				if (loginController.isRegistered(userName)) {
 					new BuildingModeFrame();
 					dispose();
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "Username does not exist");
-					usernameField.setText("");
+					userNameField.setText("");
 				}
 				
 				GameController.getInstance().setPlayer(new PlayerController());
@@ -120,28 +113,18 @@ public class LoginFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				String signUpName = signNameField.getText();
+				int signUpCases = loginController.signUpUser(signUpName);
 				
-			
-				try {
-					
-					FileWriter writer = new FileWriter("usernames.txt", true);
-					
-					if(signUpName.equals("")) {
-						JOptionPane.showMessageDialog(null, "Please enter a username to sign up");
-					}else if (usernameList.contains(signUpName)) {
-						JOptionPane.showMessageDialog(null, "Username already exists");
-					}else{
-						writer.write(signUpName + "\n");
-						usernameList.add(signUpName);
-						JOptionPane.showMessageDialog(null, "Sign up successful");
-					}
-					signNameField.setText("");
-					writer.close();
-					
-				  } catch (IOException k) {
-					System.out.println("An error occurred.");
-					k.printStackTrace();
-				  }
+				if(signUpCases == 0) {
+					JOptionPane.showMessageDialog(null, "Please enter a username to sign up");
+				}else if (signUpCases == 1) {
+					JOptionPane.showMessageDialog(null, "Username already exists");
+				}else if(signUpCases == 2){
+					JOptionPane.showMessageDialog(null, "Sign up successful");
+				}else if(signUpCases == 3){
+					JOptionPane.showMessageDialog(null, "Sign up failed");
+				}
+				signNameField.setText("");
 			}
 		});
 		panel.add(signUp);	

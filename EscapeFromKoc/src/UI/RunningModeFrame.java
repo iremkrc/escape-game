@@ -139,11 +139,9 @@ public class RunningModeFrame extends JFrame{
 		ActionListener alienListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(!game.isOver()) {
+				if(!game.isPaused()) {
 					Alien alien = game.getAlienController().createAlienRandomly();
 					game.getAlienController().setAlien(alien);
-				}else {
-						dispose();
 				}
 			}
 		};
