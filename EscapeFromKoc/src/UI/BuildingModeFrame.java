@@ -35,7 +35,7 @@ public class BuildingModeFrame extends JFrame{
 	private static JButton passNextButton;
 	private int lastBuildingIndex;
 	public int clockMiliSeconds;
-	private int gameStatus = 0;
+
     GameController game;
     
     @SuppressWarnings("deprecation")
@@ -94,6 +94,7 @@ public class BuildingModeFrame extends JFrame{
 				}
 			}
 		});
+		passNextButton.setFocusable(false);
 		mainPanel.add(passNextButton);
 		passNextButton.setEnabled(false);
 		
