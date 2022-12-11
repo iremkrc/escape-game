@@ -4,8 +4,12 @@ package Domain.Alien;
 import java.awt.Graphics;
 import java.util.concurrent.ThreadLocalRandom;
 
+import javax.swing.ImageIcon;
+
 import Domain.Game.Location;
 import java.awt.Color;
+
+import java.awt.Image;
 
 public class BlindAlien implements Alien {
 
@@ -36,6 +40,9 @@ public class BlindAlien implements Alien {
         Location loc = this.location;
         g.setColor(Color.MAGENTA);
         g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), width, height);
+        Image image = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/alien.png").getImage();
+        
+        g.drawImage(image, (int) location.getXLocation(), (int) location.getYLocation(), 25, 25, null);
     }
 
     @Override

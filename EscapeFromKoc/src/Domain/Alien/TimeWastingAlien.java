@@ -5,6 +5,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import Domain.Game.Location;
 import java.awt.Color;
+import javax.swing.ImageIcon;
+import java.awt.Image;
 
 public class TimeWastingAlien implements Alien {
 
@@ -34,6 +36,10 @@ public class TimeWastingAlien implements Alien {
         Location loc = this.location;
         g.setColor(Color.GREEN);
         g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), width, height);
+        Image image = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/alien.png").getImage();
+        
+        g.drawImage(image, (int) location.getXLocation(), (int) location.getYLocation(), 25, 25, null);
+        
     }
 
     @Override

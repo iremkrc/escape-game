@@ -3,15 +3,18 @@ package Domain.Alien;
 import Domain.Game.Location;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.util.concurrent.ThreadLocalRandom;
+
+import javax.swing.ImageIcon;
 
 
 public class ShooterAlien implements Alien {
 
-	public int width;
-	public int height;
-	public String type;
-	Location location;
+	private int width;
+	private int height;
+	private String type;
+	private Location location;
 
     @Override
     public String getType() {
@@ -30,8 +33,14 @@ public class ShooterAlien implements Alien {
     
     public void draw(Graphics g) {
     	Location loc = this.location;
-        g.setColor(Color.BLUE);
+        g.setColor(Color.CYAN);
         g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), width, height);
+
+        Image image = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/alien.png").getImage();
+        
+        g.drawImage(image, (int) location.getXLocation(), (int) location.getYLocation(), 25, 25, null);
+
+
     }
 
     @Override
