@@ -117,9 +117,11 @@ public class RunningModeFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if(!game.isOver()) {
 					gamePanel.repaint();
+					BuildingLabel.setText("Current Building: " + game.currentBuilding.getBuildingName());
 				}else {
 					if(gameStatus==0) {
 						gameStatus=1;
+						new EndGameFrame();
 						dispose();
 					}
 				}
