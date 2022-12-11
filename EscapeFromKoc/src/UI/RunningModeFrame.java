@@ -38,8 +38,7 @@ public class RunningModeFrame extends JFrame{
 	private static JLabel BuildingLabel;
 	private static JButton pauseButton;
 	private static JButton exitButton;
-
-	private int gameStatus = 0;
+	
     GameController game;	
 	Timer mainTimer;
     
@@ -142,10 +141,7 @@ public class RunningModeFrame extends JFrame{
 					Alien alien = game.getAlienController().createAlienRandomly();
 					game.getAlienController().setAlien(alien);
 				}else {
-					if(gameStatus==0) {
-						gameStatus=1;
 						dispose();
-					}
 				}
 			}
 
