@@ -83,7 +83,7 @@ public class LoginFrame extends JFrame{
 				username = usernameField.getText();
 				
 				if (usernameList.contains(username)) {
-					new RunningModeFrame();
+					new BuildingModeFrame();
 					dispose();
 				}
 				else {

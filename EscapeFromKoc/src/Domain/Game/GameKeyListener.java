@@ -1,4 +1,5 @@
 package Domain.Game;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -54,7 +55,11 @@ public class GameKeyListener implements KeyListener, MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		escapeFromKocGame.pickKey(e.getX(),e.getY());	
+		if(escapeFromKocGame.isBuildingModeDone()) {
+			escapeFromKocGame.pickKey(e.getX(),e.getY());	
+		}else {
+			escapeFromKocGame.addObjectToCurrentBuilding(e.getX(),e.getY());
+		}
 	}
 
 	@Override
