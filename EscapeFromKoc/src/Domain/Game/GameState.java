@@ -3,7 +3,7 @@ package Domain.Game;
 public class GameState {
 	private final int buildingCount = 6;
 	public String[] buildingNames = {"Student Center","CASE","SOS","SCI","ENG","SNA"}; //
-	public int[] objCounts = {2,2,2,2,2,2};  //5,7,10,14,19,25
+	public int[] objCounts = {5,7,10,14,19,25};  //5,7,10,14,19,25
 	private boolean paused = false;
 	private boolean isOver = false;
 	private int currentBuildingIndex = 0;

@@ -118,6 +118,8 @@ public class RunningModeFrame extends JFrame{
 
 		//timer tick
 		ActionListener tickListener = new ActionListener() {
+			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!game.isOver()) {
