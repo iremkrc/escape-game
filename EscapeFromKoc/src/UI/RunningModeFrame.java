@@ -36,8 +36,7 @@ public class RunningModeFrame extends JFrame{
 	private static JLabel BuildingLabel;
 	private static JButton pauseButton;
 	private static JButton exitButton;
-
-	private int gameStatus = 0;
+	
     GameController game;	
     
     @SuppressWarnings("deprecation")
@@ -118,10 +117,7 @@ public class RunningModeFrame extends JFrame{
 				if(!game.isOver()) {
 					gamePanel.repaint();
 				}else {
-					if(gameStatus==0) {
-						gameStatus=1;
 						dispose();
-					}
 				}
 			}
 		};
