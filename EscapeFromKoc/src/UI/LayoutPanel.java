@@ -3,8 +3,10 @@ package UI;
 import javax.swing.*;
 
 import Domain.GameObjects.GameObject;
+import Domain.GameObjects.Powerups.IPowerup;
 import Domain.Alien.Alien;
 import Domain.Controllers.GameController;
+import Domain.Controllers.PowerupController;
 import Domain.Game.GameKeyListener;
 import Domain.Game.GameMouseListener;
 import Domain.Player.Avatar;
