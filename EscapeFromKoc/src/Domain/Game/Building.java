@@ -24,32 +24,6 @@ public class Building {
 		this.isFull = false;
 	}
 
-	public void addAlien(int x, int y){
-		int xGrid = (int) (x/50);
-		int yGrid = (int) (y/50);
-		
-		System.out.println("x: " + xGrid + " y: " + yGrid);
-		if(xGrid <=10 && xGrid >=1 && yGrid <=10 && yGrid >=1) {
-			boolean isContained = false;
-			for(GameObject obj: gameObjectList) {
-				if(obj.getLocation().xGrid == xGrid && obj.getLocation().yGrid == yGrid) {
-					isContained = true;
-					break;
-				}
-			}
-			if(!isContained) {
-				GameObject obj = new GameObject(25);
-				obj.setLocation(50*xGrid+20, 50*yGrid+10);
-				gameObjectList.add(obj);
-		    	incrementCurrentObjectCount();
-		    	
-		    	if(currentObjectCount == intendedObjectCount) {
-		    		isFull = true;
-		    	}
-			}
-		}
-	}
-
     public void addObject(int x ,int y) {
 		int xGrid = (int) (x/50);
 		int yGrid = (int) (y/50);

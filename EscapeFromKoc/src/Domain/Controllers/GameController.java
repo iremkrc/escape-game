@@ -15,6 +15,7 @@ public class GameController{
     private PlayerController player;
 	private AlienController alienController;
     private static GameController instance;
+	private PowerupController powerupController;
 	boolean isPaused = false;
 	boolean isOver = false;
 	private boolean buildingModeDone = false;
@@ -70,6 +71,14 @@ public class GameController{
 		return player;
 	}
 
+	public void setPowerupController(PowerupController powerupController) {
+		this.powerupController = powerupController;
+	}
+
+	public PowerupController getPowerupController() {
+		return powerupController;
+	}
+
 	public void setAlienController(AlienController alienController) {
 		this.alienController = alienController;
 	}
@@ -77,7 +86,6 @@ public class GameController{
 	public AlienController getAlienController() {
 		return alienController;
 	}
-
 
     public boolean isOver() {
 		return isOver;

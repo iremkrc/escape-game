@@ -4,7 +4,6 @@ import javax.swing.*;
 
 import Domain.Player.Avatar;
 import Domain.Game.GameKeyListener;
-import Domain.Game.GameMouseListener;
 import Domain.GameObjects.GameObject;
 import Domain.Controllers.GameController;
 
@@ -20,8 +19,8 @@ public class BuildingLayoutPanel extends JPanel {
         game = GameController.getInstance();
         setSize(1000, 800);
         setVisible(true);
-        GameMouseListener mlisteners = new GameMouseListener(game);
-		addMouseListener(mlisteners);
+		GameKeyListener listeners = new GameKeyListener(game);
+		addMouseListener(listeners);
     }
 
     public void repaint( Graphics g ) {  

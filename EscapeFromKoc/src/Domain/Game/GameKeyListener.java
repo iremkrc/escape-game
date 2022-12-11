@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 import Domain.Controllers.GameController;
 
-public class GameKeyListener implements KeyListener{
+public class GameKeyListener implements KeyListener, MouseListener{
     GameController escapeFromKocGame;
     int lastKey = -1;
     Scanner scanner = new Scanner(System.in);
@@ -18,7 +18,6 @@ public class GameKeyListener implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent arg0) {
-    	System.out.println("key pressed");
         if(arg0.getKeyCode()==KeyEvent.VK_P) escapeFromKocGame.setPaused(true);
 
         else if(arg0.getKeyCode()==KeyEvent.VK_R) escapeFromKocGame.setPaused(false);
@@ -53,4 +52,37 @@ public class GameKeyListener implements KeyListener{
     public void keyTyped(KeyEvent arg0) {
 
     }
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(escapeFromKocGame.isBuildingModeDone()) {
+			escapeFromKocGame.pickKey(e.getX(),e.getY());	
+		}else {
+			escapeFromKocGame.addObjectToCurrentBuilding(e.getX(),e.getY());
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }
