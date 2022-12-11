@@ -13,7 +13,7 @@ import Domain.Controllers.GameController;
 public class EndGameFrame extends JFrame{
     private static final Color BACKGROUND_COLOR = new Color(255, 0, 0);
     private static final long serialVersionUID = 1L;
-    double score = GameController.getInstance().getPlayer().getScore();
+    double score = GameController.getInstance().getPlayer().getPlayerState().getScore();
 
     public EndGameFrame() {
         super("EndGame");

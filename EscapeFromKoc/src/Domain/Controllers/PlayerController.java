@@ -45,6 +45,8 @@ public class PlayerController {
 
 	}
 
-
+	public PlayerState getPlayerState() {
+		return playerState;
+	}
 
 }
