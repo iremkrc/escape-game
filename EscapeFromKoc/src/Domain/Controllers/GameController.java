@@ -23,9 +23,11 @@ public class GameController{
 	public int currentBuildingIndex = 0;
 	public Building currentBuilding;
 	public final int buildingCount = 6;
-	private String[] buildingNames = {"Student Center","CASE","SOS","SCI","ENG","SNA"}; //
+	private String[] buildingNames = {"Student Center","CASE","SOS","SCI","ENG","SNA"}; 
 
 	private int[] objCounts = {5,7,10,14,19,25};
+	//private int[] objCounts = {1,1,1,1,1,1};
+
 	private LinkedList<Building> buildings = new LinkedList<Building>();
 	private LinkedList<GameObject> gameObjectList = new LinkedList<GameObject>();
 	
