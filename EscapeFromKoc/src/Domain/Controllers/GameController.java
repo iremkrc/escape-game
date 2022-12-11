@@ -1,10 +1,8 @@
 package Domain.Controllers;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import Domain.Alien.Alien;
 import Domain.Game.Building;
 import Domain.Game.PlayerState;
 import Domain.GameObjects.GameObject;
@@ -114,7 +112,6 @@ public class GameController{
 		    		double avtY = player.getAvatar().getLocation().yLocation;
 		    		if(Math.abs(avtY-objY)<20 && Math.abs(avtX-objX)<20) {
 		    			System.out.println("Key is found");
-		    			player.pickKey();
 		    			//--------------------------------------------------------------------
 		    			// What to do when key is found
 		    			KeyFoundAlert alertkey = new KeyFoundAlert();

@@ -1,7 +1,6 @@
 package Domain.Controllers;
 
 import Domain.Game.PlayerState;
-import Domain.GameObjects.Key;
 import Domain.GameObjects.Powerups.Powerup;
 import Domain.Player.Avatar;
 import Domain.Player.Inventory;
@@ -41,12 +40,9 @@ public class PlayerController {
 			//inventory.increaseNumberOfPowerups();
 		}
 	}
-	public void pickKey() {
-		Key key = avatar.pickKey();		
-	}
 
 	public void pickPowerup(String type) {
-		
+
 	}
 
 
