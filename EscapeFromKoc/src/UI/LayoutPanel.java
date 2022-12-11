@@ -6,6 +6,7 @@ import Domain.GameObjects.GameObject;
 import Domain.Alien.Alien;
 import Domain.Controllers.GameController;
 import Domain.Game.GameKeyListener;
+import Domain.Game.GameMouseListener;
 import Domain.Player.Avatar;
 
 import java.awt.*;
@@ -21,8 +22,8 @@ public class LayoutPanel extends JPanel {
         game = GameController.getInstance();
         setSize(1000, 800);
         setVisible(true);
-		GameKeyListener listeners = new GameKeyListener(game);
-		addMouseListener(listeners);
+        GameMouseListener mlisteners = new GameMouseListener(game);
+		addMouseListener(mlisteners);		
     }
 
     public void repaint( Graphics g ) {  
