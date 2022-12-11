@@ -38,7 +38,7 @@ public class RunningModeFrame extends JFrame{
 	private static JLabel BuildingLabel;
 	private static JButton pauseButton;
 	private static JButton exitButton;
-	
+	private int gameStatus=0;
     GameController game;	
 	Timer mainTimer;
     
@@ -116,6 +116,8 @@ public class RunningModeFrame extends JFrame{
 
 		//timer tick
 		ActionListener tickListener = new ActionListener() {
+			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!game.isOver()) {
