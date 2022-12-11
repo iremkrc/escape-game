@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 import Domain.GameObjects.Key;
-import Domain.GameObjects.Powerups.IPowerup;
+import Domain.GameObjects.Powerups.Powerup;
 import Domain.Game.Location;
 
 public class Avatar {
@@ -85,8 +85,12 @@ public class Avatar {
         return null;
     }
 
-    public IPowerup activatePowerup() {
+    public Powerup activatePowerup() {
         return null;
+    }
+    
+    public void putAvatarToInitialLocation(){
+    	this.setLocation(60, 60);
     }
 
 }
