@@ -23,6 +23,8 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import Domain.GameObjects.GameObject;
+import Domain.Alien.Alien;
+import Domain.Controllers.AlienController;
 import Domain.Controllers.GameController;
 import Domain.Controllers.PlayerController;
 import Domain.Game.GameKeyListener;
@@ -39,6 +41,7 @@ public class RunningModeFrame extends JFrame{
 
 	private int gameStatus = 0;
     GameController game;	
+	Timer mainTimer;
     
     @SuppressWarnings("deprecation")
     public RunningModeFrame() {
@@ -47,6 +50,7 @@ public class RunningModeFrame extends JFrame{
 		setLayout(new BorderLayout());
 		game = GameController.getInstance();
 		game.setPlayer(new PlayerController());
+		game.setAlienController(new AlienController());
 		clockMiliSeconds = 10;	
 		
 		//initialize frame
@@ -126,10 +130,34 @@ public class RunningModeFrame extends JFrame{
 					}
 				}
 			}
+
+		};
+
+
+		
+		ActionListener alienListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!game.isOver()) {
+					Alien alien = game.getAlienController().createAlienRandomly();
+					game.getAlienController().setAlien(alien);
+				}else {
+					if(gameStatus==0) {
+						gameStatus=1;
+						dispose();
+					}
+				}
+			}
+
 		};
 		
 		Timer timer = new Timer(clockMiliSeconds, tickListener);
 		timer.start();
+		timer.getDelay();
+
+		Timer alienTimer = new Timer(10000, alienListener);
+		alienTimer.start();
+
 		
 		GameKeyListener listeners = new GameKeyListener(game);
 		addKeyListener(listeners);

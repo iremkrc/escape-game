@@ -3,6 +3,7 @@ package UI;
 import javax.swing.*;
 
 import Domain.GameObjects.GameObject;
+import Domain.Alien.Alien;
 import Domain.Controllers.GameController;
 import Domain.Game.GameKeyListener;
 import Domain.Game.GameMouseListener;
@@ -43,6 +44,12 @@ public class LayoutPanel extends JPanel {
 	    
 		Avatar avatar = game.getPlayer().getAvatar();
 	    avatar.draw(g);
+
+        Alien alien = game.getAlienController().getAlien();
+        if(alien != null){
+            alien.draw(g);
+        }
+
     }
     
     public Dimension getPreferredSize() {

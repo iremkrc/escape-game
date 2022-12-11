@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import Domain.Alien.Alien;
 import Domain.Game.Building;
 import Domain.GameObjects.GameObject;
 import UI.KeyFoundAlert;
@@ -12,6 +13,7 @@ import UI.StartFrame;
 public class GameController{
 
     private PlayerController player;
+	private AlienController alienController;
     private static GameController instance;
 	boolean isPaused = false;
 	boolean isOver = false;
@@ -21,7 +23,9 @@ public class GameController{
 	public Building currentBuilding;
 	public final int buildingCount = 6;
 	private String[] buildingNames = {"Student Center","CASE","SOS","SCI","ENG","SNA"}; //
+
 	private int[] objCounts = {5,7,10,14,19,25};
+
 	private LinkedList<Building> buildings = new LinkedList<Building>();
 	private LinkedList<GameObject> gameObjectList = new LinkedList<GameObject>();
 	
@@ -65,6 +69,15 @@ public class GameController{
     public PlayerController getPlayer() {
 		return player;
 	}
+
+	public void setAlienController(AlienController alienController) {
+		this.alienController = alienController;
+	}
+
+	public AlienController getAlienController() {
+		return alienController;
+	}
+
 
     public boolean isOver() {
 		return isOver;
