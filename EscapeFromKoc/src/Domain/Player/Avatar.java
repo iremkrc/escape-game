@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 import Domain.GameObjects.Key;
-import Domain.GameObjects.Powerups.Powerup;
 import Domain.Game.Location;
 
 public class Avatar {
@@ -82,10 +81,6 @@ public class Avatar {
 	}
 
 	public Key pickKey() {
-        return null;
-    }
-
-    public Powerup activatePowerup() {
         return null;
     }
     

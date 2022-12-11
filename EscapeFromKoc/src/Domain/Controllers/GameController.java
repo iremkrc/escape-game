@@ -16,6 +16,7 @@ public class GameController{
     private PlayerController player;
 	private AlienController alienController;
 	private GameState gameState;
+	private PowerupController powerupController;
     private static GameController instance;
 	private boolean buildingModeDone = false;
 	public int timeLeft;
@@ -72,6 +73,13 @@ public class GameController{
 		return alienController;
 	}
 
+	public void setPowerupController(PowerupController powerupController) {
+		this.powerupController = powerupController;
+	}
+
+	public PowerupController getPowerupController() {
+		return powerupController;
+	}
 
     public boolean isOver() {
 		return gameState.isOver();
@@ -129,9 +137,6 @@ public class GameController{
 		}
 	}
 
-	public void catchPowerup(String type) {
-		player.catchPowerup();
-	}
 
 	public void incrementScore(double increment) {
 		player.incrementScore(increment);
