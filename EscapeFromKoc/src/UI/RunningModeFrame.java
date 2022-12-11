@@ -38,7 +38,7 @@ public class RunningModeFrame extends JFrame{
 	private static JLabel BuildingLabel;
 	private static JButton pauseButton;
 	private static JButton exitButton;
-	
+	private int gameStatus = 0;
     GameController game;	
 	Timer mainTimer;
     
@@ -131,8 +131,6 @@ public class RunningModeFrame extends JFrame{
 			}
 
 		};
-
-
 		
 		ActionListener alienListener = new ActionListener() {
 			@Override
@@ -153,7 +151,6 @@ public class RunningModeFrame extends JFrame{
 
 		Timer alienTimer = new Timer(10000, alienListener);
 		alienTimer.start();
-
 		
 		GameKeyListener listeners = new GameKeyListener(game);
 		addKeyListener(listeners);
