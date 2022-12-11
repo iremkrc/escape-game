@@ -14,24 +14,28 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 
 import Domain.GameObjects.GameObject;
+import Domain.GameObjects.Powerups.IPowerup;
 import Domain.Controllers.GameController;
 import Domain.Controllers.PlayerController;
+import Domain.Controllers.PowerupController;
 import Domain.Game.GameKeyListener;
 
 
 
 public class RunningModeFrame extends JFrame{
-	private static final String BACKGROUND_IMAGE_ADDRESS = "src/images/background.png";
+	private static final String BACKGROUND_IMAGE_ADDRESS = "";
 	private static final long serialVersionUID = 1L;
 	public int clockMiliSeconds;
 	private int gameStatus = 0;
-    GameController game;	
+    GameController game;
+	private int count = 0;	
     
     public RunningModeFrame() {
 		super("Running Mode");
 
 		game = GameController.getInstance();
 		game.setPlayer(new PlayerController());
+		game.setPowerupController(new PowerupController());
 		clockMiliSeconds = 10;	
 		
 		//initialize frame
@@ -61,16 +65,27 @@ public class RunningModeFrame extends JFrame{
 						dispose();
 					}
 				}
-
 			}
-
 		};
 		
+		//powerup timer tick
+		ActionListener powerupListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				count++;
+				if(!game.isPaused()) {
+					IPowerup powerup = game.getPowerupController().createPowerupRandomly();
+					game.getPowerupController().setPowerup(powerup);	
+				}
+			}
+		};
 		Timer timer = new Timer(clockMiliSeconds, tickListener);
 		timer.start();
+
+		Timer powerupTimer = new Timer(12000, powerupListener);
+		powerupTimer.start();
 		
 		GameKeyListener listeners = new GameKeyListener(game);
 		addKeyListener(listeners);
 	}
-
 }
