@@ -6,6 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import Domain.Alien.Alien;
 import Domain.Game.Building;
+import Domain.Game.PlayerState;
 import Domain.GameObjects.GameObject;
 import UI.KeyFoundAlert;
 import UI.StartFrame;
@@ -13,6 +14,7 @@ import UI.StartFrame;
 public class GameController{
 
     private PlayerController player;
+	private PlayerState playerState;
 	private AlienController alienController;
     private static GameController instance;
 	boolean isPaused = false;
@@ -53,7 +55,7 @@ public class GameController{
     }
 
     public void isGameOver() {
-		boolean isDead = player.getHealth() <= 0;
+		boolean isDead = playerState.getHealth() <= 0;
 		boolean noTime = timeLeft <= 0;
 		isOver = isDead||noTime;
 		if(isOver) {
