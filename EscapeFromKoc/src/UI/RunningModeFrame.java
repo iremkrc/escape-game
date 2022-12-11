@@ -39,11 +39,13 @@ public class RunningModeFrame extends JFrame{
 	public int clockMiliSeconds;
 
 	private int gameStatus = 0;
-    GameController game;
+  GameController game;
 	private static JLabel BuildingLabel;
 	private static JButton pauseButton;
 	private static JButton exitButton;
-	Timer mainTimer;
+
+
+
 
     
     @SuppressWarnings("deprecation")
