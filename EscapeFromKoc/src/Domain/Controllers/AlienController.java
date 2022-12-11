@@ -9,10 +9,19 @@ import Domain.Alien.AlienFactory;
 
 public class AlienController {
 
-    AlienFactory factory;
+    private AlienFactory factory;
+    private Alien alien;
 
     public AlienController() {
         factory = new AlienFactory();
+    }
+
+    public Alien getAlien() {
+        return alien;
+    }
+
+    public void setAlien(Alien alien) {
+        this.alien = alien;
     }
 
     public Alien createAlienRandomly() {

@@ -2,6 +2,8 @@ package Domain.Alien;
 
 
 import java.awt.Graphics;
+import java.util.concurrent.ThreadLocalRandom;
+
 import Domain.Game.Location;
 import java.awt.Color;
 
@@ -17,7 +19,9 @@ public class BlindAlien implements Alien {
         type = "Blind";
         width = 25;
         height = 25;
-        location = new Location(120, 60);
+        int coorX = ((ThreadLocalRandom.current().nextInt(9) % 9)+1) * 50 + 10;
+        int coorY = ((ThreadLocalRandom.current().nextInt(9) % 9)+1) * 50 + 10;
+        location = new Location(coorX, coorY);
     }
 
     @Override
@@ -32,6 +36,12 @@ public class BlindAlien implements Alien {
         Location loc = this.location;
         g.setColor(Color.MAGENTA);
         g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), width, height);
+    }
+
+    @Override
+    public void action() {
+        // TODO Auto-generated method stub
+        
     }
     
 }
