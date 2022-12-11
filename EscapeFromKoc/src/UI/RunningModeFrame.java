@@ -39,11 +39,13 @@ public class RunningModeFrame extends JFrame{
 	public int clockMiliSeconds;
 
 	private int gameStatus = 0;
-    GameController game;
+  GameController game;
 	private static JLabel BuildingLabel;
 	private static JButton pauseButton;
 	private static JButton exitButton;
-	Timer mainTimer;
+
+
+
 
     
     @SuppressWarnings("deprecation")
@@ -139,11 +141,9 @@ public class RunningModeFrame extends JFrame{
 		ActionListener alienListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(!game.isOver()) {
+				if(!game.isPaused()) {
 					Alien alien = game.getAlienController().createAlienRandomly();
 					game.getAlienController().setAlien(alien);
-				}else {
-						dispose();
 				}
 			}
 		};
