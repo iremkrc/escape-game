@@ -43,9 +43,6 @@ public class LayoutPanel extends JPanel {
 	    	GameObject obj = objectList.get(i);
 	    	obj.draw(g);
 	    }
-	    
-		Avatar avatar = game.getPlayer().getAvatar();
-	    avatar.draw(g);
 
         IPowerup powerup = game.getPowerupController().getPowerup();
         if(powerup != null){
@@ -56,7 +53,9 @@ public class LayoutPanel extends JPanel {
         if(alien != null){
             alien.draw(g);
         }
-
+        
+        Avatar avatar = game.getPlayer().getAvatar();
+	    avatar.draw(g);
     }
     
     public Dimension getPreferredSize() {
