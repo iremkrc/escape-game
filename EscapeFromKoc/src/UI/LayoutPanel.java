@@ -2,14 +2,14 @@ package UI;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
 import Domain.GameObjects.GameObject;
 import Domain.GameObjects.Powerups.IPowerup;
+import Domain.Alien.Alien;
 import Domain.Controllers.GameController;
 import Domain.Controllers.PowerupController;
 import Domain.Game.GameKeyListener;
+import Domain.Game.GameMouseListener;
 import Domain.Player.Avatar;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,8 +24,8 @@ public class LayoutPanel extends JPanel {
         game = GameController.getInstance();
         setSize(1000, 800);
         setVisible(true);
-		GameKeyListener listeners = new GameKeyListener(game);
-		addMouseListener(listeners);
+        GameMouseListener mlisteners = new GameMouseListener(game);
+		addMouseListener(mlisteners);		
     }
 
     public void repaint( Graphics g ) {  
@@ -50,6 +50,11 @@ public class LayoutPanel extends JPanel {
 
         IPowerup powerup = game.getPowerupController().getPowerup();
         powerup.draw(g);
+
+        Alien alien = game.getAlienController().getAlien();
+        if(alien != null){
+            alien.draw(g);
+        }
     }
     
     public Dimension getPreferredSize() {

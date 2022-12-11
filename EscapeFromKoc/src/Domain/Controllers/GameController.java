@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import Domain.Alien.Alien;
 import Domain.Game.Building;
 import Domain.GameObjects.GameObject;
 import UI.KeyFoundAlert;
@@ -12,6 +13,7 @@ import UI.StartFrame;
 public class GameController{
 
     private PlayerController player;
+	private AlienController alienController;
     private static GameController instance;
 	private PowerupController powerupController;
 	boolean isPaused = false;
@@ -22,7 +24,9 @@ public class GameController{
 	public Building currentBuilding;
 	public final int buildingCount = 6;
 	private String[] buildingNames = {"Student Center","CASE","SOS","SCI","ENG","SNA"}; //
-	private int[] objCounts = {3,3,3,3,3,3};
+
+	private int[] objCounts = {5,7,10,14,19,25};
+
 	private LinkedList<Building> buildings = new LinkedList<Building>();
 	private LinkedList<GameObject> gameObjectList = new LinkedList<GameObject>();
 	
@@ -75,6 +79,14 @@ public class GameController{
 		return powerupController;
 	}
 
+	public void setAlienController(AlienController alienController) {
+		this.alienController = alienController;
+	}
+
+	public AlienController getAlienController() {
+		return alienController;
+	}
+
     public boolean isOver() {
 		return isOver;
 	}
@@ -109,8 +121,22 @@ public class GameController{
 		    		if(Math.abs(avtY-objY)<20 && Math.abs(avtX-objX)<20) {
 		    			System.out.println("Key is found");
 		    			player.pickKey();
+		    			//--------------------------------------------------------------------
+		    			// What to do when key is found
 		    			KeyFoundAlert alertkey = new KeyFoundAlert();
-		    			alertkey.alert();
+		    			if(currentBuildingIndex == 5) {
+		    				alertkey.alert(currentBuildingIndex);
+		    				isOver = true;
+		    			}else {
+		    				boolean changeBuilding = alertkey.alert(currentBuildingIndex);
+			    			if(changeBuilding) {
+			    				setCurrentBuilding(currentBuildingIndex + 1);
+			    				player.avatar.putAvatarToInitialLocation();
+			    			}else {
+			    				isOver = true;
+			    			}
+		    			}
+		    			//--------------------------------------------------------------------
 		    		}
 		    	}
 	    	}
