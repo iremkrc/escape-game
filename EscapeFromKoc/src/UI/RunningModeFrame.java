@@ -1,5 +1,6 @@
 package UI;
 
+import java.awt.*;  
 import java.awt.AWTEvent;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -11,6 +12,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.text.DecimalFormat;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -33,15 +35,23 @@ import Domain.Game.GameKeyListener;
 
 
 public class RunningModeFrame extends JFrame{
-	private static final String BACKGROUND_IMAGE_ADDRESS = "src/images/background.png";
+	private static final String BACKGROUND_IMAGE_ADDRESS = "";
 	private static final long serialVersionUID = 1L;
 	public int clockMiliSeconds;
 	private static JLabel BuildingLabel;
+	private static JLabel ScoreLabel;
+	private static JLabel TimeLabel;
+	private static JLabel LifeLabel;
 	private static JButton pauseButton;
 	private static JButton exitButton;
+	private int second, minute;
+	private String ddSecond, ddMinute;
+	DecimalFormat dFormat = new DecimalFormat("00");
 	private int gameStatus = 0;
-    GameController game;	
+    GameController game;
+	PlayerController player;	
 	Timer mainTimer;
+	Timer countdownTimer;
     
     @SuppressWarnings("deprecation")
     public RunningModeFrame() {
@@ -49,7 +59,8 @@ public class RunningModeFrame extends JFrame{
 		
 		setLayout(new BorderLayout());
 		game = GameController.getInstance();
-		game.setPlayer(new PlayerController());
+		player = new PlayerController();
+		game.setPlayer(player);
 		game.setPowerupController(new PowerupController());
 		game.setAlienController(new AlienController());
 		clockMiliSeconds = 10;	
@@ -63,10 +74,33 @@ public class RunningModeFrame extends JFrame{
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		mainPanel.setLayout(new BorderLayout());
 		add(mainPanel,BorderLayout.CENTER);
-		
-		BuildingLabel = new JLabel("Current Building: " + game.currentBuilding.getBuildingName());
-		BuildingLabel.setBounds(465, 50, 70, 20);
-		mainPanel.add(BuildingLabel,BorderLayout.NORTH);
+
+		///--------------------
+		//top stats panel
+		JPanel statsPanel=new JPanel();  
+        statsPanel.setBounds(300,600,1000,600);  
+        statsPanel.setBackground(Color.gray);  
+		setResizable(false);
+		statsPanel.setLayout(new GridLayout(1,3));
+		add(statsPanel,BorderLayout.NORTH);
+
+		BuildingLabel = new JLabel("Building: "+ game.currentBuilding.getBuildingName());
+		BuildingLabel.setBounds(465, 50, 200, 20);
+		statsPanel.add(BuildingLabel,BorderLayout.EAST);
+
+		LifeLabel = new JLabel("Life: "+ player.getPlayerState().getHealth());
+		LifeLabel.setBounds(600, 50, 200, 20);
+		statsPanel.add(LifeLabel,BorderLayout.CENTER);
+
+		TimeLabel = new JLabel("");
+		TimeLabel.setBounds(500, 50, 200,20);
+		statsPanel.add(TimeLabel,BorderLayout.WEST);
+		TimeLabel.setText("08:00");
+		second = 0;
+		minute = 8;
+		countdownTimer();
+		countdownTimer.start();
+
 		//-----------------------------------------------------------------
 		// BUTTON PART
 		JPanel buttonPanel = new JPanel();
@@ -171,6 +205,31 @@ public class RunningModeFrame extends JFrame{
 		
 		GameKeyListener listeners = new GameKeyListener(game);
 		addKeyListener(listeners);
+	}
+
+	public void countdownTimer(){
+		countdownTimer = new Timer(1000, new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				second--;
+				ddSecond = dFormat.format(second);
+				ddMinute = dFormat.format(minute);
+				TimeLabel.setText("Time: " + ddMinute + ":"+ ddSecond);
+
+				if(second == -1){
+					second = 59;
+					minute--;
+					ddSecond = dFormat.format(second);
+					ddMinute = dFormat.format(minute);
+					TimeLabel.setText("Time: " + ddMinute + ":"+ ddSecond);
+
+				}
+				if(minute==0 && second==0){
+					countdownTimer.stop();
+				}			
+			}
+		});
 	}
 
 }
