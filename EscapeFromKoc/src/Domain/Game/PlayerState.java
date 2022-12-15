@@ -9,7 +9,7 @@ public class PlayerState {
     int score;
     
     public PlayerState() {
-        health = 100;
+        health = 3;
         score = 0;
         inventory = new Inventory();
         isProtectionVestActive = false;

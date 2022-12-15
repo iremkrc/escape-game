@@ -15,7 +15,7 @@ public class PlayerController {
 
 	public PlayerController() {
 		inventory = new Inventory();
-		avatar = new Avatar(25);   //unitlength
+		avatar = new Avatar(25); 
 		escapeFromKocGame = GameController.getInstance();	
 		playerState = new PlayerState();
 		this.health = playerState.getHealth();
