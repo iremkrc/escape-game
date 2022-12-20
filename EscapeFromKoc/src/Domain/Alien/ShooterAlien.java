@@ -5,9 +5,12 @@ import Domain.Game.Location;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
 
 
 public class ShooterAlien implements Alien {
@@ -25,8 +28,21 @@ public class ShooterAlien implements Alien {
         // TODO Auto-generated method stub
         return this.type;
     }
+    
+    ActionListener shooterActionListener = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(!escapeFromKocGame.isPaused() && escapeFromKocGame.getAlienController().getAlien().getType().equals("Shooter")) {
+				System.out.println("SHOOT");
+				action();
+			}
+		}
 
-    public ShooterAlien(/*Location avatarLocation, boolean wornProtectionVest*/) {
+	};
+	
+	Timer alienTimer = new Timer(1000, shooterActionListener);
+
+	public ShooterAlien(/*Location avatarLocation, boolean wornProtectionVest*/) {
     	escapeFromKocGame = GameController.getInstance();	
         type = "Shooter";
 		width = 25;
@@ -36,6 +52,7 @@ public class ShooterAlien implements Alien {
         location = new Location(coorX, coorY);
         this.avatarLocation = escapeFromKocGame.getPlayer().getAvatar().getLocation(); //avatarLocation;
         this.isProtectionVestActive = escapeFromKocGame.getPlayer().getPlayerState().getIsProtectionVestActive();
+        alienTimer.start();
 	}
     
     public void draw(Graphics g) {
@@ -58,16 +75,10 @@ public class ShooterAlien implements Alien {
     		escapeFromKocGame.getPlayer().getPlayerState().setHealth(escapeFromKocGame.getPlayer().getPlayerState().getHealth() - 1);
     		System.out.println(distance);
     		System.out.println(escapeFromKocGame.getPlayer().getPlayerState().getHealth());
-    		/*try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
+    		
     	}
         
     }
     
-    
-
+   
 }
