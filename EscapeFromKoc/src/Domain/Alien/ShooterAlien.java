@@ -17,7 +17,7 @@ public class ShooterAlien implements Alien {
 	private String type;
 	private Location location;
 	private Location avatarLocation;
-	private boolean wornProtectionVest;
+	private boolean isProtectionVestActive;
 	GameController escapeFromKocGame;	
 
     @Override
@@ -35,7 +35,7 @@ public class ShooterAlien implements Alien {
         int coorY = ((ThreadLocalRandom.current().nextInt(9) % 9)+1) * 50 + 10;
         location = new Location(coorX, coorY);
         this.avatarLocation = escapeFromKocGame.getPlayer().getAvatar().getLocation(); //avatarLocation;
-        this.wornProtectionVest = false;
+        this.isProtectionVestActive = escapeFromKocGame.getPlayer().getPlayerState().getIsProtectionVestActive();
 	}
     
     public void draw(Graphics g) {
@@ -54,7 +54,7 @@ public class ShooterAlien implements Alien {
     public void action() {
         // TODO Auto-generated method stub
     	double distance = Math.abs(avatarLocation.getXLocation() - location.getXLocation()) + Math.abs(avatarLocation.getYLocation() - location.getYLocation());
-    	if(distance <= 50*4 && wornProtectionVest == false) {
+    	if(distance <= 50*4 && isProtectionVestActive == false) {
     		escapeFromKocGame.getPlayer().getPlayerState().setHealth(escapeFromKocGame.getPlayer().getPlayerState().getHealth() - 1);
     		System.out.println(distance);
     		System.out.println(escapeFromKocGame.getPlayer().getPlayerState().getHealth());
