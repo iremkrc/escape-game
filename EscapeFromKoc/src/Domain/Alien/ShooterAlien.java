@@ -57,6 +57,13 @@ public class ShooterAlien implements Alien {
     	if(distance <= 50*4 && wornProtectionVest == false) {
     		escapeFromKocGame.getPlayer().getPlayerState().setHealth(escapeFromKocGame.getPlayer().getPlayerState().getHealth() - 1);
     		System.out.println(distance);
+    		System.out.println(escapeFromKocGame.getPlayer().getPlayerState().getHealth());
+    		/*try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}*/
     	}
         
     }
