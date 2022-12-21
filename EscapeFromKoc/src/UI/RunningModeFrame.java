@@ -99,8 +99,8 @@ public class RunningModeFrame extends JFrame{
 		statsPanel.add(TimeLabel,BorderLayout.WEST);
 		TimeLabel.setText("08:00");
 		second = 0;
-		totalMinute = 8;
-		minute = totalMinute;
+		game.setTotalTime(1);
+		minute = game.getTotalTime();
 		countdownTimer();
 		countdownTimer.start();
 
@@ -179,9 +179,11 @@ public class RunningModeFrame extends JFrame{
 				if(!game.isPaused()) {
 					Alien alien = game.getAlienController().createAlienRandomly();
 					if(alien.getType() == "TimeWasting"){
-						((TimeWastingAlien) alien).setStrategy(totalMinute*60, minute*60+second);
+						((TimeWastingAlien) alien).setStrategy(game.getTotalTime()*60, game.getTimeLeft());
 					}
 					game.getAlienController().setAlien(alien);
+					alien.action();
+					System.out.println("time left: " + game.getTimeLeft() + " seconds");
 				}
 			}
 
@@ -233,7 +235,8 @@ public class RunningModeFrame extends JFrame{
 				}
 				if(minute==0 && second==0){
 					countdownTimer.stop();
-				}			
+				}	
+				game.setTimeLeft(minute*60+second);		
 			}
 		});
 	}

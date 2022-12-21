@@ -15,6 +15,8 @@ public class TimeWastingAlien implements Alien {
 	private String type;
 	private Location location;
     private TimeWastingStrategy strategy;
+    private Graphics g;
+    private boolean empty;
 
     public int getWidth() {
         return this.width;
@@ -47,6 +49,10 @@ public class TimeWastingAlien implements Alien {
         return this.strategy;
     }
 
+    public Graphics getG() {
+        return this.g;
+    }
+
     public void setStrategy(int totalTime, int remainingTime) {
         if(remainingTime < totalTime * 0.3) {
             this.strategy = new LimitedStrategy();
@@ -54,12 +60,15 @@ public class TimeWastingAlien implements Alien {
             this.strategy = new ChallengingStrategy();
         }else{
             this.strategy = new ConfusedStrategy();
+            ((ConfusedStrategy) this.strategy).setAlien(this);
+            ((ConfusedStrategy) this.strategy).setG(this.g);
         }
     }
     
 
     public TimeWastingAlien() {
         type = "TimeWasting";
+        empty = false;
         width = 25;
         height = 25;
         int coorX = ((ThreadLocalRandom.current().nextInt(9) % 9)+1) * 50 + 10;
@@ -77,6 +86,7 @@ public class TimeWastingAlien implements Alien {
     public void draw(Graphics g) {
         // TODO Auto-generated method stub
         Location loc = this.location;
+        this.g = g;
         g.setColor(Color.GREEN);
         g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), width, height);
         Image image = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/alien.png").getImage();
@@ -91,4 +101,13 @@ public class TimeWastingAlien implements Alien {
         strategy.wasteTime();
     }
     
+    @Override
+	public boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return empty;
+	}
+
+	public void setEmpty(boolean empty) {
+		this.empty = empty;
+	}
 }

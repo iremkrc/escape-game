@@ -21,7 +21,8 @@ public class ShooterAlien implements Alien {
 	private Location location;
 	private Location avatarLocation;
 	private boolean isProtectionVestActive;
-	GameController escapeFromKocGame;	
+	private GameController escapeFromKocGame;	
+	private boolean empty;
 
     @Override
     public String getType() {
@@ -45,6 +46,7 @@ public class ShooterAlien implements Alien {
 	public ShooterAlien(/*Location avatarLocation, boolean wornProtectionVest*/) {
     	escapeFromKocGame = GameController.getInstance();	
         type = "Shooter";
+		empty = false;
 		width = 25;
 		height = 25;
         int coorX = ((ThreadLocalRandom.current().nextInt(9) % 9)+1) * 50 + 10;
@@ -79,6 +81,16 @@ public class ShooterAlien implements Alien {
     	}
         
     }
+
+	@Override
+	public boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return empty;
+	}
+
+	public void setEmpty(boolean empty) {
+		this.empty = empty;
+	}
     
    
 }

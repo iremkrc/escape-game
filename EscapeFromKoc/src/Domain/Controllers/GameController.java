@@ -19,7 +19,10 @@ public class GameController{
 	private PowerupController powerupController;
     private static GameController instance;
 	private boolean buildingModeDone = false;
-	public int timeLeft;
+	// remaining time in seconds
+	private int timeLeft;
+	// total time in minutes
+	private int totalTime;
 	public Building currentBuilding;
 	private LinkedList<Building> buildings = new LinkedList<Building>();
 	private LinkedList<GameObject> gameObjectList = new LinkedList<GameObject>();
@@ -95,6 +98,18 @@ public class GameController{
 
     public int getTimeLeft() {
         return timeLeft;
+	}
+
+	public void setTimeLeft(int timeLeft) {
+		this.timeLeft = timeLeft;
+	}
+
+	public int getTotalTime() {
+		return totalTime;
+	}
+
+	public void setTotalTime(int totalTime) {
+		this.totalTime = totalTime;
 	}
 
     public void moveAvatar(String direction) {

@@ -51,7 +51,9 @@ public class LayoutPanel extends JPanel {
 
         Alien alien = game.getAlienController().getAlien();
         if(alien != null){
-            alien.draw(g);
+            if(!alien.isEmpty()){
+                alien.draw(g);
+            }
         }
         
         Avatar avatar = game.getPlayer().getAvatar();

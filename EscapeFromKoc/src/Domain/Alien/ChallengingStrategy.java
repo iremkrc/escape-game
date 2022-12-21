@@ -7,7 +7,7 @@ public class ChallengingStrategy implements TimeWastingStrategy {
     @Override
     public void wasteTime() {
         // TODO Auto-generated method stub
-        
+        System.out.println("ChallengingStrategy");
     }
     
 }
