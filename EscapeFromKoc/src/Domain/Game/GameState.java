@@ -6,6 +6,7 @@ public class GameState {
 	public int[] objCounts = {1,1,1,1,1,1};  //5,7,10,14,19,25
 	private boolean paused = false;
 	private boolean isOver = false;
+	private boolean isKeyFound = false;
 	private int currentBuildingIndex = 0;
 	private int time;
 	
@@ -28,7 +29,14 @@ public class GameState {
 	public void setTime(int time) {
 		this.time = time;
 	}
-	
+	public boolean isKeyFound() {
+		return isKeyFound;
+	}
+
+	public void setKeyFound(boolean b) {
+		this.isKeyFound = b;
+	}
+
 	public int getCurrentBuildingIndex() {
 		return currentBuildingIndex;
 	}
