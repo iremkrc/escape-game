@@ -14,7 +14,7 @@ public class TimeWastingAlien implements Alien {
 	private int height;
 	private String type;
 	private Location location;
-    private String strategy;
+    private TimeWastingStrategy strategy;
 
     public int getWidth() {
         return this.width;
@@ -43,12 +43,18 @@ public class TimeWastingAlien implements Alien {
         this.location = location;
     }
 
-    public String getStrategy() {
+    public TimeWastingStrategy getStrategy() {
         return this.strategy;
     }
 
-    public void setStrategy(String strategy) {
-        this.strategy = strategy;
+    public void setStrategy(int totalTime, int remainingTime) {
+        if(remainingTime < totalTime * 0.3) {
+            this.strategy = new LimitedStrategy();
+        }else if(remainingTime > totalTime * 0.7) {
+            this.strategy = new ChallengingStrategy();
+        }else{
+            this.strategy = new ConfusedStrategy();
+        }
     }
     
 
@@ -82,7 +88,7 @@ public class TimeWastingAlien implements Alien {
     @Override
     public void action() {
         // TODO Auto-generated method stub
-        
+        strategy.wasteTime();
     }
     
 }

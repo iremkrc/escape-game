@@ -26,6 +26,7 @@ import javax.swing.Timer;
 import Domain.GameObjects.Powerups.IPowerup;
 import Domain.GameObjects.GameObject;
 import Domain.Alien.Alien;
+import Domain.Alien.TimeWastingAlien;
 import Domain.Controllers.AlienController;
 import Domain.Controllers.GameController;
 import Domain.Controllers.PowerupController;
@@ -45,6 +46,7 @@ public class RunningModeFrame extends JFrame{
 	private static JButton pauseButton;
 	private static JButton exitButton;
 	private int second, minute;
+	private int totalMinute;
 	private String ddSecond, ddMinute;
 	DecimalFormat dFormat = new DecimalFormat("00");
 	private int gameStatus = 0;
@@ -97,7 +99,8 @@ public class RunningModeFrame extends JFrame{
 		statsPanel.add(TimeLabel,BorderLayout.WEST);
 		TimeLabel.setText("08:00");
 		second = 0;
-		minute = 8;
+		totalMinute = 8;
+		minute = totalMinute;
 		countdownTimer();
 		countdownTimer.start();
 
@@ -175,6 +178,9 @@ public class RunningModeFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if(!game.isPaused()) {
 					Alien alien = game.getAlienController().createAlienRandomly();
+					if(alien.getType() == "TimeWasting"){
+						((TimeWastingAlien) alien).setStrategy(totalMinute*60, minute*60+second);
+					}
 					game.getAlienController().setAlien(alien);
 				}
 			}
