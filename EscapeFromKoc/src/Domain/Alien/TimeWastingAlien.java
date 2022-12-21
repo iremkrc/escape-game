@@ -10,10 +10,47 @@ import java.awt.Image;
 
 public class TimeWastingAlien implements Alien {
 
-    public int width;
-	public int height;
-	public String type;
-	Location location;
+    private int width;
+	private int height;
+	private String type;
+	private Location location;
+    private String strategy;
+
+    public int getWidth() {
+        return this.width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return this.height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Location getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public String getStrategy() {
+        return this.strategy;
+    }
+
+    public void setStrategy(String strategy) {
+        this.strategy = strategy;
+    }
+    
 
     public TimeWastingAlien() {
         type = "TimeWasting";
