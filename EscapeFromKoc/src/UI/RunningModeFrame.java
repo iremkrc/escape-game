@@ -27,6 +27,7 @@ import Domain.GameObjects.Powerups.IPowerup;
 import Domain.GameObjects.GameObject;
 import Domain.Alien.Alien;
 import Domain.Alien.TimeWastingAlien;
+import Domain.Alien.TimeWastingStrategy;
 import Domain.Controllers.AlienController;
 import Domain.Controllers.GameController;
 import Domain.Controllers.PowerupController;
@@ -54,6 +55,7 @@ public class RunningModeFrame extends JFrame{
 	PlayerController player;	
 	Timer mainTimer;
 	Timer countdownTimer;
+	private Alien alien;
     
     @SuppressWarnings("deprecation")
     public RunningModeFrame() {
@@ -173,14 +175,37 @@ public class RunningModeFrame extends JFrame{
 
 		};
 		
+		ActionListener timeWastingListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!game.isPaused()) {
+					if(alien != null){
+						if(alien.getType() == "TimeWasting"){
+							TimeWastingStrategy s = ((TimeWastingAlien) alien).findStrategy(game.getTotalTime()*60, game.getTimeLeft());
+							String currentStrategy = ((TimeWastingAlien) alien).getStrategy().getType();
+							if(s.getType() != currentStrategy){
+								((TimeWastingAlien) alien).setStrategy(s);
+								System.out.println("Strategy changed from" + currentStrategy + "to"  + s.getType());
+								alien.action();
+							}
+							
+						}
+					}
+				}
+			}
+
+		};
+
 		ActionListener alienListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!game.isPaused()) {
-					Alien alien = game.getAlienController().createAlienRandomly();
+					alien = game.getAlienController().createAlienRandomly();
 					if(alien.getType() == "TimeWasting"){
-						((TimeWastingAlien) alien).setStrategy(game.getTotalTime()*60, game.getTimeLeft());
+						TimeWastingStrategy s = ((TimeWastingAlien) alien).findStrategy(game.getTotalTime()*60, game.getTimeLeft());
+						((TimeWastingAlien) alien).setStrategy(s);
 					}
+	
 					game.getAlienController().setAlien(alien);
 					alien.action();
 					System.out.println("time left: " + game.getTimeLeft() + " seconds");
@@ -207,6 +232,10 @@ public class RunningModeFrame extends JFrame{
 
 		Timer alienTimer = new Timer(10000, alienListener);
 		alienTimer.start();
+
+		Timer timeWastingTimer = new Timer(1000, timeWastingListener);
+		timeWastingTimer.start();
+
 
 		Timer powerupTimer = new Timer(12000, powerupListener);
 		powerupTimer.start();

@@ -9,5 +9,11 @@ public class ChallengingStrategy implements TimeWastingStrategy {
         // TODO Auto-generated method stub
         System.out.println("ChallengingStrategy");
     }
+
+    @Override
+    public String getType() {
+        // TODO Auto-generated method stub
+        return "ChallengingStrategy";
+    }
     
 }

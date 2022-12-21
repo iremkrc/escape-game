@@ -15,7 +15,6 @@ public class TimeWastingAlien implements Alien {
 	private String type;
 	private Location location;
     private TimeWastingStrategy strategy;
-    private Graphics g;
     private boolean empty;
 
     public int getWidth() {
@@ -49,20 +48,21 @@ public class TimeWastingAlien implements Alien {
         return this.strategy;
     }
 
-    public Graphics getG() {
-        return this.g;
+    public TimeWastingStrategy findStrategy(int totalTime, int remainingTime) {
+        TimeWastingStrategy strategy;
+        if(remainingTime < totalTime * 0.3) {
+            strategy = new LimitedStrategy();
+        }else if(remainingTime > totalTime * 0.7) {
+            strategy = new ChallengingStrategy();
+        }else{
+            strategy = new ConfusedStrategy();
+            ((ConfusedStrategy) strategy).setAlien(this);
+        }
+        return strategy;
     }
 
-    public void setStrategy(int totalTime, int remainingTime) {
-        if(remainingTime < totalTime * 0.3) {
-            this.strategy = new LimitedStrategy();
-        }else if(remainingTime > totalTime * 0.7) {
-            this.strategy = new ChallengingStrategy();
-        }else{
-            this.strategy = new ConfusedStrategy();
-            ((ConfusedStrategy) this.strategy).setAlien(this);
-            ((ConfusedStrategy) this.strategy).setG(this.g);
-        }
+    public void setStrategy(TimeWastingStrategy strategy) {
+        this.strategy = strategy;
     }
     
 
@@ -86,7 +86,6 @@ public class TimeWastingAlien implements Alien {
     public void draw(Graphics g) {
         // TODO Auto-generated method stub
         Location loc = this.location;
-        this.g = g;
         g.setColor(Color.GREEN);
         g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), width, height);
         Image image = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/alien.png").getImage();

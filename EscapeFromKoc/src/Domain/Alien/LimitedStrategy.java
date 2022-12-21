@@ -9,5 +9,11 @@ public class LimitedStrategy implements TimeWastingStrategy {
         // TODO Auto-generated method stub
         System.out.println("LimitedStrategy");
     }
+
+    @Override
+    public String getType() {
+        // TODO Auto-generated method stub
+        return "LimitedStrategy";
+    }
     
 }
