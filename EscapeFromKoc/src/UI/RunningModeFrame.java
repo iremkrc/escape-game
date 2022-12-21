@@ -52,6 +52,7 @@ public class RunningModeFrame extends JFrame{
 	PlayerController player;	
 	Timer mainTimer;
 	Timer countdownTimer;
+	//private boolean isHealthDone = false;
     
     @SuppressWarnings("deprecation")
     public RunningModeFrame() {
@@ -205,6 +206,30 @@ public class RunningModeFrame extends JFrame{
 		
 		GameKeyListener listeners = new GameKeyListener(game);
 		addKeyListener(listeners);
+		
+		
+		ActionListener healthListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				int healthControl = game.getPlayer().getPlayerState().getHealth();
+				
+				if(healthControl <= 0) game.getGameState().setIsOver(true);
+				
+				if(game.getGameState().isOver()) {
+					game.setPaused(true);
+					//isHealthDone = true;
+					dispose();
+					
+				}	
+			}
+		};
+		
+		Timer healthTimer = new Timer(10, healthListener);
+		healthTimer.start();
+		
+		//if(isHealthDone) healthTimer.stop();
+		
 	}
 
 	public void countdownTimer(){
