@@ -7,6 +7,7 @@ import Domain.Game.Building;
 import Domain.Game.PlayerState;
 import Domain.Game.GameState;
 import Domain.GameObjects.GameObject;
+import Domain.GameObjects.Powerups.IPowerup;
 import UI.KeyFoundAlert;
 import UI.StartFrame;
 
@@ -99,6 +100,39 @@ public class GameController{
 
     public void moveAvatar(String direction) {
 		player.moveAvatar(direction);
+	}
+
+	public void catchPowerUp(int x, int y) throws Exception {
+		IPowerup powerup = powerupController.getPowerup();
+        if(powerup != null){
+            double pwupX = powerup.getLocation().getXLocation();
+		    double pwupY = powerup.getLocation().getYLocation();
+		    int pwupH = powerup.getHeight();
+		    int pwupW = powerup.getWidth();
+		    if(x>=pwupX && x<=pwupX+pwupW && y>=pwupY && y<=pwupY+pwupH) {
+				System.out.println("catch powerup");
+				powerupController.deletePowerup();
+				switch (powerup.getType()) {
+					case "time":
+						gameState.setTime(gameState.getTime() + 5);
+						break;
+					case "hint":
+						player.getPlayerState().getInventory().incrementPowerups(powerup.getType());
+						break;
+					case "vest":
+						player.getPlayerState().getInventory().incrementPowerups(powerup.getType());
+						break;
+					case "bottle":
+						player.getPlayerState().getInventory().incrementPowerups(powerup.getType());
+						break;
+					case "life":
+						player.getPlayerState().setHealth(player.getPlayerState().getHealth()+1);
+						break;
+					default:
+						throw new IllegalArgumentException("Unknown type "+ powerup.getType());
+					}
+			}
+        }
 	}
 
 	public void pickKey(int x, int y) {

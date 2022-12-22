@@ -45,7 +45,7 @@ public class RunningModeFrame extends JFrame{
 	private static JButton pauseButton;
 	private static JButton exitButton;
 	private int second, minute;
-	private String ddSecond, ddMinute;
+	private String ddSecond;
 	DecimalFormat dFormat = new DecimalFormat("00");
 	private int gameStatus = 0;
     GameController game;
@@ -97,8 +97,8 @@ public class RunningModeFrame extends JFrame{
 		TimeLabel.setBounds(500, 50, 200,20);
 		statsPanel.add(TimeLabel,BorderLayout.WEST);
 		TimeLabel.setText("08:00");
-		second = 0;
-		minute = 8;
+		game.getGameState().setTime(8*60);
+		second = 8*60;
 		countdownTimer();
 		countdownTimer.start();
 
@@ -168,7 +168,6 @@ public class RunningModeFrame extends JFrame{
 					}
 				}
 			}
-
 		};
 		
 		ActionListener alienListener = new ActionListener() {
@@ -179,7 +178,6 @@ public class RunningModeFrame extends JFrame{
 					game.getAlienController().setAlien(alien);
 				}
 			}
-
 		};
 
 		//powerup timer tick
@@ -213,6 +211,7 @@ public class RunningModeFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				
 				int healthControl = game.getPlayer().getPlayerState().getHealth();
+				LifeLabel.setText("Life: "+ player.getPlayerState().getHealth());
 				
 				if(healthControl <= 0) game.getGameState().setIsOver(true);
 				
@@ -237,20 +236,11 @@ public class RunningModeFrame extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				second--;
-				ddSecond = dFormat.format(second);
-				ddMinute = dFormat.format(minute);
-				TimeLabel.setText("Time: " + ddMinute + ":"+ ddSecond);
-
-				if(second == -1){
-					second = 59;
-					minute--;
-					ddSecond = dFormat.format(second);
-					ddMinute = dFormat.format(minute);
-					TimeLabel.setText("Time: " + ddMinute + ":"+ ddSecond);
-
-				}
-				if(minute==0 && second==0){
+				int time = game.getGameState().getTime() - 1;
+				game.getGameState().setTime(time);
+				ddSecond = dFormat.format(time);
+				TimeLabel.setText("Time: "+ ddSecond+"s");
+				if(game.getGameState().getTime()==0){
 					countdownTimer.stop();
 				}			
 			}
