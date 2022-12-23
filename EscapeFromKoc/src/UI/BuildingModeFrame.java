@@ -48,7 +48,7 @@ public class BuildingModeFrame extends JFrame{
 		clockMiliSeconds = 5;
 		
 		//initialize frame
-		setBounds(300,200, (4*1000)/3, 800);
+		setBounds(300,100, 800, 800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 

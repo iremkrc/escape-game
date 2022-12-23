@@ -41,11 +41,12 @@ public class RunningModeFrame extends JFrame{
 	private static JLabel BuildingLabel;
 	private static JLabel ScoreLabel;
 	private static JLabel TimeLabel;
+	private static JLabel powerUpCountLabel, powerUpCountLabel1, powerUpCountLabel2, powerUpCountLabel3;
 	private static JLabel LifeLabel;
 	private static JButton pauseButton;
 	private static JButton exitButton;
 	private int second, minute;
-	private String ddSecond, ddMinute;
+	private String ddSecond;
 	DecimalFormat dFormat = new DecimalFormat("00");
 	private int gameStatus = 0;
     GameController game;
@@ -68,7 +69,7 @@ public class RunningModeFrame extends JFrame{
 		clockMiliSeconds = 10;	
 		
 		//initialize frame
-		setBounds(300,200, (4*1000)/3, 800);
+		setBounds(300,100, 1200, 800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 
@@ -78,9 +79,27 @@ public class RunningModeFrame extends JFrame{
 		add(mainPanel,BorderLayout.CENTER);
 
 		///--------------------
+		//east inventory panel
+		JPanel inventoryPanel=new JPanel();  
+        inventoryPanel.setBounds(300,600,300,200);  
+        inventoryPanel.setBackground(Color.gray);  
+		setResizable(false);
+		inventoryPanel.setLayout(new BoxLayout(inventoryPanel, BoxLayout.Y_AXIS));
+		mainPanel.add(inventoryPanel,BorderLayout.EAST);
+
+		powerUpCountLabel = new JLabel("-   Inventory Power-up List   -");
+		powerUpCountLabel1 = new JLabel("Hint: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("hint")); 
+		powerUpCountLabel2 = new JLabel("Protection Vest: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("vest"));
+		powerUpCountLabel3 = new JLabel("Bottle: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("bottle"));
+		
+		inventoryPanel.add(powerUpCountLabel);
+		inventoryPanel.add(powerUpCountLabel1);
+		inventoryPanel.add(powerUpCountLabel2);
+		inventoryPanel.add(powerUpCountLabel3);
+
 		//top stats panel
 		JPanel statsPanel=new JPanel();  
-        statsPanel.setBounds(300,600,1000,600);  
+        statsPanel.setBounds(300,600,600,600);  
         statsPanel.setBackground(Color.gray);  
 		setResizable(false);
 		statsPanel.setLayout(new GridLayout(1,3));
@@ -97,9 +116,9 @@ public class RunningModeFrame extends JFrame{
 		TimeLabel = new JLabel("");
 		TimeLabel.setBounds(500, 50, 200,20);
 		statsPanel.add(TimeLabel,BorderLayout.WEST);
+		game.getGameState().setTime(8*60);
+		second = 8*60;
 
-		second = 25;
-		minute = 0;
 		countdownTimer();
 		countdownTimer.start();
 
@@ -165,7 +184,10 @@ public class RunningModeFrame extends JFrame{
 				if(!game.isOver()) {
 					gamePanel.repaint();
 					BuildingLabel.setText("Current Building: " + game.currentBuilding.getBuildingName());
-					LifeLabel.setText("Life: "+ player.getPlayerState().getHealth());
+					powerUpCountLabel1.setText("\t      Hint: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("hint")); 
+					powerUpCountLabel2.setText("\t      Protection Vest: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("vest"));
+					powerUpCountLabel3.setText("\t      Bottle: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("bottle"));
+
 				}else {
 					if(gameStatus==0) {
 						gameStatus=1;
@@ -184,7 +206,6 @@ public class RunningModeFrame extends JFrame{
 					game.getAlienController().setAlien(alien);
 				}
 			}
-
 		};
 
 		//powerup timer tick
@@ -194,7 +215,7 @@ public class RunningModeFrame extends JFrame{
 			
 				if(!game.isPaused()) {
 					IPowerup powerup = game.getPowerupController().createPowerupRandomly();
-					game.getPowerupController().setPowerup(powerup);	
+					game.getPowerupController().setPowerup(powerup);
 				}
 			}
 		};
@@ -206,7 +227,7 @@ public class RunningModeFrame extends JFrame{
 		Timer alienTimer = new Timer(10000, alienListener);
 		alienTimer.start();
 
-		Timer powerupTimer = new Timer(12000, powerupListener);
+		Timer powerupTimer = new Timer(3000, powerupListener);
 		powerupTimer.start();
 		
 		GameKeyListener listeners = new GameKeyListener(game);
@@ -217,6 +238,7 @@ public class RunningModeFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				
 				int healthControl = game.getPlayer().getPlayerState().getHealth();
+				LifeLabel.setText("Life: "+ player.getPlayerState().getHealth());
 				
 				if(healthControl <= 0) game.getGameState().setIsOver(true);
 				
@@ -233,9 +255,6 @@ public class RunningModeFrame extends JFrame{
 		Timer healthTimer = new Timer(10, healthListener);
 		healthTimer.start();
 		
-		//if(isHealthDone) healthTimer.stop();
-		
-		//////
 		ActionListener ctimerListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -289,20 +308,11 @@ public class RunningModeFrame extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				second--;
-				ddSecond = dFormat.format(second);
-				ddMinute = dFormat.format(minute);
-				TimeLabel.setText("Time: " + ddMinute + ":"+ ddSecond);
-			
-				if(second == -1){
-					second = 59;
-					minute--;
-					ddSecond = dFormat.format(second);
-					ddMinute = dFormat.format(minute);
-					TimeLabel.setText("Time: " + ddMinute + ":"+ ddSecond);
-
-				}
-				if(minute==0 && second==0){
+				int time = game.getGameState().getTime() - 1;
+				game.getGameState().setTime(time);
+				ddSecond = dFormat.format(time);
+				TimeLabel.setText("Time: "+ ddSecond+"s");
+				if(game.getGameState().getTime()==0){
 					countdownTimer.stop();
 					game.getGameState().setIsOver(true);
 				}
