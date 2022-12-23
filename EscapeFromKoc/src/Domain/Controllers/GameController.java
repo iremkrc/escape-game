@@ -32,6 +32,7 @@ public class GameController{
 			buildings.add(building);
 		}
 		currentBuilding = buildings.get(gameState.getCurrentBuildingIndex());
+		gameState.setNewBuildingTime();
 	}
 	
     public static GameController getInstance() {
@@ -154,35 +155,40 @@ public class GameController{
 		    		double avtX = player.getAvatar().getLocation().xLocation;
 		    		double avtY = player.getAvatar().getLocation().yLocation;
 		    		if(Math.abs(avtY-objY)<20 && Math.abs(avtX-objX)<20) {
-		    			System.out.println("Key is found");
-		    			//--------------------------------------------------------------------
-		    			// What to do when key is found
-		    			KeyFoundAlert alertkey = new KeyFoundAlert();
-						setKeyFound(true);
-		    			if(gameState.getCurrentBuildingIndex() == 5) {
-		    				alertkey.alert(gameState.getCurrentBuildingIndex());
-		    				gameState.setIsOver(true);
-		    			}else {
-		    				boolean changeBuilding = alertkey.alert(gameState.getCurrentBuildingIndex());
-			    			if(changeBuilding) {
-			    				setCurrentBuilding(gameState.getCurrentBuildingIndex() + 1);
-			    				player.avatar.putAvatarToInitialLocation();
-			    			}else {
-			    				gameState.setIsOver(true);
-			    			}
-		    			}
-		    			//--------------------------------------------------------------------
+		    			performKeyFoundAction();
 		    		}
 		    	}
 	    	}
 		}
 	}
 
+	public void performKeyFoundAction(){
+		System.out.println("Key is found");
+		// What to do when key is found
+		KeyFoundAlert alertkey = new KeyFoundAlert();
+		this.setPaused(true);
+		setKeyFound(true);
+		if(gameState.getCurrentBuildingIndex() == 5) {
+			alertkey.alert(gameState.getCurrentBuildingIndex());
+			gameState.setIsOver(true);
+		}else {
+			boolean changeBuilding = alertkey.alert(gameState.getCurrentBuildingIndex());
+			if(changeBuilding) {
+				setCurrentBuilding(gameState.getCurrentBuildingIndex() + 1);
+				player.avatar.putAvatarToInitialLocation();
+				this.getPowerupController().setPowerup(null);
+				this.getAlienController().setAlien(null);
+				setNewBuildingTime();
+				this.setPaused(false);
+			}else {
+				gameState.setIsOver(true);
+			}
+		}
+	}
 
 	public void incrementScore(double increment) {
 		player.incrementScore(increment);
 	}
-	
 	
 	public void setObject(GameObject object) {
 		this.gameObjectList.add(object);
@@ -200,6 +206,10 @@ public class GameController{
 	
 	public int getCurrentBuildingIndex() {
 		return gameState.getCurrentBuildingIndex();
+	}
+
+	public void setNewBuildingTime() {
+		gameState.setTime(20*gameState.objCounts[getCurrentBuildingIndex()]);
 	}
 	
 	public void addObjectToCurrentBuilding(int x, int y) {
