@@ -53,6 +53,7 @@ public class RunningModeFrame extends JFrame{
 	PlayerController player;	
 	Timer mainTimer;
 	Timer countdownTimer;
+	boolean timeIsRunning = false;
 	//private boolean isHealthDone = false;
     
     @SuppressWarnings("deprecation")
@@ -115,9 +116,9 @@ public class RunningModeFrame extends JFrame{
 		TimeLabel = new JLabel("");
 		TimeLabel.setBounds(500, 50, 200,20);
 		statsPanel.add(TimeLabel,BorderLayout.WEST);
-		TimeLabel.setText("08:00");
 		game.getGameState().setTime(8*60);
 		second = 8*60;
+
 		countdownTimer();
 		countdownTimer.start();
 
@@ -134,10 +135,13 @@ public class RunningModeFrame extends JFrame{
 					System.out.println(game.isPaused());
 					game.setPaused(true);
 					pauseButton.setText("Resume");
+					countdownTimer.stop();
+					
 				}else {
 					System.out.println(game.isPaused());
 					game.setPaused(false);
 					pauseButton.setText("Pause");
+					countdownTimer.start();
 				}
 			}
 		});
@@ -149,11 +153,14 @@ public class RunningModeFrame extends JFrame{
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.setPaused(true);
+				countdownTimer.stop();
 				if (JOptionPane.showConfirmDialog(null, "Are you sure to exit?", "WARNING",
 				        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					dispose();
+					
 				} else {
 					game.setPaused(false);
+					countdownTimer.start();
 				}
 			}
 		});
@@ -172,8 +179,6 @@ public class RunningModeFrame extends JFrame{
 
 		//timer tick
 		ActionListener tickListener = new ActionListener() {
-			
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!game.isOver()) {
@@ -182,6 +187,7 @@ public class RunningModeFrame extends JFrame{
 					powerUpCountLabel1.setText("\t      Hint: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("hint")); 
 					powerUpCountLabel2.setText("\t      Protection Vest: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("vest"));
 					powerUpCountLabel3.setText("\t      Bottle: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("bottle"));
+
 				}else {
 					if(gameStatus==0) {
 						gameStatus=1;
@@ -227,7 +233,6 @@ public class RunningModeFrame extends JFrame{
 		GameKeyListener listeners = new GameKeyListener(game);
 		addKeyListener(listeners);
 		
-		
 		ActionListener healthListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -239,6 +244,7 @@ public class RunningModeFrame extends JFrame{
 				
 				if(game.getGameState().isOver()) {
 					game.setPaused(true);
+					countdownTimer.stop();
 					//isHealthDone = true;
 					dispose();
 					
@@ -249,10 +255,54 @@ public class RunningModeFrame extends JFrame{
 		Timer healthTimer = new Timer(10, healthListener);
 		healthTimer.start();
 		
-		//if(isHealthDone) healthTimer.stop();
+		ActionListener ctimerListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int currentBuildingIndex = game.getGameState().getCurrentBuildingIndex();
+	
+				if(game.getGameState().isKeyFound()) {
+					countdownTimer.stop();
+					if(currentBuildingIndex == 1){
+						game.getGameState().setKeyFound(false);
+						second = 35;
+						minute = 0;
+					}
+					if(currentBuildingIndex == 2){
+						game.getGameState().setKeyFound(false);
+						second = 50;
+						minute = 0;
+					}
+					if(currentBuildingIndex == 3){
+						game.getGameState().setKeyFound(false);
+						second = 10;
+						minute = 1;
+					}
+					if(currentBuildingIndex == 4){
+						game.getGameState().setKeyFound(false);
+						second = 35;
+						minute = 1;
+					}
+					if(currentBuildingIndex == 5){
+						game.getGameState().setKeyFound(false);
+						second = 5;
+						minute = 2;
+					}
+					countdownTimer.start();
+				}
+				
+				if(game.getGameState().isOver()) {
+					game.setPaused(true);
+					countdownTimer.stop();
+					dispose();	
+				}
+				
+			}
+		};	
+		Timer cTimer = new Timer(5, ctimerListener);
+		cTimer.start();
 		
 	}
-
+	
 	public void countdownTimer(){
 		countdownTimer = new Timer(1000, new ActionListener(){
 
@@ -264,7 +314,8 @@ public class RunningModeFrame extends JFrame{
 				TimeLabel.setText("Time: "+ ddSecond+"s");
 				if(game.getGameState().getTime()==0){
 					countdownTimer.stop();
-				}			
+					game.getGameState().setIsOver(true);
+				}
 			}
 		});
 	}

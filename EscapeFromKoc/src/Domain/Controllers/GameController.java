@@ -47,6 +47,13 @@ public class GameController{
     public boolean isPaused() {
         return gameState.isPaused();
     }
+	
+	public boolean isKeyFound() {
+		return gameState.isKeyFound();
+	}
+	public void setKeyFound(boolean b) {
+		gameState.setKeyFound(b); 
+	}
 
     public void isGameOver() {
 		boolean isDead = playerState.getHealth() <= 0;
@@ -151,6 +158,7 @@ public class GameController{
 		    			//--------------------------------------------------------------------
 		    			// What to do when key is found
 		    			KeyFoundAlert alertkey = new KeyFoundAlert();
+						setKeyFound(true);
 		    			if(gameState.getCurrentBuildingIndex() == 5) {
 		    				alertkey.alert(gameState.getCurrentBuildingIndex());
 		    				gameState.setIsOver(true);
