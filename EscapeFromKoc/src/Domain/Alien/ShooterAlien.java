@@ -60,7 +60,7 @@ public class ShooterAlien implements Alien {
         g.setColor(Color.CYAN);
         g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), width, height);
 
-        Image image = new ImageIcon("./src/UI/Utilities/Images/alien.png").getImage();
+        Image image = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/alien.png").getImage();
         
         g.drawImage(image, (int) location.getXLocation(), (int) location.getYLocation(), 25, 25, null);
 

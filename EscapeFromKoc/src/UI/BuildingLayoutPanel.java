@@ -18,7 +18,7 @@ public class BuildingLayoutPanel extends JPanel {
 	public BuildingLayoutPanel(String title) {
         super();
         game = GameController.getInstance();
-        setSize(1000, 800);
+        setSize(800, 800);
         setVisible(true);
         GameMouseListener mlisteners = new GameMouseListener(game);
 		addMouseListener(mlisteners);
@@ -46,6 +46,6 @@ public class BuildingLayoutPanel extends JPanel {
     }
     
     public Dimension getPreferredSize() {
-        return new Dimension(900,600);
+        return new Dimension(800,600);
     }
 }
