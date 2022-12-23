@@ -52,6 +52,7 @@ public class RunningModeFrame extends JFrame{
 	PlayerController player;	
 	Timer mainTimer;
 	Timer countdownTimer;
+	boolean timeIsRunning = false;
 	//private boolean isHealthDone = false;
     
     @SuppressWarnings("deprecation")
@@ -96,9 +97,9 @@ public class RunningModeFrame extends JFrame{
 		TimeLabel = new JLabel("");
 		TimeLabel.setBounds(500, 50, 200,20);
 		statsPanel.add(TimeLabel,BorderLayout.WEST);
-		TimeLabel.setText("08:00");
-		second = 0;
-		minute = 8;
+
+		second = 25;
+		minute = 0;
 		countdownTimer();
 		countdownTimer.start();
 
@@ -115,10 +116,13 @@ public class RunningModeFrame extends JFrame{
 					System.out.println(game.isPaused());
 					game.setPaused(true);
 					pauseButton.setText("Resume");
+					countdownTimer.stop();
+					
 				}else {
 					System.out.println(game.isPaused());
 					game.setPaused(false);
 					pauseButton.setText("Pause");
+					countdownTimer.start();
 				}
 			}
 		});
@@ -130,11 +134,14 @@ public class RunningModeFrame extends JFrame{
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.setPaused(true);
+				countdownTimer.stop();
 				if (JOptionPane.showConfirmDialog(null, "Are you sure to exit?", "WARNING",
 				        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					dispose();
+					
 				} else {
 					game.setPaused(false);
+					countdownTimer.start();
 				}
 			}
 		});
@@ -153,13 +160,12 @@ public class RunningModeFrame extends JFrame{
 
 		//timer tick
 		ActionListener tickListener = new ActionListener() {
-			
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!game.isOver()) {
 					gamePanel.repaint();
 					BuildingLabel.setText("Current Building: " + game.currentBuilding.getBuildingName());
+					LifeLabel.setText("Life: "+ player.getPlayerState().getHealth());
 				}else {
 					if(gameStatus==0) {
 						gameStatus=1;
@@ -168,7 +174,6 @@ public class RunningModeFrame extends JFrame{
 					}
 				}
 			}
-
 		};
 		
 		ActionListener alienListener = new ActionListener() {
@@ -207,7 +212,6 @@ public class RunningModeFrame extends JFrame{
 		GameKeyListener listeners = new GameKeyListener(game);
 		addKeyListener(listeners);
 		
-		
 		ActionListener healthListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -218,6 +222,7 @@ public class RunningModeFrame extends JFrame{
 				
 				if(game.getGameState().isOver()) {
 					game.setPaused(true);
+					countdownTimer.stop();
 					//isHealthDone = true;
 					dispose();
 					
@@ -230,8 +235,55 @@ public class RunningModeFrame extends JFrame{
 		
 		//if(isHealthDone) healthTimer.stop();
 		
+		//////
+		ActionListener ctimerListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int currentBuildingIndex = game.getGameState().getCurrentBuildingIndex();
+	
+				if(game.getGameState().isKeyFound()) {
+					countdownTimer.stop();
+					if(currentBuildingIndex == 1){
+						game.getGameState().setKeyFound(false);
+						second = 35;
+						minute = 0;
+					}
+					if(currentBuildingIndex == 2){
+						game.getGameState().setKeyFound(false);
+						second = 50;
+						minute = 0;
+					}
+					if(currentBuildingIndex == 3){
+						game.getGameState().setKeyFound(false);
+						second = 10;
+						minute = 1;
+					}
+					if(currentBuildingIndex == 4){
+						game.getGameState().setKeyFound(false);
+						second = 35;
+						minute = 1;
+					}
+					if(currentBuildingIndex == 5){
+						game.getGameState().setKeyFound(false);
+						second = 5;
+						minute = 2;
+					}
+					countdownTimer.start();
+				}
+				
+				if(game.getGameState().isOver()) {
+					game.setPaused(true);
+					countdownTimer.stop();
+					dispose();	
+				}
+				
+			}
+		};	
+		Timer cTimer = new Timer(5, ctimerListener);
+		cTimer.start();
+		
 	}
-
+	
 	public void countdownTimer(){
 		countdownTimer = new Timer(1000, new ActionListener(){
 
@@ -241,7 +293,7 @@ public class RunningModeFrame extends JFrame{
 				ddSecond = dFormat.format(second);
 				ddMinute = dFormat.format(minute);
 				TimeLabel.setText("Time: " + ddMinute + ":"+ ddSecond);
-
+			
 				if(second == -1){
 					second = 59;
 					minute--;
@@ -252,7 +304,8 @@ public class RunningModeFrame extends JFrame{
 				}
 				if(minute==0 && second==0){
 					countdownTimer.stop();
-				}			
+					game.getGameState().setIsOver(true);
+				}
 			}
 		});
 	}
