@@ -138,7 +138,7 @@ public class GameController{
 						break;
 					default:
 						throw new IllegalArgumentException("Unknown type "+ powerup.getType());
-					}
+				}
 			}
         }
 	}

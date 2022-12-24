@@ -3,7 +3,8 @@ package Domain.Game;
 public class GameState {
 	private final int buildingCount = 6;
 	public String[] buildingNames = {"Student Center","CASE","SOS","SCI","ENG","SNA"}; //
-	public int[] objCounts = {1,2,3,4,5,6};  //5,7,10,14,19,25
+	public int[] objCounts = {1,1,1,1,1,1};  //5,7,10,14,19,25
+	private int timeGivenForEachObject = 20; // the given time for the building is this times the object count
 	private boolean paused = false;
 	private boolean isOver = false;
 	private boolean isKeyFound = false;
@@ -31,7 +32,7 @@ public class GameState {
 	}
 
 	public void setNewBuildingTime() {
-		this.setTime(objCounts[currentBuildingIndex]*20);
+		this.setTime(objCounts[currentBuildingIndex]*timeGivenForEachObject);
 	}
 
 	public boolean isKeyFound() {
