@@ -45,14 +45,14 @@ public class RunningModeFrame extends JFrame{
 	private static JLabel LifeLabel;
 	private static JButton pauseButton;
 	private static JButton exitButton;
-	private int second, minute;
+	private int second;
 	private String ddSecond;
 	DecimalFormat dFormat = new DecimalFormat("00");
 	private int gameStatus = 0;
+	private int powerupTime = 0;
     GameController game;
 	PlayerController player;	
-	Timer mainTimer;
-	Timer countdownTimer;
+	Timer mainTimer, powerupTimer, alienTimer, countdownTimer;
 	boolean timeIsRunning = false;
 	//private boolean isHealthDone = false;
     
@@ -113,12 +113,10 @@ public class RunningModeFrame extends JFrame{
 		LifeLabel.setBounds(600, 50, 200, 20);
 		statsPanel.add(LifeLabel,BorderLayout.CENTER);
 
-		TimeLabel = new JLabel("");
+		second = game.getGameState().getTime();
+		TimeLabel = new JLabel("Time: "+ second+"s");
 		TimeLabel.setBounds(500, 50, 200,20);
 		statsPanel.add(TimeLabel,BorderLayout.WEST);
-		game.getGameState().setTime(8*60);
-		second = 8*60;
-
 		countdownTimer();
 		countdownTimer.start();
 
@@ -136,12 +134,15 @@ public class RunningModeFrame extends JFrame{
 					game.setPaused(true);
 					pauseButton.setText("Resume");
 					countdownTimer.stop();
+					alienTimer.stop();
 					
 				}else {
 					System.out.println(game.isPaused());
 					game.setPaused(false);
 					pauseButton.setText("Pause");
 					countdownTimer.start();
+					countdownTimer.start();
+					alienTimer.start();
 				}
 			}
 		});
@@ -156,8 +157,7 @@ public class RunningModeFrame extends JFrame{
 				countdownTimer.stop();
 				if (JOptionPane.showConfirmDialog(null, "Are you sure to exit?", "WARNING",
 				        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					dispose();
-					
+					dispose();	
 				} else {
 					game.setPaused(false);
 					countdownTimer.start();
@@ -187,7 +187,11 @@ public class RunningModeFrame extends JFrame{
 					powerUpCountLabel1.setText("\t      Hint: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("hint")); 
 					powerUpCountLabel2.setText("\t      Protection Vest: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("vest"));
 					powerUpCountLabel3.setText("\t      Bottle: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("bottle"));
-
+					int time = game.getGameState().getTime();
+					if(second != time){
+						second = time;
+						TimeLabel.setText("Time: "+ second+"s");
+					}
 				}else {
 					if(gameStatus==0) {
 						gameStatus=1;
@@ -212,10 +216,15 @@ public class RunningModeFrame extends JFrame{
 		ActionListener powerupListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			
 				if(!game.isPaused()) {
-					IPowerup powerup = game.getPowerupController().createPowerupRandomly();
-					game.getPowerupController().setPowerup(powerup);
+					powerupTime ++;
+					if(powerupTime % 2 == 0){
+						powerupTime = 0;
+						IPowerup powerup = game.getPowerupController().createPowerupRandomly();
+						game.getPowerupController().setPowerup(powerup);
+					}else{
+						game.getPowerupController().setPowerup(null);
+					}
 				}
 			}
 		};
@@ -227,7 +236,7 @@ public class RunningModeFrame extends JFrame{
 		Timer alienTimer = new Timer(10000, alienListener);
 		alienTimer.start();
 
-		Timer powerupTimer = new Timer(3000, powerupListener);
+		Timer powerupTimer = new Timer(6000, powerupListener);
 		powerupTimer.start();
 		
 		GameKeyListener listeners = new GameKeyListener(game);
@@ -247,60 +256,12 @@ public class RunningModeFrame extends JFrame{
 					countdownTimer.stop();
 					//isHealthDone = true;
 					dispose();
-					
 				}	
 			}
 		};
 		
 		Timer healthTimer = new Timer(10, healthListener);
 		healthTimer.start();
-		
-		ActionListener ctimerListener = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int currentBuildingIndex = game.getGameState().getCurrentBuildingIndex();
-	
-				if(game.getGameState().isKeyFound()) {
-					countdownTimer.stop();
-					if(currentBuildingIndex == 1){
-						game.getGameState().setKeyFound(false);
-						second = 35;
-						minute = 0;
-					}
-					if(currentBuildingIndex == 2){
-						game.getGameState().setKeyFound(false);
-						second = 50;
-						minute = 0;
-					}
-					if(currentBuildingIndex == 3){
-						game.getGameState().setKeyFound(false);
-						second = 10;
-						minute = 1;
-					}
-					if(currentBuildingIndex == 4){
-						game.getGameState().setKeyFound(false);
-						second = 35;
-						minute = 1;
-					}
-					if(currentBuildingIndex == 5){
-						game.getGameState().setKeyFound(false);
-						second = 5;
-						minute = 2;
-					}
-					countdownTimer.start();
-				}
-				
-				if(game.getGameState().isOver()) {
-					game.setPaused(true);
-					countdownTimer.stop();
-					dispose();	
-				}
-				
-			}
-		};	
-		Timer cTimer = new Timer(5, ctimerListener);
-		cTimer.start();
-		
 	}
 	
 	public void countdownTimer(){
@@ -308,16 +269,17 @@ public class RunningModeFrame extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int time = game.getGameState().getTime() - 1;
-				game.getGameState().setTime(time);
-				ddSecond = dFormat.format(time);
-				TimeLabel.setText("Time: "+ ddSecond+"s");
-				if(game.getGameState().getTime()==0){
-					countdownTimer.stop();
-					game.getGameState().setIsOver(true);
+				if(!game.isPaused()){
+					second = game.getGameState().getTime() - 1;
+					game.getGameState().setTime(second);
+					ddSecond = dFormat.format(second);
+					TimeLabel.setText("Time: "+ ddSecond+"s");
+					if(game.getGameState().getTime()==0){
+						countdownTimer.stop();
+						game.getGameState().setIsOver(true);
+					}
 				}
 			}
 		});
 	}
-
 }

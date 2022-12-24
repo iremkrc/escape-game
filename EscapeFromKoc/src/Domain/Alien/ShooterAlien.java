@@ -32,12 +32,13 @@ public class ShooterAlien implements Alien {
     ActionListener shooterActionListener = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(!escapeFromKocGame.isPaused() && escapeFromKocGame.getAlienController().getAlien().getType().equals("Shooter")) {
-				System.out.println("SHOOT");
-				action();
+			if(escapeFromKocGame.getAlienController().getAlien() != null){
+				if(!escapeFromKocGame.isPaused() && escapeFromKocGame.getAlienController().getAlien().getType().equals("Shooter")) {
+					System.out.println("SHOOT");
+					action();
+				}
 			}
 		}
-
 	};
 	
 	Timer alienTimer = new Timer(1000, shooterActionListener);
