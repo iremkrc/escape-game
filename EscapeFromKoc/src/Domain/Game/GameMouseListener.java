@@ -21,6 +21,11 @@ public class GameMouseListener implements MouseListener{
     	System.out.println("mouse pressed");
 		if(escapeFromKocGame.isBuildingModeDone()) {
 			escapeFromKocGame.pickKey(e.getX(),e.getY());	
+			try {
+				escapeFromKocGame.catchPowerUp(e.getX(),e.getY());
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		}else {
 			escapeFromKocGame.addObjectToCurrentBuilding(e.getX(),e.getY());
 		}

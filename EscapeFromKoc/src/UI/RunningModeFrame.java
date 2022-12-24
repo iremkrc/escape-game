@@ -43,19 +43,21 @@ public class RunningModeFrame extends JFrame{
 	private static JLabel BuildingLabel;
 	private static JLabel ScoreLabel;
 	private static JLabel TimeLabel;
+	private static JLabel powerUpCountLabel, powerUpCountLabel1, powerUpCountLabel2, powerUpCountLabel3;
 	private static JLabel LifeLabel;
 	private static JButton pauseButton;
 	private static JButton exitButton;
-	private int second, minute;
-	private int totalMinute;
-	private String ddSecond, ddMinute;
+	private int second;
+	private String ddSecond;
 	DecimalFormat dFormat = new DecimalFormat("00");
 	private int gameStatus = 0;
+	private int powerupTime = 0;
     GameController game;
 	PlayerController player;	
-	Timer mainTimer;
-	Timer countdownTimer;
+	Timer mainTimer, powerupTimer, alienTimer, countdownTimer;
+	boolean timeIsRunning = false;
 	private Alien alien;
+	//private boolean isHealthDone = false;
     
     @SuppressWarnings("deprecation")
     public RunningModeFrame() {
@@ -70,7 +72,7 @@ public class RunningModeFrame extends JFrame{
 		clockMiliSeconds = 10;	
 		
 		//initialize frame
-		setBounds(300,200, (4*1000)/3, 800);
+		setBounds(300,100, 1200, 800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 
@@ -80,9 +82,27 @@ public class RunningModeFrame extends JFrame{
 		add(mainPanel,BorderLayout.CENTER);
 
 		///--------------------
+		//east inventory panel
+		JPanel inventoryPanel=new JPanel();  
+        inventoryPanel.setBounds(300,600,300,200);  
+        inventoryPanel.setBackground(Color.gray);  
+		setResizable(false);
+		inventoryPanel.setLayout(new BoxLayout(inventoryPanel, BoxLayout.Y_AXIS));
+		mainPanel.add(inventoryPanel,BorderLayout.EAST);
+
+		powerUpCountLabel = new JLabel("-   Inventory Power-up List   -");
+		powerUpCountLabel1 = new JLabel("Hint: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("hint")); 
+		powerUpCountLabel2 = new JLabel("Protection Vest: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("vest"));
+		powerUpCountLabel3 = new JLabel("Bottle: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("bottle"));
+		
+		inventoryPanel.add(powerUpCountLabel);
+		inventoryPanel.add(powerUpCountLabel1);
+		inventoryPanel.add(powerUpCountLabel2);
+		inventoryPanel.add(powerUpCountLabel3);
+
 		//top stats panel
 		JPanel statsPanel=new JPanel();  
-        statsPanel.setBounds(300,600,1000,600);  
+        statsPanel.setBounds(300,600,600,600);  
         statsPanel.setBackground(Color.gray);  
 		setResizable(false);
 		statsPanel.setLayout(new GridLayout(1,3));
@@ -96,13 +116,10 @@ public class RunningModeFrame extends JFrame{
 		LifeLabel.setBounds(600, 50, 200, 20);
 		statsPanel.add(LifeLabel,BorderLayout.CENTER);
 
-		TimeLabel = new JLabel("");
+		second = game.getGameState().getTime();
+		TimeLabel = new JLabel("Time: "+ second+"s");
 		TimeLabel.setBounds(500, 50, 200,20);
 		statsPanel.add(TimeLabel,BorderLayout.WEST);
-		TimeLabel.setText("08:00");
-		second = 0;
-		game.setTotalTime(1);
-		minute = game.getTotalTime();
 		countdownTimer();
 		countdownTimer.start();
 
@@ -119,10 +136,16 @@ public class RunningModeFrame extends JFrame{
 					System.out.println(game.isPaused());
 					game.setPaused(true);
 					pauseButton.setText("Resume");
+					countdownTimer.stop();
+					alienTimer.stop();
+					
 				}else {
 					System.out.println(game.isPaused());
 					game.setPaused(false);
 					pauseButton.setText("Pause");
+					countdownTimer.start();
+					countdownTimer.start();
+					alienTimer.start();
 				}
 			}
 		});
@@ -134,11 +157,13 @@ public class RunningModeFrame extends JFrame{
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.setPaused(true);
+				countdownTimer.stop();
 				if (JOptionPane.showConfirmDialog(null, "Are you sure to exit?", "WARNING",
 				        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					dispose();
+					dispose();	
 				} else {
 					game.setPaused(false);
+					countdownTimer.start();
 				}
 			}
 		});
@@ -157,13 +182,19 @@ public class RunningModeFrame extends JFrame{
 
 		//timer tick
 		ActionListener tickListener = new ActionListener() {
-			
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!game.isOver()) {
 					gamePanel.repaint();
 					BuildingLabel.setText("Current Building: " + game.currentBuilding.getBuildingName());
+					powerUpCountLabel1.setText("\t      Hint: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("hint")); 
+					powerUpCountLabel2.setText("\t      Protection Vest: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("vest"));
+					powerUpCountLabel3.setText("\t      Bottle: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("bottle"));
+					int time = game.getGameState().getTime();
+					if(second != time){
+						second = time;
+						TimeLabel.setText("Time: "+ second+"s");
+					}
 				}else {
 					if(gameStatus==0) {
 						gameStatus=1;
@@ -172,7 +203,6 @@ public class RunningModeFrame extends JFrame{
 					}
 				}
 			}
-
 		};
 		
 		ActionListener timeWastingListener = new ActionListener() {
@@ -211,17 +241,21 @@ public class RunningModeFrame extends JFrame{
 					System.out.println("time left: " + game.getTimeLeft() + " seconds");
 				}
 			}
-
 		};
 
 		//powerup timer tick
 		ActionListener powerupListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			
 				if(!game.isPaused()) {
-					IPowerup powerup = game.getPowerupController().createPowerupRandomly();
-					game.getPowerupController().setPowerup(powerup);	
+					powerupTime ++;
+					if(powerupTime % 2 == 0){
+						powerupTime = 0;
+						IPowerup powerup = game.getPowerupController().createPowerupRandomly();
+						game.getPowerupController().setPowerup(powerup);
+					}else{
+						game.getPowerupController().setPowerup(null);
+					}
 				}
 			}
 		};
@@ -242,32 +276,45 @@ public class RunningModeFrame extends JFrame{
 		
 		GameKeyListener listeners = new GameKeyListener(game);
 		addKeyListener(listeners);
+		
+		ActionListener healthListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				int healthControl = game.getPlayer().getPlayerState().getHealth();
+				LifeLabel.setText("Life: "+ player.getPlayerState().getHealth());
+				
+				if(healthControl <= 0) game.getGameState().setIsOver(true);
+				
+				if(game.getGameState().isOver()) {
+					game.setPaused(true);
+					countdownTimer.stop();
+					//isHealthDone = true;
+					dispose();
+				}	
+			}
+		};
+		
+		Timer healthTimer = new Timer(10, healthListener);
+		healthTimer.start();
 	}
-
+	
 	public void countdownTimer(){
 		countdownTimer = new Timer(1000, new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				second--;
-				ddSecond = dFormat.format(second);
-				ddMinute = dFormat.format(minute);
-				TimeLabel.setText("Time: " + ddMinute + ":"+ ddSecond);
-
-				if(second == -1){
-					second = 59;
-					minute--;
+				if(!game.isPaused()){
+					second = game.getGameState().getTime() - 1;
+					game.getGameState().setTime(second);
 					ddSecond = dFormat.format(second);
-					ddMinute = dFormat.format(minute);
-					TimeLabel.setText("Time: " + ddMinute + ":"+ ddSecond);
-
+					TimeLabel.setText("Time: "+ ddSecond+"s");
+					if(game.getGameState().getTime()==0){
+						countdownTimer.stop();
+						game.getGameState().setIsOver(true);
+					}
 				}
-				if(minute==0 && second==0){
-					countdownTimer.stop();
-				}	
-				game.setTimeLeft(minute*60+second);		
 			}
 		});
 	}
-
 }

@@ -33,12 +33,13 @@ public class ShooterAlien implements Alien {
     ActionListener shooterActionListener = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(!escapeFromKocGame.isPaused() && escapeFromKocGame.getAlienController().getAlien().getType().equals("Shooter")) {
-				System.out.println("SHOOT");
-				action();
+			if(escapeFromKocGame.getAlienController().getAlien() != null){
+				if(!escapeFromKocGame.isPaused() && escapeFromKocGame.getAlienController().getAlien().getType().equals("Shooter")) {
+					System.out.println("SHOOT");
+					action();
+				}
 			}
 		}
-
 	};
 	
 	Timer alienTimer = new Timer(1000, shooterActionListener);
@@ -62,7 +63,7 @@ public class ShooterAlien implements Alien {
         g.setColor(Color.CYAN);
         g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), width, height);
 
-        Image image = new ImageIcon("./src/UI/Utilities/Images/alien.png").getImage();
+        Image image = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/alien.png").getImage();
         
         g.drawImage(image, (int) location.getXLocation(), (int) location.getYLocation(), 25, 25, null);
 

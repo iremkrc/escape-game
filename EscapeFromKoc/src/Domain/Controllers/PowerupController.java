@@ -23,6 +23,10 @@ public class PowerupController {
         this.powerup = powerup;
     }
 
+    public void deletePowerup(){
+        this.powerup = null;
+    }
+
     public IPowerup createPowerupRandomly() {
         List<String> powerupTypeList = Arrays.asList("time", "hint", "vest", "bottle", "life");
         int randomTypeIndex = ThreadLocalRandom.current().nextInt(powerupTypeList.size()) % powerupTypeList.size();
