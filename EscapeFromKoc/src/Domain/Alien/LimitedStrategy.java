@@ -25,7 +25,7 @@ public class LimitedStrategy implements TimeWastingStrategy {
                     alien.setEmpty(true);
                 }
             }, 
-            5000 
+            1000 
         );
     }
 
