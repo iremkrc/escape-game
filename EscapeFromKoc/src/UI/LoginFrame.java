@@ -85,7 +85,7 @@ public class LoginFrame extends JFrame{
 				}
 				
 				GameController.getInstance().setPlayer(new PlayerController());
-				GameController.getInstance().timeLeft= 600*10000;
+				//GameController.getInstance().setTimeLeft(600*10000);
 				
 			}
 		});

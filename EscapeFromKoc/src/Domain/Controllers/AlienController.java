@@ -28,7 +28,8 @@ public class AlienController {
         List<String> alienTypeList = Arrays.asList("Blind", "Shooter", "TimeWasting");
         int randomTypeIndex = ThreadLocalRandom.current().nextInt(alienTypeList.size()) % alienTypeList.size();
         String randomType = alienTypeList.get(randomTypeIndex);
-        Alien alien = factory.createAlien(randomType);
+        //Alien alien = factory.createAlien(randomType);
+        Alien alien = factory.createAlien("TimeWasting");
         return alien;
     }
 }

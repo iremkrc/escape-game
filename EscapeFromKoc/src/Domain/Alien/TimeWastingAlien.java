@@ -10,13 +10,66 @@ import java.awt.Image;
 
 public class TimeWastingAlien implements Alien {
 
-    public int width;
-	public int height;
-	public String type;
-	Location location;
+    private int width;
+	private int height;
+	private String type;
+	private Location location;
+    private TimeWastingStrategy strategy;
+    private boolean empty;
+
+    public int getWidth() {
+        return this.width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return this.height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Location getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public TimeWastingStrategy getStrategy() {
+        return this.strategy;
+    }
+
+    public TimeWastingStrategy findStrategy(int totalTime, int remainingTime) {
+        TimeWastingStrategy strategy;
+        if(remainingTime < totalTime * 0.3) {
+            strategy = new LimitedStrategy();
+        }else if(remainingTime > totalTime * 0.7) {
+            strategy = new ChallengingStrategy();
+        }else{
+            strategy = new ConfusedStrategy();
+        }
+        
+        strategy.setAlien(this);
+        return strategy;
+    }
+
+    public void setStrategy(TimeWastingStrategy strategy) {
+        this.strategy = strategy;
+    }
+    
 
     public TimeWastingAlien() {
         type = "TimeWasting";
+        empty = false;
         width = 25;
         height = 25;
         int coorX = ((ThreadLocalRandom.current().nextInt(9) % 9)+1) * 50 + 10;
@@ -45,7 +98,16 @@ public class TimeWastingAlien implements Alien {
     @Override
     public void action() {
         // TODO Auto-generated method stub
-        
+        strategy.wasteTime();
     }
     
+    @Override
+	public boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return empty;
+	}
+
+	public void setEmpty(boolean empty) {
+		this.empty = empty;
+	}
 }

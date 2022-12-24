@@ -26,6 +26,9 @@ import javax.swing.Timer;
 import Domain.GameObjects.Powerups.IPowerup;
 import Domain.GameObjects.GameObject;
 import Domain.Alien.Alien;
+import Domain.Alien.TimeWastingAlien;
+import Domain.Alien.TimeWastingStrategy;
+import Domain.Alien.ChallengingStrategy;
 import Domain.Controllers.AlienController;
 import Domain.Controllers.GameController;
 import Domain.Controllers.PowerupController;
@@ -54,6 +57,7 @@ public class RunningModeFrame extends JFrame{
 	PlayerController player;	
 	Timer mainTimer, powerupTimer, alienTimer, countdownTimer;
 	boolean timeIsRunning = false;
+	private Alien alien;
 	//private boolean isHealthDone = false;
     
     @SuppressWarnings("deprecation")
@@ -202,12 +206,50 @@ public class RunningModeFrame extends JFrame{
 			}
 		};
 		
+		ActionListener timeWastingListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!game.isPaused()) {
+					if(alien != null && !alien.isEmpty()){
+						if(alien.getType() == "TimeWasting"){
+							TimeWastingStrategy s = ((TimeWastingAlien) alien).findStrategy(game.getGameState().getTotalTime(), game.getGameState().getTime());
+							TimeWastingStrategy currentStrategy = ((TimeWastingAlien) alien).getStrategy();
+							if(s.getType() != currentStrategy.getType()){
+								if(currentStrategy.getType() == "ChallengingStrategy"){
+									((ChallengingStrategy) currentStrategy).stopTimer();
+								}
+								((TimeWastingAlien) alien).setStrategy(s);
+								System.out.println("Strategy changed from " + currentStrategy.getType() + " to "  + s.getType());
+								alien.action();
+							}
+							
+						}
+					}
+				}
+			}
+
+		};
+
 		ActionListener alienListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!game.isPaused()) {
-					Alien alien = game.getAlienController().createAlienRandomly();
+					if(alien != null){
+						if(alien.getType() == "TimeWasting"){
+							if(((TimeWastingAlien) alien).getStrategy().getType() == "ChallengingStrategy"){
+								((ChallengingStrategy) ((TimeWastingAlien) alien).getStrategy()).stopTimer();
+							}
+						}
+					}
+					alien = game.getAlienController().createAlienRandomly();
+					if(alien.getType() == "TimeWasting"){
+						TimeWastingStrategy s = ((TimeWastingAlien) alien).findStrategy(game.getGameState().getTotalTime(), game.getGameState().getTime());
+						((TimeWastingAlien) alien).setStrategy(s);
+					}
+	
 					game.getAlienController().setAlien(alien);
+					alien.action();
+					System.out.println("time left: " + game.getGameState().getTime() + " seconds");
 				}
 			}
 		};
@@ -236,7 +278,11 @@ public class RunningModeFrame extends JFrame{
 		Timer alienTimer = new Timer(10000, alienListener);
 		alienTimer.start();
 
-		Timer powerupTimer = new Timer(6000, powerupListener);
+		Timer timeWastingTimer = new Timer(1000, timeWastingListener);
+		timeWastingTimer.start();
+
+
+		Timer powerupTimer = new Timer(12000, powerupListener);
 		powerupTimer.start();
 		
 		GameKeyListener listeners = new GameKeyListener(game);
