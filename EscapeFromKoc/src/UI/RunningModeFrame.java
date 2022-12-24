@@ -28,6 +28,7 @@ import Domain.GameObjects.GameObject;
 import Domain.Alien.Alien;
 import Domain.Alien.TimeWastingAlien;
 import Domain.Alien.TimeWastingStrategy;
+import Domain.Alien.ChallengingStrategy;
 import Domain.Controllers.AlienController;
 import Domain.Controllers.GameController;
 import Domain.Controllers.PowerupController;
@@ -212,10 +213,13 @@ public class RunningModeFrame extends JFrame{
 					if(alien != null && !alien.isEmpty()){
 						if(alien.getType() == "TimeWasting"){
 							TimeWastingStrategy s = ((TimeWastingAlien) alien).findStrategy(game.getGameState().getTotalTime(), game.getGameState().getTime());
-							String currentStrategy = ((TimeWastingAlien) alien).getStrategy().getType();
-							if(s.getType() != currentStrategy){
+							TimeWastingStrategy currentStrategy = ((TimeWastingAlien) alien).getStrategy();
+							if(s.getType() != currentStrategy.getType()){
+								if(currentStrategy.getType() == "ChallengingStrategy"){
+									((ChallengingStrategy) currentStrategy).stopTimer();
+								}
 								((TimeWastingAlien) alien).setStrategy(s);
-								System.out.println("Strategy changed from " + currentStrategy + " to "  + s.getType());
+								System.out.println("Strategy changed from " + currentStrategy.getType() + " to "  + s.getType());
 								alien.action();
 							}
 							
@@ -230,6 +234,13 @@ public class RunningModeFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!game.isPaused()) {
+					if(alien != null){
+						if(alien.getType() == "TimeWasting"){
+							if(((TimeWastingAlien) alien).getStrategy().getType() == "ChallengingStrategy"){
+								((ChallengingStrategy) ((TimeWastingAlien) alien).getStrategy()).stopTimer();
+							}
+						}
+					}
 					alien = game.getAlienController().createAlienRandomly();
 					if(alien.getType() == "TimeWasting"){
 						TimeWastingStrategy s = ((TimeWastingAlien) alien).findStrategy(game.getGameState().getTotalTime(), game.getGameState().getTime());

@@ -4,7 +4,7 @@ public class GameState {
 	private final int buildingCount = 6;
 	public String[] buildingNames = {"Student Center","CASE","SOS","SCI","ENG","SNA"}; //
 	public int[] objCounts = {5,1,1,1,1,1};  //5,7,10,14,19,25
-	private int timeGivenForEachObject = 60; // the given time for the building is this times the object count
+	private int timeGivenForEachObject = 10; // the given time for the building is this times the object count
 	private boolean paused = false;
 	private boolean isOver = false;
 	private boolean isKeyFound = false;

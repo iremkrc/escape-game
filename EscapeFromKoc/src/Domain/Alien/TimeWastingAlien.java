@@ -50,7 +50,6 @@ public class TimeWastingAlien implements Alien {
 
     public TimeWastingStrategy findStrategy(int totalTime, int remainingTime) {
         TimeWastingStrategy strategy;
-        /* 
         if(remainingTime < totalTime * 0.3) {
             strategy = new LimitedStrategy();
         }else if(remainingTime > totalTime * 0.7) {
@@ -58,8 +57,7 @@ public class TimeWastingAlien implements Alien {
         }else{
             strategy = new ConfusedStrategy();
         }
-        */
-        strategy = new ChallengingStrategy();
+        
         strategy.setAlien(this);
         return strategy;
     }
