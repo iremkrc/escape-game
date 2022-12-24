@@ -209,13 +209,13 @@ public class RunningModeFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!game.isPaused()) {
-					if(alien != null){
+					if(alien != null && !alien.isEmpty()){
 						if(alien.getType() == "TimeWasting"){
-							TimeWastingStrategy s = ((TimeWastingAlien) alien).findStrategy(game.getTotalTime()*60, game.getTimeLeft());
+							TimeWastingStrategy s = ((TimeWastingAlien) alien).findStrategy(game.getGameState().getTotalTime(), game.getGameState().getTime());
 							String currentStrategy = ((TimeWastingAlien) alien).getStrategy().getType();
 							if(s.getType() != currentStrategy){
 								((TimeWastingAlien) alien).setStrategy(s);
-								System.out.println("Strategy changed from" + currentStrategy + "to"  + s.getType());
+								System.out.println("Strategy changed from " + currentStrategy + " to "  + s.getType());
 								alien.action();
 							}
 							
@@ -232,13 +232,13 @@ public class RunningModeFrame extends JFrame{
 				if(!game.isPaused()) {
 					alien = game.getAlienController().createAlienRandomly();
 					if(alien.getType() == "TimeWasting"){
-						TimeWastingStrategy s = ((TimeWastingAlien) alien).findStrategy(game.getTotalTime()*60, game.getTimeLeft());
+						TimeWastingStrategy s = ((TimeWastingAlien) alien).findStrategy(game.getGameState().getTotalTime(), game.getGameState().getTime());
 						((TimeWastingAlien) alien).setStrategy(s);
 					}
 	
 					game.getAlienController().setAlien(alien);
 					alien.action();
-					System.out.println("time left: " + game.getTimeLeft() + " seconds");
+					System.out.println("time left: " + game.getGameState().getTime() + " seconds");
 				}
 			}
 		};

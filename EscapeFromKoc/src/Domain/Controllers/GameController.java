@@ -1,6 +1,8 @@
 package Domain.Controllers;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 import Domain.Game.Building;
@@ -20,13 +22,10 @@ public class GameController{
 	private PowerupController powerupController;
     private static GameController instance;
 	private boolean buildingModeDone = false;
-	// remaining time in seconds
-	private int timeLeft;
-	// total time in minutes
-	private int totalTime;
 	public Building currentBuilding;
 	private LinkedList<Building> buildings = new LinkedList<Building>();
 	private LinkedList<GameObject> gameObjectList = new LinkedList<GameObject>();
+	private Map<String, Integer> buildingKeyMap = new HashMap<>();
 	
 	public GameController() {
 		gameState = new GameState();
@@ -58,7 +57,7 @@ public class GameController{
 	public void setKeyFound(boolean b) {
 		gameState.setKeyFound(b); 
 	}
-
+/* 
     public void isGameOver() {
 		boolean isDead = playerState.getHealth() <= 0;
 		boolean noTime = timeLeft <= 0;
@@ -68,6 +67,7 @@ public class GameController{
 			player.incrementScore(1 / collectionTime);
 		}
 	}
+*/
    
     public void setPlayer(PlayerController player) {
 		this.player=player;
@@ -105,21 +105,11 @@ public class GameController{
 		buildingModeDone = b;
 	}
 
-    public int getTimeLeft() {
-        return timeLeft;
+	public Map<String, Integer> getBuildingKeyMap() {
+		return buildingKeyMap;
 	}
 
-	public void setTimeLeft(int timeLeft) {
-		this.timeLeft = timeLeft;
-	}
 
-	public int getTotalTime() {
-		return totalTime;
-	}
-
-	public void setTotalTime(int totalTime) {
-		this.totalTime = totalTime;
-	}
 
     public void moveAvatar(String direction) {
 		player.moveAvatar(direction);
@@ -223,6 +213,11 @@ public class GameController{
 		return gameState.getCurrentBuildingIndex();
 	}
 
+	public Building getCurrentBuilding() {
+		return currentBuilding;
+	}
+
+
 	public void setNewBuildingTime() {
 		gameState.setTime(20*gameState.objCounts[getCurrentBuildingIndex()]);
 	}
@@ -250,6 +245,7 @@ public class GameController{
 			int objCount = b.getIntendedObjectCount();
 			int keyObject = ThreadLocalRandom.current().nextInt(0, objCount);
 			b.getObjectList().get(keyObject).setContainsKey(true);
+			buildingKeyMap.put(b.getBuildingName(), keyObject);
 		}
 	}
 }

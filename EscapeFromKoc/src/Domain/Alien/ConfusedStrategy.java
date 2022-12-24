@@ -10,13 +10,13 @@ public class ConfusedStrategy implements TimeWastingStrategy {
     @Override
     public void wasteTime() {
         // TODO Auto-generated method stub
+        System.out.println("ConfusedStrategy");
         new java.util.Timer().schedule( 
             new java.util.TimerTask() {
                 @Override
                 public void run() {
                     // your code here
                     alien.setEmpty(true);
-                   
                 }
             }, 
             2000 
