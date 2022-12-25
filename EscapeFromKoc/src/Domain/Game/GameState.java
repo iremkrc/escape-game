@@ -7,6 +7,7 @@ public class GameState {
 	private int timeGivenForEachObject = 10; // the given time for the building is this times the object count
 	private boolean paused = false;
 	private boolean isOver = false;
+	private boolean hintActive = false;
 	private boolean isKeyFound = false;
 	private int currentBuildingIndex = 0;
 	private int time;
@@ -22,17 +23,25 @@ public class GameState {
 	public void setPaused(boolean b){
 		this.paused = b;
 	}
-	
-	public int getTime() {
-		return time;
-	}
 
 	public int getTotalTime(){
 		return objCounts[currentBuildingIndex]*timeGivenForEachObject;
 	}
 	
+	public int getTime() {
+		return time;
+	}
+
 	public void setTime(int time) {
 		this.time = time;
+	}
+
+	public boolean getHintActive() {
+		return hintActive;
+	}
+	
+	public void setHintActive(boolean hintActive) {
+		this.hintActive = hintActive;
 	}
 
 	public void setNewBuildingTime() {

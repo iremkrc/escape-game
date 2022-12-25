@@ -42,6 +42,14 @@ public class GameKeyListener implements KeyListener{
             else if(arg0.getKeyCode()==KeyEvent.VK_UP) escapeFromKocGame.moveAvatar("up");
             else if(arg0.getKeyCode()==KeyEvent.VK_DOWN) escapeFromKocGame.moveAvatar("down");
         }
+
+        if(arg0.getKeyCode()==KeyEvent.VK_H){
+            try {
+                escapeFromKocGame.activatePowerUp("hint");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
     
     @Override

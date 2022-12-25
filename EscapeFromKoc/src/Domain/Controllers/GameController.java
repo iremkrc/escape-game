@@ -8,6 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import Domain.Game.Building;
 import Domain.Game.PlayerState;
 import Domain.Game.GameState;
+import Domain.Game.Location;
 import Domain.GameObjects.GameObject;
 import Domain.GameObjects.Powerups.IPowerup;
 import UI.KeyFoundAlert;
@@ -26,6 +27,7 @@ public class GameController{
 	private LinkedList<Building> buildings = new LinkedList<Building>();
 	private LinkedList<GameObject> gameObjectList = new LinkedList<GameObject>();
 	private Map<String, Integer> buildingKeyMap = new HashMap<>();
+	private Location keyLocation;
 	
 	public GameController() {
 		gameState = new GameState();
@@ -109,8 +111,6 @@ public class GameController{
 		return buildingKeyMap;
 	}
 
-
-
     public void moveAvatar(String direction) {
 		player.moveAvatar(direction);
 	}
@@ -146,6 +146,29 @@ public class GameController{
 				}
 			}
         }
+	}
+
+	public void activatePowerUp(String type) throws Exception{
+		if(type == "hint"){
+			this.player.useHintPowerUp();
+		}
+	}
+
+	public Location getHintLocation(){
+		double x = 50; 
+		double y = 50;
+		for(GameObject o: this.currentBuilding.getObjectList()){
+			if(o.isContainsKey()) {
+				x = o.getLocation().getXLocation()-120;
+				y = o.getLocation().getYLocation()-110;
+				break;
+			}
+		}
+		if(x<50) x=50;
+		if(y<50) y=50;
+		if(x>350) x=350;
+		if(y>350) y=350;
+		return new Location(x,y);
 	}
 
 	public void pickKey(int x, int y) {
@@ -185,6 +208,7 @@ public class GameController{
 				this.getAlienController().setAlien(null);
 				setNewBuildingTime();
 				this.setPaused(false);
+				this.getGameState().setHintActive(false);
 			}else {
 				gameState.setIsOver(true);
 			}
@@ -245,6 +269,7 @@ public class GameController{
 			int objCount = b.getIntendedObjectCount();
 			int keyObject = ThreadLocalRandom.current().nextInt(0, objCount);
 			b.getObjectList().get(keyObject).setContainsKey(true);
+			keyLocation = b.getObjectList().get(keyObject).getLocation();
 			buildingKeyMap.put(b.getBuildingName(), keyObject);
 		}
 	}

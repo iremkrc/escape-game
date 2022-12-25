@@ -32,10 +32,16 @@ public class LayoutPanel extends JPanel {
 		game.getPlayer().getAvatar().draw(g);
     } 
     public void paint( Graphics g ) {  
-	    for (int x = 50; x <= 500; x += 50 ){
+        for (int x = 50; x <= 500; x += 50 ){
 	        for (int y = 50; y <= 500; y += 50 ){
 	            g.drawRect(x, y, 50, 50);
             }
+        }
+
+        if(game.getGameState().getHintActive()){
+            g.setColor(Color.RED);
+            g.drawRect((int) game.getHintLocation().xLocation,(int) game.getHintLocation().yLocation, 200, 200);
+            g.setColor(Color.black); 
         }
 	    
     	LinkedList<GameObject> objectList = game.currentBuilding.getObjectList();
