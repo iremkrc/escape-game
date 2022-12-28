@@ -18,12 +18,9 @@ public class GameKeyListener implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent arg0) {
-    	System.out.println("key pressed");
         if(arg0.getKeyCode()==KeyEvent.VK_P) escapeFromKocGame.setPaused(true);
 
         else if(arg0.getKeyCode()==KeyEvent.VK_R) escapeFromKocGame.setPaused(false);
-
-        else if(arg0.getKeyCode()==KeyEvent.VK_B) escapeFromKocGame.setPaused(true);
 
         if((arg0.getKeyCode()==KeyEvent.VK_1||arg0.getKeyCode()==KeyEvent.VK_2||
                 arg0.getKeyCode()==KeyEvent.VK_3||arg0.getKeyCode()==KeyEvent.VK_4)) {
@@ -49,6 +46,26 @@ public class GameKeyListener implements KeyListener{
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+        if(arg0.getKeyCode()==KeyEvent.VK_B){
+            try {
+                escapeFromKocGame.activatePowerUp("bottle");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
+        if(arg0.getKeyCode()==KeyEvent.VK_A){
+            escapeFromKocGame.setBottlePowerupDirection("West");
+        }
+        else if(arg0.getKeyCode()==KeyEvent.VK_D){
+            escapeFromKocGame.setBottlePowerupDirection("East");
+        }
+        else if(arg0.getKeyCode()==KeyEvent.VK_W){
+            escapeFromKocGame.setBottlePowerupDirection("North");
+        }
+        else if(arg0.getKeyCode()==KeyEvent.VK_X){
+            escapeFromKocGame.setBottlePowerupDirection("South");
         }
     }
     

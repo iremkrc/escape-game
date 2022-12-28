@@ -28,6 +28,7 @@ public class GameController{
 	private LinkedList<GameObject> gameObjectList = new LinkedList<GameObject>();
 	private Map<String, Integer> buildingKeyMap = new HashMap<>();
 	private Location keyLocation;
+	private String bottlePowerupDirection;
 	
 	public GameController() {
 		gameState = new GameState();
@@ -70,7 +71,6 @@ public class GameController{
 		}
 	}
 */
-   
     public void setPlayer(PlayerController player) {
 		this.player=player;
 	}
@@ -152,6 +152,17 @@ public class GameController{
 		if(type == "hint"){
 			this.player.useHintPowerUp();
 		}
+		else if(type == "bottle"){
+			this.player.useBottlePowerUp();
+		}
+	}
+
+	public String getBottlePowerupDirection() {
+		return bottlePowerupDirection;
+	}
+    
+    public void setBottlePowerupDirection(String bottlePowerupDirection) {
+		this.bottlePowerupDirection = bottlePowerupDirection;
 	}
 
 	public Location getHintLocation(){
@@ -240,7 +251,6 @@ public class GameController{
 	public Building getCurrentBuilding() {
 		return currentBuilding;
 	}
-
 
 	public void setNewBuildingTime() {
 		gameState.setTime(20*gameState.objCounts[getCurrentBuildingIndex()]);

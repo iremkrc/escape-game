@@ -4,6 +4,7 @@ import Domain.Player.Inventory;
 
 public class PlayerState {
     boolean isProtectionVestActive;
+    boolean isBottlePowerupActive;
     int health;
     public Inventory inventory;
     int score;
@@ -13,6 +14,7 @@ public class PlayerState {
         score = 0;
         inventory = new Inventory();
         isProtectionVestActive = false;
+        isBottlePowerupActive = false;
     }
 
     public int getHealth() {
@@ -22,6 +24,14 @@ public class PlayerState {
 	public void setHealth(int health) {
 		this.health = health;
 	}
+
+    public boolean getIsBottlePowerupActive() {
+        return isBottlePowerupActive;
+    }
+
+    public void setIsBottlePowerupActive(boolean isBottlePowerupActive) {
+        this.isBottlePowerupActive = isBottlePowerupActive;
+    }
 
     public boolean getIsProtectionVestActive() {
         return isProtectionVestActive;
