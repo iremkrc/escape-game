@@ -53,7 +53,7 @@ public class EndGameFrame extends JFrame{
         bottomPanel.add(message);
         bottomPanel.setBackground(BACKGROUND_COLOR);
         mainPanel.add(bottomPanel);
-        System.out.println("This is some test text");
+        System.out.println("Game ended");
     }
 
 }
