@@ -3,12 +3,15 @@ package Domain.Player;
 import java.util.HashMap;
 
 public class Inventory {
-	public HashMap<String, Integer> powerupsMap = new HashMap<String, Integer>();
+    // OVERVIEW: 
+	private HashMap<String, Integer> powerupsMap;
+    private static final String[] powerupList = {"hint", "vest", "bottle"};
 
 	public Inventory() {
-		powerupsMap.put("hint", 0);
-		powerupsMap.put("vest", 0);
-		powerupsMap.put("bottle", 0);
+        HashMap<String, Integer> powerupsMap = new HashMap<String, Integer>();
+        for (String powerup : powerupList) {
+            powerupsMap.put(powerup, 0);
+        }
 	}
 
 	public String getPowerup(String powerupType) {
@@ -53,5 +56,24 @@ public class Inventory {
         }
         int totalPowerups = powerupsMap.get(powerupType);
         powerupsMap.put(powerupType,--totalPowerups);
+    }
+
+    public HashMap<String,Integer> getPowerupsMap() {
+        return this.powerupsMap;
+    }
+
+    public void setPowerupsMap(HashMap<String,Integer> powerupsMap) {
+        this.powerupsMap = powerupsMap;
+    }
+    
+
+    public boolean repOk() {
+        if (powerupsMap == null) return false;
+        if (powerupsMap.size() != powerupList.length) return false;
+        for (int i = 0; i < powerupList.length ; i++) {
+            if (!powerupsMap.containsKey(powerupList[i])) return false;
+            if(powerupsMap.get(powerupList[i]) < 0) return false;
+        }
+        return true;
     }
 }
