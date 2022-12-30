@@ -38,7 +38,6 @@ public class Inventory {
 	}
 
     public void incrementPowerups(String powerupType) throws Exception {
-   
         if(!powerupsMap.containsKey(powerupType)){
             throw new Exception("Couldn't find powerup type");
         }
