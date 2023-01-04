@@ -124,7 +124,7 @@ public class GameController{
 		    int pwupW = powerup.getWidth();
 		    if(x>=pwupX && x<=pwupX+pwupW && y>=pwupY && y<=pwupY+pwupH) {
 				System.out.println("catch powerup");
-				powerupController.deletePowerup();
+				powerupController.deletePowerup(powerup);
 				switch (powerup.getType()) {
 					case "time":
 						gameState.setTime(gameState.getTime() + 5);

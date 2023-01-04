@@ -23,7 +23,7 @@ public class PowerupController {
         this.powerup = powerup;
     }
 
-    public void deletePowerup(){
+    public void deletePowerup(IPowerup powerup){
         this.powerup = null;
     }
 
