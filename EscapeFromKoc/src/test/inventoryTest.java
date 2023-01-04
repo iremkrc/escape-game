@@ -64,8 +64,23 @@ public class inventoryTest {
 	}
 	
 	@Test
-	public void test2() {
-		assertEquals(0,0);
+	public void removePowerupCheck() {
+		String powerupType = "vest"; //or any other powerupType 
+		inventory.getPowerupsMap().replace(powerupType, 1);
+		inventory.decrementPowerups(powerupType);
+		boolean isFound = inventory.checkInventory(powerupType);
+		assertEquals(isFound,inventory.getPowerupsMap().get(powerupType) != 0);
+
 	}
+	
+	@Test
+	public void incrementPowerupCheck() {
+		String powerupType = "vest"; //or any other powerupType 
+		inventory.getPowerupsMap().replace(powerupType, 0);
+		inventory.incrementPowerups(powerupType);
+		assertEquals(1, player.getPlayerState().getInventory().getPowerupCount(powerupType));
+
+	}
+
 
 }
