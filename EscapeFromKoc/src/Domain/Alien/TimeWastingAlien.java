@@ -57,7 +57,7 @@ public class TimeWastingAlien implements Alien {
         }else{
             strategy = new ConfusedStrategy();
         }
-        
+        this.strategy = strategy;
         strategy.setAlien(this);
         return strategy;
     }
