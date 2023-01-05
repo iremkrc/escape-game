@@ -99,6 +99,34 @@ public class Building {
 		}
 	}
     
+    public static boolean isArrayFull(int[][] array) {
+    	for(int i = 0; i < array.length; i++) {
+    		for(int j = 0; j < array[i].length; j++) {
+    			if(array[i][j] == 0) {
+    				return false;
+    			}
+    		}
+    	}
+    	return true;
+    }
+    
+    public int[] getInitialDFSLocation(int[][] array) {
+    	int[] location = new int[2];
+    	for(int i = 0; i < array.length; i++) {
+    		for(int j = 0; j < array[i].length; j++) {
+    			if(array[i][j] == 0) {
+    				location[0] = i;
+    				location[0] = j;
+
+    				return location;
+    			}
+    		}
+    	}
+		location[0] = -1;
+		location[0] = -1;
+		
+    	return location;
+    }
     
     public boolean getIsFull() {
     	return isFull;
