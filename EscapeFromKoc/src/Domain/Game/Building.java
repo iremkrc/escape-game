@@ -26,31 +26,34 @@ public class Building {
 	}
 
 	public void addAlien(int x, int y){
-		
+		return;
 	}
 
     public void addObject(int x ,int y) {
 		int xGrid = (int) (x/50);
 		int yGrid = (int) (y/50);
 		
-		System.out.println("x: " + xGrid + " y: " + yGrid);
-		if(xGrid <=10 && xGrid >=1 && yGrid <=10 && yGrid >=1) {
-			boolean isContained = false;
-			for(GameObject obj: gameObjectList) {
-				if(obj.getLocation().xGrid == xGrid && obj.getLocation().yGrid == yGrid) {
-					isContained = true;
-					break;
+		if(!doesCauseUnreachableRegion(xGrid, yGrid)) {
+			System.out.println("x: " + xGrid + " y: " + yGrid);
+			if(xGrid <=10 && xGrid >=1 && yGrid <=10 && yGrid >=1) {
+				boolean isContained = false;
+				for(GameObject obj: gameObjectList) {
+					if(obj.getLocation().xGrid == xGrid && obj.getLocation().yGrid == yGrid) {
+						isContained = true;
+						break;
+					}
 				}
-			}
-			if(!isContained) {
-				GameObject obj = new GameObject(25);
-				obj.setLocation(50*xGrid+20, 50*yGrid+10);
-				gameObjectList.add(obj);
-		    	incrementCurrentObjectCount();
-		    	
-		    	if(currentObjectCount == intendedObjectCount) {
-		    		isFull = true;
-		    	}
+				if(!isContained) {
+					GameObject obj = new GameObject(25);
+					obj.setLocation(50*xGrid+20, 50*yGrid+10);
+					gameObjectList.add(obj);
+					gridNonAvailability[xGrid][yGrid] = 1;
+			    	incrementCurrentObjectCount();
+			    	
+			    	if(currentObjectCount == intendedObjectCount) {
+			    		isFull = true;
+			    	}
+				}
 			}
 		}
     }
@@ -60,17 +63,9 @@ public class Building {
 		for(int i = 0; i < this.width; i++) {
 			DFSCheckMatrix[i] = this.gridNonAvailability[i].clone();
 		}
-		
 		DFSCheckMatrix[xGrid][yGrid] = 1;
-		
 		int[] loc = getInitialDFSLocation(DFSCheckMatrix);
 		checkReachabilityDFS(DFSCheckMatrix, loc[0], loc[1]);
-		for(int i = 0; i < DFSCheckMatrix.length; i++) {
-    		for(int j = 0; j < DFSCheckMatrix[i].length; j++) {
-    			System.out.println(DFSCheckMatrix[i][j]);
-    		}
-    	}
-		
 		if(!isArrayFull(DFSCheckMatrix)) {
 			return true;
 		}
@@ -90,7 +85,6 @@ public class Building {
 		if(arr[row][col] == 0) {
 			arr[row][col] = 1;
 		}
-		
 		for(int r = row-1; r<=row+1; r+=2) {
 			checkReachabilityDFS(arr,r,col);
 		}
