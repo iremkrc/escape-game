@@ -77,6 +77,29 @@ public class Building {
 		return false;
     }
     
+    public void checkReachabilityDFS(int[][] arr, int row, int col) {
+		if (row < 0 || col < 0) {
+			return;
+		}
+		if(row >= arr.length || col >= arr[0].length) {
+			return;
+		}
+		if (arr[row][col] == 1) {
+			return;
+		}
+		if(arr[row][col] == 0) {
+			arr[row][col] = 1;
+		}
+		
+		for(int r = row-1; r<=row+1; r+=2) {
+			checkReachabilityDFS(arr,r,col);
+		}
+		for(int c = col-1; c<=col+1; c+=2) {
+			checkReachabilityDFS(arr,row,c);
+		}
+	}
+    
+    
     public boolean getIsFull() {
     	return isFull;
     }
