@@ -27,5 +27,22 @@ public class FindStrategyTest {
         assertEquals("ChallengingStrategy", type);
     }
 
+    @org.junit.Test
+    public void confusedStrategyTest() {
+        remainingTime = 50;
+        assertTrue(remainingTime <= totalTime);
+        alien.findStrategy(totalTime, remainingTime);
+        String type = alien.getStrategy().getType();
+        assertEquals("ConfusedStrategy", type);
+    }
+
+    @org.junit.Test
+    public void limitedStrategyTest() {
+        remainingTime = 20;
+        assertTrue(remainingTime <= totalTime);
+        alien.findStrategy(totalTime, remainingTime);
+        String type = alien.getStrategy().getType();
+        assertEquals("LimitedStrategy", type);
+    }
 
 }
