@@ -21,7 +21,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AddObjectTest {
-	
+	// This class implements tests to check the "addObject" method inside the Building class
+	// But that method is called from the GameController using "addObjectToCurrentBuilding"
 	static PlayerController player;	
 	static PlayerState playerState;	
 	static Inventory inventory; 
@@ -160,8 +161,5 @@ public class AddObjectTest {
         assertEquals(currBuild.getObjectList().size(),5);
         
     }
-    
-    
-
 
 }
