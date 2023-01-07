@@ -31,6 +31,15 @@ public class Building {
 
 	//add object to an empty location. Also check unreachable regions.
     public void addObject(int x ,int y) {
+    	/*
+    	   Requires: Being in the Building mode and clicking on the grid using the left mouse click
+    	   			 Also the newly added object should not create unreachable location in the grid
+    	   Modifies: currentObjectCount is incremented by 1
+    	   			 gridNonAvailability array corresponding index becomes 1
+    	   			 isFull becomes true if building becomes full of objects
+    	   			 gameObjectList gets a new object
+    	   Effects:  The building mode, objects and the GameController
+    	*/			 
 		int xGrid = (int) (x/50);
 		int yGrid = (int) (y/50);
 		System.out.println("x: " + xGrid + " y: " + yGrid);
