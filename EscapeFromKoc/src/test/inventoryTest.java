@@ -23,14 +23,7 @@ public class inventoryTest {
 	static PlayerState playerState;	
 	static Inventory inventory; 
 	static GameController game;
-
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-		player = new PlayerController();
-		playerState = new PlayerState();
-		inventory = playerState.inventory;
-		game = new GameController();
-	}
+	static HashMap<String, Integer> powerupMap;
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {}
@@ -38,18 +31,22 @@ public class inventoryTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		//setting initial number of power-ups to random values 
+		player = new PlayerController();
+		playerState = new PlayerState();
+		inventory = playerState.inventory;
+		game = new GameController();
+		powerupMap = inventory.getPowerupsMap();
 		
-		HashMap<String, Integer> powerupMap = inventory.getPowerupsMap();
-		powerupMap.replace("hint", 3);
-		powerupMap.replace("vest", 3);
-		powerupMap.replace("bottle", 3);
+		powerupMap.put("hint", 3);
+		powerupMap.put("vest", 3);
+		powerupMap.put("bottle", 3);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {}
 	
 	@Test
-	public void powerupNumberCheck() {
+	public void powerupCountCheck() {
 		System.out.println("yess");
 		//testing whether checkInventory works for power-ups 
 		String powerupType = "vest";//or any other powerupType 
@@ -58,15 +55,14 @@ public class inventoryTest {
 		assertEquals(found,inventory.getPowerupsMap().get(powerupType) != 0);
 		
 		//testing for 0 amount of power-ups 
-		inventory.getPowerupsMap().replace(powerupType, 0);
+		inventory.getPowerupsMap().put(powerupType, 0);
 		found = inventory.checkInventory(powerupType);
 		assertEquals(found,inventory.getPowerupsMap().get(powerupType) != 0);
 	}
 	
 	@Test
-	public void removePowerupCheck() {
+	public void decrementPowerupCheck() throws Exception {
 		String powerupType = "vest"; //or any other powerupType 
-		inventory.getPowerupsMap().replace(powerupType, 1);
 		inventory.decrementPowerups(powerupType);
 		boolean isFound = inventory.checkInventory(powerupType);
 		assertEquals(isFound,inventory.getPowerupsMap().get(powerupType) != 0);
@@ -74,12 +70,40 @@ public class inventoryTest {
 	}
 	
 	@Test
-	public void incrementPowerupCheck() {
+	public void incrementPowerupCheck() throws Exception {
 		String powerupType = "vest"; //or any other powerupType 
-		inventory.getPowerupsMap().replace(powerupType, 0);
+		inventory.getPowerupsMap().put(powerupType, 0);
 		inventory.incrementPowerups(powerupType);
-		assertEquals(1, player.getPlayerState().getInventory().getPowerupCount(powerupType));
+		assertEquals(true, inventory.getPowerupsMap().get(powerupType) == 1);
 
+	}
+	
+	@Test
+	public void getPowerupCheck() throws Exception {
+		powerupMap.put("hint", 1);
+		powerupMap.put("vest", 2);
+		powerupMap.put("bottle", 3);
+
+		assertEquals("hint", inventory.getPowerup("hint"));
+		assertEquals("vest", inventory.getPowerup("vest"));
+		assertEquals("bottle", inventory.getPowerup("bottle"));
+		assertEquals(null, inventory.getPowerup("health"));
+	}
+	
+	@Test
+	public void getPowerupCountCheck() throws Exception {
+		powerupMap.put("hint", 1);
+		powerupMap.put("vest", 2);
+		powerupMap.put("bottle", 3);
+
+		assertEquals(1, inventory.getPowerupCount("hint"));
+		assertEquals(2, inventory.getPowerupCount("vest"));
+		assertEquals(3, inventory.getPowerupCount("bottle"));
+	}
+	
+	@Test
+	public void repOkCheck() throws Exception {
+		assertEquals(true, inventory.repOk());
 	}
 
 

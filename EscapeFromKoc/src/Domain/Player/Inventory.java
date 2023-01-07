@@ -3,12 +3,20 @@ package Domain.Player;
 import java.util.HashMap;
 
 public class Inventory {
-    // OVERVIEW: 
+    /*
+     *  OVERVIEW: 
+     *  		This class holds a hash-map that stores the collected power-up counts
+     *  		that can be activated later in the game according to users will.
+     *  		These are the hint, protection-vest and bottle power-ups
+     *  		An instance of this class is in the PlayerState object.
+     *  		Also, the PlayerController manipulates this class through the PlayerState.
+     */
+	
 	private HashMap<String, Integer> powerupsMap;
     private static final String[] powerupList = {"hint", "vest", "bottle"};
 
 	public Inventory() {
-        HashMap<String, Integer> powerupsMap = new HashMap<String, Integer>();
+        powerupsMap = new HashMap<String, Integer>();
         for (String powerup : powerupList) {
             powerupsMap.put(powerup, 0);
         }
@@ -66,7 +74,6 @@ public class Inventory {
         this.powerupsMap = powerupsMap;
     }
     
-
     public boolean repOk() {
         if (powerupsMap == null) return false;
         if (powerupsMap.size() != powerupList.length) return false;
