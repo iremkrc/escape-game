@@ -1,4 +1,6 @@
-package Domain.Alien;
+package test;
+
+import Domain.Alien.TimeWastingAlien;
 
 import static java.lang.Thread.sleep;
 import static org.junit.Assert.*;
