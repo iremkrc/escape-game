@@ -49,6 +49,9 @@ public class TimeWastingAlien implements Alien {
     }
 
     public TimeWastingStrategy findStrategy(int totalTime, int remainingTime) {
+        // Requires: Game is in the running mode.
+        // Modifies: TimeWastingStrategy of the TimeWastingAlien.
+        // Effects: If strategy has decided, sets the strategy of TimeWastingAlien.
         TimeWastingStrategy strategy;
         if(remainingTime < totalTime * 0.3) {
             strategy = new LimitedStrategy();
