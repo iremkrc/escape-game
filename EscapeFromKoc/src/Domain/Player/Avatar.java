@@ -45,6 +45,9 @@ public class Avatar {
 	}
 
     public void move(String direction) {
+    	// Requires: Game is in the running mode.
+        // Modifies: Location of the avatar.
+        // Effects: If succeded, changes the Location of the avatar.
     	if(direction.equals("right")) {
 			moveRight();
 		}

@@ -10,10 +10,15 @@ import Domain.Game.Location;
 
 public class MoveTest {
 	
+	// This class implements tests to check the "move" method inside the Avatar class
+    // Black-Box and GlassBox techniques are used in all test cases.
+	
 	private GameController escapeFromKocGame;
 	private PlayerController player = new PlayerController();
 	private int width = player.getAvatar().getWidth();
-
+	
+	// This is a successful scenario that the avatar trýes to move left
+    // and the method checks for any collýsýons and posýtýon change
 	@Test
 	public void moveLeftCollisionTest() {
 		player.getAvatar().setLocation(60, 60);
@@ -34,6 +39,8 @@ public class MoveTest {
 		
 	}
 	
+	// This is a successful scenario that the avatar trýes to move rýght
+    // and the method checks for any collýsýons and posýtýon change
 	@Test
 	public void moveRightCollisionTest() {
 		player.getAvatar().setLocation(500-width, 500-width);
@@ -54,6 +61,8 @@ public class MoveTest {
 		
 	}
 	
+	// This is a successful scenario that the avatar trýes to move up
+    // and the method checks for any collýsýons and posýtýon change
 	@Test
 	public void moveUpCollisionTest() {
 		player.getAvatar().setLocation(60, 60);
@@ -74,6 +83,8 @@ public class MoveTest {
 		
 	}
 	
+	// This is a successful scenario that the avatar trýes to move down
+    // and the method checks for any collýsýons and posýtýon change
 	@Test
 	public void moveDownCollisionTest() {
 		player.getAvatar().setLocation(500-width, 500-width);
@@ -94,6 +105,8 @@ public class MoveTest {
 		
 	}
 	
+	// This is a successful scenario that the avatar trýes to move down, rýght, left, and up
+    // and the method checks for any collýsýons and posýtýon changes. Also, the fýnal posýtýon ýs checked for a complete loop
 	@Test
 	public void moveSuccessTest() {
 		System.out.println("---------------------------------------------------------------");
