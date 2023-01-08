@@ -18,6 +18,8 @@ public class PowerupTest {
     private PowerupController powerupController = new PowerupController();
     Location location;
     
+	// Black-box testing
+
     @Test
     public void catchTimePowerupTest() throws Exception{
     	
