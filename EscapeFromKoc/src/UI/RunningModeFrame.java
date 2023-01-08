@@ -55,7 +55,7 @@ public class RunningModeFrame extends JFrame{
 	private int powerupTime = 0;
     GameController game;
 	PlayerController player;	
-	Timer mainTimer, powerupTimer, alienTimer, countdownTimer, hintTimer;
+	Timer mainTimer, powerupTimer, alienTimer, countdownTimer, hintTimer, bottlePowerupTimer;
 	boolean timeIsRunning = false;
 	private Alien alien;
 	//private boolean isHealthDone = false;
@@ -199,6 +199,9 @@ public class RunningModeFrame extends JFrame{
 					if(game.getGameState().getHintActive()){
 						hintTimer.start();
 					}
+					if(game.getGameState().getIsBottlePowerupActive()){
+						bottlePowerupTimer.start();
+					}
 				}else {
 					if(gameStatus==0) {
 						gameStatus=1;
@@ -218,6 +221,16 @@ public class RunningModeFrame extends JFrame{
 		};
 
 		hintTimer = new Timer(10000, hintListener);
+
+		ActionListener bottlePowerupListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				bottlePowerupTimer.stop();
+				game.getGameState().setIsBottlePowerupActive(false);
+			}
+		};
+
+		bottlePowerupTimer = new Timer(10000, bottlePowerupListener);
 
 
 		ActionListener timeWastingListener = new ActionListener() {

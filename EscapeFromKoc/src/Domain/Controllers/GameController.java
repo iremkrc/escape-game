@@ -28,6 +28,7 @@ public class GameController{
 	private LinkedList<GameObject> gameObjectList = new LinkedList<GameObject>();
 	private Map<String, Integer> buildingKeyMap = new HashMap<>();
 	private Location keyLocation;
+	private String bottlePowerupDirection;
 	
 	public GameController() {
 		gameState = new GameState();
@@ -70,7 +71,6 @@ public class GameController{
 		}
 	}
 */
-   
     public void setPlayer(PlayerController player) {
 		this.player=player;
 	}
@@ -152,6 +152,17 @@ public class GameController{
 		if(type == "hint"){
 			this.player.useHintPowerUp();
 		}
+		else if(type == "bottle"){
+			this.player.useBottlePowerUp();
+		}
+	}
+
+	public String getBottlePowerupDirection() {
+		return bottlePowerupDirection;
+	}
+    
+    public void setBottlePowerupDirection(String bottlePowerupDirection) {
+		this.bottlePowerupDirection = bottlePowerupDirection;
 	}
 
 	public Location getHintLocation(){
@@ -172,6 +183,9 @@ public class GameController{
 	}
 
 	public void pickKey(int x, int y) {
+		// Requires: Game passed to running mode
+		// Modifies: Key is found or not and if found changes building
+		// Effects: if key is found changes building.
 		for(int i=0; i<currentBuilding.getObjectList().size(); i++) { 
 	    	GameObject obj = currentBuilding.getObjectList().get(i);
 	    	if(obj.isContainsKey()) {
@@ -241,7 +255,6 @@ public class GameController{
 		return currentBuilding;
 	}
 
-
 	public void setNewBuildingTime() {
 		gameState.setTime(20*gameState.objCounts[getCurrentBuildingIndex()]);
 	}
@@ -272,6 +285,11 @@ public class GameController{
 			keyLocation = b.getObjectList().get(keyObject).getLocation();
 			buildingKeyMap.put(b.getBuildingName(), keyObject);
 		}
+	}
+
+	public void setBuildings(LinkedList<Building> buildings) {
+		this.buildings = buildings;
+		
 	}
 }
 	
