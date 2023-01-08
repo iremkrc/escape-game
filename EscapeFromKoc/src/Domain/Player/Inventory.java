@@ -114,12 +114,13 @@ public class Inventory {
         return true;
     }
     
-    boolean duplicates(final String[] zipcodelist){
+
+    boolean duplicates(final String[] list){
     	/*
     	 * This method is used in the repOk function to check for the duplicates in the powerupList
     	 */
 	    HashSet<String> lump = new HashSet<String>();
-	    for (String i : zipcodelist){
+	    for (String i : list){
 	    	if (lump.contains(i)) return true;
 	        lump.add(i);
 	        }
