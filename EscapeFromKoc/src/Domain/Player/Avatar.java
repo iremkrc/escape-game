@@ -18,7 +18,7 @@ public class Avatar {
     public Avatar(int unitLength) {
 		width = unitLength/2;
 		height = unitLength;
-		location= new Location(60, 60);
+		location = new Location(60, 60);
 	}
     
     public void draw(Graphics g) {
