@@ -116,6 +116,9 @@ public class GameController{
 	}
 
 	public void catchPowerUp(int x, int y) throws Exception {
+		// Requires: Game passed to running mode
+		// Modifies: Powerup is found or not and if found catches the powerup
+		// Effects: if powerup is found, increments time, life or powerup count in inventory according to powerup type
 		IPowerup powerup = powerupController.getPowerup();
         if(powerup != null){
             double pwupX = powerup.getLocation().getXLocation();

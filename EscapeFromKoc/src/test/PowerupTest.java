@@ -18,15 +18,14 @@ public class PowerupTest {
     private PowerupController powerupController = new PowerupController();
     Location location;
     
-	// Black-box testing
+	// We used Black-box testing
 
     @Test
     public void catchTimePowerupTest() throws Exception{
     	
-    	// Requires: player wants to catch time power-up 
-    	// Modifies: game time
-    	// Effects: increments game time by 5 
-    	
+    	//this test tries to catch time power-up    	
+    	//the catch powerup method increments game time by 5 
+    
     	IPowerup timePowerup = PowerupFactory.getInstance().createPowerup("time");
     	timePowerup.setLocation(200,100,25,25);
     	
@@ -46,9 +45,8 @@ public class PowerupTest {
     @Test
     public void catchLifePowerupTest() throws Exception{
 
-    	// Requires: player wants to catch life power-up 
-    	// Modifies: player's health
-    	// Effects: changes the health of the player, increments it 
+		//this test tries to catch life power-up    	
+    	//the catch powerup method increments the life of the player
     	
     	IPowerup lifePowerup = PowerupFactory.getInstance().createPowerup("life");
     	lifePowerup.setLocation(200,100,25,25);
@@ -67,9 +65,8 @@ public class PowerupTest {
     @Test
     public void checkDeletePowerupTest() throws Exception{
 
-    	// Requires: player wants to catch vest power-up 
-    	// Modifies: sets power-up to null
-    	// Effects: the collected power-up is now set to null, it is deleted
+		//this test tries to catch vest power-up    	
+    	//the catch powerup method collects the powerup and sets it to null, powerup is deleted
     	
     	IPowerup vestPowerup = PowerupFactory.getInstance().createPowerup("vest");
     	vestPowerup.setLocation(200,100,25,25);
@@ -87,9 +84,8 @@ public class PowerupTest {
     @Test
     public void checkNotBetweenCoordinatesTest() throws Exception{
 
-    	// Requires: player wants to catch life power-up 
-    	// Modifies: doesn't modify health
-    	// Effects: health doesn't change as the power-up is not collected since it is not next to the player
+		//this test tries to catch life power-up    	
+    	//the catch powerup method is called, but the life of the player is not modified, as the power-up is not collected since it is not next to the player
     	
     	IPowerup lifePowerup = PowerupFactory.getInstance().createPowerup("life"); // or for any other power-up type
     	lifePowerup.setLocation(200,100,25,25);
@@ -108,9 +104,8 @@ public class PowerupTest {
     @Test
     public void catchBottlePowerupTest() throws Exception{
 
-    	// Requires: player wants to catch bottle power-up 
-    	// Modifies: power-up count in the inventory
-    	// Effects:  checks if the power-up is incremented by 1 in the inventory
+		//this test tries to catch bottle power-up    	
+    	//checks if the power-up is incremented by 1 in the inventory
     	
     	IPowerup bottlePowerup = PowerupFactory.getInstance().createPowerup("bottle");
     	bottlePowerup.setLocation(200,100,25,25);
@@ -128,9 +123,8 @@ public class PowerupTest {
     @Test
     public void catchVestPowerupTest() throws Exception{
 
-    	// Requires: player wants to catch vest power-up 
-    	// Modifies: power-up count in the inventory
-    	// Effects: checks if the power-up is incremented by 1 in the inventory
+		//this test tries to catch vest power-up    	
+    	//checks if the power-up is incremented by 1 in the inventory
     	
     	IPowerup vestPowerup = PowerupFactory.getInstance().createPowerup("vest");
     	vestPowerup.setLocation(200,100,25,25);
@@ -148,9 +142,8 @@ public class PowerupTest {
     @Test
     public void catchHintPowerupTest() throws Exception{
 
-    	// Requires: player wants to catch hint power-up 
-    	// Modifies: power-up count in the inventory
-    	// Effects: checks if the power-up is incremented by 1 in the inventory
+		//this test tries to catch hint power-up    	
+    	//checks if the power-up is incremented by 1 in the inventory
     	
     	IPowerup hintPowerup = PowerupFactory.getInstance().createPowerup("hint");
     	hintPowerup.setLocation(200,100,25,25);
