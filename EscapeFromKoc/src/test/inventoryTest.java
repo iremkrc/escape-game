@@ -53,14 +53,24 @@ public class inventoryTest {
 		String powerupType = "vest";//or any other powerupType 
 		boolean found = inventory.checkInventory(powerupType);
 		assertEquals(true, inventory.repOk()); // check repOk
-		assertEquals(found,inventory.getPowerupsMap().get(powerupType) != 0);
+		assertEquals(found,inventory.getPowerupsMap().get(powerupType) != 0); // BB Test
+		
+		String powerupType1 = "bottle";//or any other powerupType 
+		boolean found1 = inventory.checkInventory(powerupType1);
+		assertEquals(true, inventory.repOk()); // check repOk
+		assertEquals(found1,inventory.getPowerupsMap().get(powerupType1) != 0); // BB Test
+		
+		String powerupType2 = "hint";//or any other powerupType 
+		boolean found2 = inventory.checkInventory(powerupType2);
+		assertEquals(true, inventory.repOk()); // check repOk
+		assertEquals(found2,inventory.getPowerupsMap().get(powerupType2) != 0); // BB Test
 		
 		//testing for 0 amount of power-ups 
 		inventory.getPowerupsMap().put(powerupType, 0);
 		assertEquals(true, inventory.repOk()); // check repOk
 		found = inventory.checkInventory(powerupType);
 		assertEquals(true, inventory.repOk()); // check repOk
-		assertEquals(found,inventory.getPowerupsMap().get(powerupType) != 0);
+		assertEquals(found,inventory.getPowerupsMap().get(powerupType) != 0); // BB Test
 	}
 	
 	@Test
@@ -73,21 +83,21 @@ public class inventoryTest {
 		assertEquals(true, inventory.repOk()); // check repOk
 		inventory.decrementPowerups(powerupType1); // decrement 1
 		assertEquals(true, inventory.repOk()); // check repOk
-		assertEquals(true,inventory.getPowerupsMap().get(powerupType1) == 0); // BB Test
+		assertEquals(true,inventory.getPowerupsMap().get(powerupType1) == 0); // BB Test if its decremented
 		
 		String powerupType2 = "bottle"; // for bottle power-up
 		inventory.getPowerupsMap().put(powerupType2, 1);
 		assertEquals(true, inventory.repOk()); // check repOk
 		inventory.decrementPowerups(powerupType2); // decrement 1
 		assertEquals(true, inventory.repOk()); // check repOk
-		assertEquals(true,inventory.getPowerupsMap().get(powerupType2) == 0); // BB Test
+		assertEquals(true,inventory.getPowerupsMap().get(powerupType2) == 0); // BB Test if its decremented
 		
 		String powerupType3 = "hint"; // for hint power-up
 		inventory.getPowerupsMap().put(powerupType3, 1);
 		assertEquals(true, inventory.repOk()); // check repOk
 		inventory.decrementPowerups(powerupType3); // decrement 1
 		assertEquals(true, inventory.repOk()); // check repOk
-		assertEquals(true,inventory.getPowerupsMap().get(powerupType3) == 0); // BB Test
+		assertEquals(true,inventory.getPowerupsMap().get(powerupType3) == 0); // BB Test if its decremented
 	}
 	
 	@Test
@@ -151,11 +161,11 @@ public class inventoryTest {
 		powerupMap.put("bottle", 3);
 		assertEquals(true, inventory.repOk()); // check repOk
 
-		assertEquals(1, inventory.getPowerupCount("hint")); // BB Test
+		assertEquals(1, inventory.getPowerupCount("hint")); // BB Test get count
 		assertEquals(true, inventory.repOk()); // check repOk
-		assertEquals(2, inventory.getPowerupCount("vest")); // BB Test
+		assertEquals(2, inventory.getPowerupCount("vest")); // BB Test get count
 		assertEquals(true, inventory.repOk()); // check repOk
-		assertEquals(3, inventory.getPowerupCount("bottle")); // BB Test
+		assertEquals(3, inventory.getPowerupCount("bottle")); // BB Test get count
 		assertEquals(true, inventory.repOk()); // check repOk
 	}
 	
