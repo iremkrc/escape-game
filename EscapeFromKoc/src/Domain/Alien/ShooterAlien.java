@@ -26,7 +26,6 @@ public class ShooterAlien implements Alien {
 
     @Override
     public String getType() {
-        // TODO Auto-generated method stub
         return this.type;
     }
     
@@ -62,36 +61,26 @@ public class ShooterAlien implements Alien {
     	Location loc = this.location;
         g.setColor(Color.CYAN);
         g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), width, height);
-
         Image image = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/alien.png").getImage();
-        
         g.drawImage(image, (int) location.getXLocation(), (int) location.getYLocation(), 25, 25, null);
-
-
     }
 
     @Override
     public void action() {
-        // TODO Auto-generated method stub
     	double distance = Math.abs(avatarLocation.getXLocation() - location.getXLocation()) + Math.abs(avatarLocation.getYLocation() - location.getYLocation());
     	if(distance <= 50*4 && isProtectionVestActive == false) {
     		escapeFromKocGame.getPlayer().getPlayerState().setHealth(escapeFromKocGame.getPlayer().getPlayerState().getHealth() - 1);
     		System.out.println(distance);
-    		System.out.println(escapeFromKocGame.getPlayer().getPlayerState().getHealth());
-    		
-    	}
-        
+    		System.out.println(escapeFromKocGame.getPlayer().getPlayerState().getHealth());	
+    	}    
     }
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
 		return empty;
 	}
 
 	public void setEmpty(boolean empty) {
 		this.empty = empty;
 	}
-    
-   
 }

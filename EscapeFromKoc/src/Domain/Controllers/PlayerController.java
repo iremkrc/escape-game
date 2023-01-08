@@ -43,6 +43,14 @@ public class PlayerController {
 		}
 	}
 
+	public void useBottlePowerUp() throws Exception{
+		if(this.getPlayerState().inventory.checkInventory("bottle")){
+			this.getPlayerState().inventory.decrementPowerups("bottle");
+			escapeFromKocGame.getGameState().setIsBottlePowerupActive(true);
+			System.out.println("Bottle Power-up Activated");
+		}
+	}
+
 	public PlayerState getPlayerState() {
 		return playerState;
 	}
