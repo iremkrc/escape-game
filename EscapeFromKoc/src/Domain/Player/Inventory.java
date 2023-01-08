@@ -58,6 +58,9 @@ public class Inventory {
     }
 
     public void decrementPowerups(String powerupType) throws Exception {
+    	/*
+    	 * This method decrements the count of a power-up if it exists in the inventory
+    	 */
    
         if(!powerupsMap.containsKey(powerupType)){
             throw new Exception("Couldn't find powerup type.");
@@ -75,6 +78,9 @@ public class Inventory {
     }
     
     public boolean repOk() {
+    	/*
+    	 * This is the repOk method that checks the powerupsMap and the powerup counts
+    	 */
         if (powerupsMap == null) return false;
         if (powerupsMap.size() != powerupList.length) return false;
         for (int i = 0; i < powerupList.length ; i++) {
