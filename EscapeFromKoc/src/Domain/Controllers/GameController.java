@@ -183,6 +183,9 @@ public class GameController{
 	}
 
 	public void pickKey(int x, int y) {
+		// Requires: Game passed to running mode
+		// Modifies: Key is found or not and if found changes building
+		// Effects: if key is found changes building.
 		for(int i=0; i<currentBuilding.getObjectList().size(); i++) { 
 	    	GameObject obj = currentBuilding.getObjectList().get(i);
 	    	if(obj.isContainsKey()) {
@@ -282,6 +285,11 @@ public class GameController{
 			keyLocation = b.getObjectList().get(keyObject).getLocation();
 			buildingKeyMap.put(b.getBuildingName(), keyObject);
 		}
+	}
+
+	public void setBuildings(LinkedList<Building> buildings) {
+		this.buildings = buildings;
+		
 	}
 }
 	
