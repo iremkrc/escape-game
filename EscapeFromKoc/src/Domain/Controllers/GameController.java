@@ -283,5 +283,10 @@ public class GameController{
 			buildingKeyMap.put(b.getBuildingName(), keyObject);
 		}
 	}
+
+	public void setBuildings(LinkedList<Building> buildings) {
+		this.buildings = buildings;
+		
+	}
 }
 	
