@@ -69,6 +69,7 @@ public class Building {
     // This method creates an empty array using the gridNonAvailability array.
     // Then checks if a new object addition in xGrid and yGrid causes
     // any unreachable area in the grid then returns a boolean.
+    // Then the method also checks if there is any non-reachable object
     private boolean doesCauseUnreachableRegion(int xGrid, int yGrid) {
     	int [][] DFSCheckMatrix = new int[this.width][this.height];
 		for(int i = 0; i < this.width; i++) {
@@ -80,9 +81,41 @@ public class Building {
 		if(!isArrayFull(DFSCheckMatrix)) {
 			return true;
 		}
+		
+		
+    	int [][] DFSCheckMatrixObject = new int[this.width][this.height];
+		for(int i = 0; i < this.width; i++) {
+			DFSCheckMatrixObject[i] = DFSCheckMatrix[i].clone();
+		}
+		for(int i = 0; i < DFSCheckMatrixObject.length; i++) {
+    		for(int j = 0; j < DFSCheckMatrixObject[i].length; j++) {
+    			DFSCheckMatrixObject[i][j] = DFSCheckMatrixObject[i][j] - gridNonAvailability[i][j];
+    		}
+		}
+		DFSCheckMatrixObject[xGrid-1][yGrid-1] = 0;
+		
+		
+		int [][] DFSCheckMatrixObject2 = new int[this.width][this.height];
+		for(int i = 0; i < this.width; i++) {
+			DFSCheckMatrixObject2[i] = DFSCheckMatrixObject[i].clone();
+		}
+		
+		for(int i = 0; i < DFSCheckMatrixObject2.length; i++) {
+    		for(int j = 0; j < DFSCheckMatrixObject2[i].length; j++) {
+    			if(DFSCheckMatrixObject[i][j] == 1) {
+    				if(i-1>=0) DFSCheckMatrixObject2[i-1][j] = 1;
+    				if(i+1<DFSCheckMatrixObject2.length) DFSCheckMatrixObject2[i+1][j] = 1;
+    				if(j-1>=0) DFSCheckMatrixObject2[i][j-1] = 1;
+    				if(j+1<DFSCheckMatrixObject2[0].length) DFSCheckMatrixObject2[i][j+1] = 1;
+    			}
+    		}
+		}
+		if(!isArrayFull(DFSCheckMatrixObject2)) {
+			return true;
+		}
 		return false;
     }
-    
+	
     // This method starts from a location and traverses the whole arr that represents the map
     // Then the method makes all reachable indexes 1 and others left zero.
     // Then using that array, one can decide unreachability if there is zero value.
