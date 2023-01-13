@@ -6,7 +6,6 @@ import Domain.Player.Avatar;
 
 public class PlayerController {
 	public Avatar avatar;
-	int health;
 	int score;
 	GameController escapeFromKocGame;	
 	PlayerState playerState;
@@ -15,7 +14,6 @@ public class PlayerController {
 		escapeFromKocGame = GameController.getInstance();
 		avatar = new Avatar(escapeFromKocGame.getGameState().gridSize); 
 		playerState = new PlayerState();
-		this.health = playerState.getHealth();
 		this.score = playerState.getScore();
 	}
 

@@ -313,7 +313,7 @@ public class GameController{
 	}
 	
 	public int getPlayerHealth() {
-		return player.health;
+		return player.getPlayerState().getHealth();
 	}
 }
 	
