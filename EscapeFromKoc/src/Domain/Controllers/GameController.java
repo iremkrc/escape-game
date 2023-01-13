@@ -199,7 +199,7 @@ public class GameController{
 		    	if(x>=objX && x<=objX+objW && y>=objY && y<=objY+objH) {
 		    		double avtX = player.getAvatar().getLocation().xLocation;
 		    		double avtY = player.getAvatar().getLocation().yLocation;
-		    		if(Math.abs(avtY-objY)<20 && Math.abs(avtX-objX)<20) {
+		    		if(Math.abs(avtY-objY)<70 && Math.abs(avtX-objX)<70) {
 		    			performKeyFoundAction();
 		    		}
 		    	}
@@ -231,7 +231,11 @@ public class GameController{
 			}
 		}
 	}
-
+	
+	public boolean getGridAvailability(int x, int y) {
+		return currentBuilding.getGridAvailability(x, y);
+	}
+	
 	public void incrementScore(double increment) {
 		player.incrementScore(increment);
 	}
