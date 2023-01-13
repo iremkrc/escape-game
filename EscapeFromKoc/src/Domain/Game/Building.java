@@ -107,6 +107,10 @@ public class Building {
     				if(i+1<DFSCheckMatrixObject2.length) DFSCheckMatrixObject2[i+1][j] = 1;
     				if(j-1>=0) DFSCheckMatrixObject2[i][j-1] = 1;
     				if(j+1<DFSCheckMatrixObject2[0].length) DFSCheckMatrixObject2[i][j+1] = 1;
+    				if(i+1<DFSCheckMatrixObject2.length && j+1<DFSCheckMatrixObject2[0].length) DFSCheckMatrixObject2[i+1][j+1] = 1;
+    				if(i+1<DFSCheckMatrixObject2.length && j-1>=0) DFSCheckMatrixObject2[i+1][j-1] = 1;
+    				if(i-1>=0 && j-1>=0) DFSCheckMatrixObject2[i-1][j-1] = 1;
+    				if(i-1>=0 && j+1<DFSCheckMatrixObject2[0].length) DFSCheckMatrixObject2[i-1][j+1] = 1;
     			}
     		}
 		}
