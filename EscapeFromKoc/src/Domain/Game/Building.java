@@ -31,6 +31,7 @@ public class Building {
 		
 	}
 
+
 	public void addAlien(int x, int y){
 		return;
 	}
@@ -222,5 +223,5 @@ public class Building {
 	}
 	public void setGameObjectList(LinkedList<GameObject> gameObjectList) {
 		this.gameObjectList = gameObjectList;
-	}	
+	}
 }
