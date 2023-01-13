@@ -54,7 +54,6 @@ public class RunningModeFrame extends JFrame{
 	private int gameStatus = 0;
 	private int powerupTime = 0;
     GameController game;
-	PlayerController player;	
 	Timer mainTimer, powerupTimer, alienTimer, countdownTimer, hintTimer, bottlePowerupTimer;
 	boolean timeIsRunning = false;
 	private Alien alien;
@@ -66,14 +65,15 @@ public class RunningModeFrame extends JFrame{
 		
 		setLayout(new BorderLayout());
 		game = GameController.getInstance();
-		player = new PlayerController();
-		game.setPlayer(player);
-		game.setPowerupController(new PowerupController());
+		game.setBuildingModeDone(true);
+		game.setPlayer(new PlayerController());
 		game.setAlienController(new AlienController());
+		game.setPowerupController(new PowerupController());
+		
 		clockMiliSeconds = 10;	
 		
 		//initialize frame
-		setBounds(300,100, 1200, 800);
+		setBounds(100,100, 2500, 1500);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 
@@ -103,7 +103,7 @@ public class RunningModeFrame extends JFrame{
 
 		//top stats panel
 		JPanel statsPanel=new JPanel();  
-        statsPanel.setBounds(300,600,600,600);  
+        statsPanel.setBounds(300,600,1000,800);  
         statsPanel.setBackground(Color.gray);  
 		setResizable(false);
 		statsPanel.setLayout(new GridLayout(1,3));
@@ -113,7 +113,7 @@ public class RunningModeFrame extends JFrame{
 		BuildingLabel.setBounds(465, 50, 200, 20);
 		statsPanel.add(BuildingLabel,BorderLayout.EAST);
 
-		LifeLabel = new JLabel("Life: "+ player.getPlayerState().getHealth());
+		LifeLabel = new JLabel("Life: "+ game.getPlayerHealth());
 		LifeLabel.setBounds(600, 50, 200, 20);
 		statsPanel.add(LifeLabel,BorderLayout.CENTER);
 
@@ -320,7 +320,7 @@ public class RunningModeFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				
 				int healthControl = game.getPlayer().getPlayerState().getHealth();
-				LifeLabel.setText("Life: "+ player.getPlayerState().getHealth());
+				LifeLabel.setText("Life: "+ game.getPlayerHealth());
 				
 				if(healthControl <= 0) game.getGameState().setIsOver(true);
 				

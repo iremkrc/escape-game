@@ -22,7 +22,7 @@ public class LayoutPanel extends JPanel {
 	public LayoutPanel(String title) {
         super();
         game = GameController.getInstance();
-        setSize(600, 800);
+        //setSize(2000, 1500);
         setVisible(true);
         GameMouseListener mlisteners = new GameMouseListener(game);
 		addMouseListener(mlisteners);		
@@ -32,24 +32,7 @@ public class LayoutPanel extends JPanel {
 		game.getPlayer().getAvatar().draw(g);
     } 
     public void paint( Graphics g ) {  
-        for (int x = 50; x <= 500; x += 50 ){
-	        for (int y = 50; y <= 500; y += 50 ){
-	            g.drawRect(x, y, 50, 50);
-            }
-        }
-
-        if(game.getGameState().getHintActive()){
-            g.setColor(Color.RED);
-            g.drawRect((int) game.getHintLocation().xLocation,(int) game.getHintLocation().yLocation, 200, 200);
-            g.setColor(Color.black); 
-        }
-	    
-    	LinkedList<GameObject> objectList = game.currentBuilding.getObjectList();
-	    for(int i=0; i<objectList.size(); i++) { //Hardcoded
-	    	GameObject obj = objectList.get(i);
-	    	obj.draw(g);
-	    }
-
+    	
         IPowerup powerup = game.getPowerupController().getPowerup();
         if(powerup != null){
             powerup.draw(g);
@@ -62,11 +45,30 @@ public class LayoutPanel extends JPanel {
             }
         }
         
+        g.setColor(Color.black); 
+    	for (int x = game.getGridSize(); x <= game.getGridSize()*game.getGridWidth(); x += game.getGridSize() ){
+	        for (int y = game.getGridSize(); y <= game.getGridSize()*game.getGridHeight(); y += game.getGridSize() ){
+	            g.drawRect(x, y, game.getGridSize(), game.getGridSize());
+	        }
+	    }
+    	
+        if(game.getGameState().getHintActive()){
+            g.setColor(Color.RED);
+            g.drawRect((int) game.getHintLocation().xLocation,(int) game.getHintLocation().yLocation, 4*game.getGridSize(), 4*game.getGridSize());
+            g.setColor(Color.black); 
+        }
+	    
+    	LinkedList<GameObject> objectList = game.currentBuilding.getObjectList();
+	    for(int i=0; i<objectList.size(); i++) { //Hardcoded
+	    	GameObject obj = objectList.get(i);
+	    	obj.draw(g);
+	    }
+
         Avatar avatar = game.getPlayer().getAvatar();
 	    avatar.draw(g);
     }
     
     public Dimension getPreferredSize() {
-        return new Dimension(700,600);
+        return new Dimension(800,600);
     }
 }

@@ -17,12 +17,14 @@ public class ShooterAlien implements Alien {
 
 	private int width;
 	private int height;
+	private int size;
 	private String type;
 	private Location location;
 	private Location avatarLocation;
 	private boolean isProtectionVestActive;
 	private GameController escapeFromKocGame;	
 	private boolean empty;
+    private GameController game;
 
     @Override
     public String getType() {
@@ -43,15 +45,16 @@ public class ShooterAlien implements Alien {
 	
 	Timer alienTimer = new Timer(1000, shooterActionListener);
 
-	public ShooterAlien(/*Location avatarLocation, boolean wornProtectionVest*/) {
-    	escapeFromKocGame = GameController.getInstance();	
+	public ShooterAlien(/*Location avatarLocation, boolean wornProtectionVest*/) {	
         type = "Shooter";
 		empty = false;
-		width = 25;
-		height = 25;
-        int coorX = ((ThreadLocalRandom.current().nextInt(9) % 9)+1) * 50 + 10;
-        int coorY = ((ThreadLocalRandom.current().nextInt(9) % 9)+1) * 50 + 10;
-        location = new Location(coorX, coorY);
+		escapeFromKocGame = GameController.getInstance();
+        width = escapeFromKocGame.getGridWidth();
+        height = escapeFromKocGame.getGridHeight();
+        size = escapeFromKocGame.getGridSize();
+        int Xloc = ((ThreadLocalRandom.current().nextInt(width-1) % (width-1))+1) * size;
+        int Yloc = ((ThreadLocalRandom.current().nextInt(height-1) % (height-1))+1) * size;
+        location = new Location(Xloc, Yloc);
         this.avatarLocation = escapeFromKocGame.getPlayer().getAvatar().getLocation(); //avatarLocation;
         this.isProtectionVestActive = escapeFromKocGame.getPlayer().getPlayerState().getIsProtectionVestActive();
         alienTimer.start();
@@ -60,15 +63,15 @@ public class ShooterAlien implements Alien {
     public void draw(Graphics g) {
     	Location loc = this.location;
         g.setColor(Color.CYAN);
-        g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), width, height);
+        g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), size, size);
         Image image = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/alien.png").getImage();
-        g.drawImage(image, (int) location.getXLocation(), (int) location.getYLocation(), 25, 25, null);
+        g.drawImage(image, (int) location.getXLocation(), (int) location.getYLocation(), size, size, null);
     }
 
     @Override
     public void action() {
     	double distance = Math.abs(avatarLocation.getXLocation() - location.getXLocation()) + Math.abs(avatarLocation.getYLocation() - location.getYLocation());
-    	if(distance <= 50*4 && isProtectionVestActive == false) {
+    	if(distance <= escapeFromKocGame.getGridSize()*4 && isProtectionVestActive == false) {
     		escapeFromKocGame.getPlayer().getPlayerState().setHealth(escapeFromKocGame.getPlayer().getPlayerState().getHealth() - 1);
     		System.out.println(distance);
     		System.out.println(escapeFromKocGame.getPlayer().getPlayerState().getHealth());	

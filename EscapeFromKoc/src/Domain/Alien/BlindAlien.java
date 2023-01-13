@@ -19,37 +19,42 @@ public class BlindAlien implements Alien {
 
     public int width;
 	public int height;
+	public int size;
 	public String type;
 	private Location location;
     private boolean empty;
     private Location avatarLocation;
 	private boolean isBottlePowerupActive;
-    private double speed = 50;
-	GameController escapeFromKocGame;
+    private double speed;
+    private GameController game;
 
     ActionListener blindAlienActionListener = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(!escapeFromKocGame.isPaused() && escapeFromKocGame.getAlienController().getAlien().getType().equals("Blind")) {
-				System.out.println("Blind");
-				action();
+			if(game.getAlienController().getAlien() != null) {
+				if(!game.isPaused() && game.getAlienController().getAlien().getType().equals("Blind")) {
+					System.out.println("Blind");
+					action();
+				}
 			}
 		}
 	};
 
-	Timer blindAlienTimer = new Timer(1000, blindAlienActionListener);
+	Timer blindAlienTimer = new Timer(500, blindAlienActionListener);
 
     public BlindAlien() {
-        escapeFromKocGame = GameController.getInstance();
         type = "Blind";
         empty = false;
-        width = 25;
-        height = 25;
-        int coorX = ((ThreadLocalRandom.current().nextInt(9) % 9)+1) * 50 + 10;
-        int coorY = ((ThreadLocalRandom.current().nextInt(9) % 9)+1) * 50 + 10;
-        location = new Location(coorX, coorY);
-        this.avatarLocation = escapeFromKocGame.getPlayer().getAvatar().getLocation(); 
-        this.isBottlePowerupActive = escapeFromKocGame.getPlayer().getPlayerState().getIsBottlePowerupActive();
+        game = GameController.getInstance();
+        width = game.getGridWidth();
+        height = game.getGridHeight();
+        size = game.getGridSize();
+        speed = game.getGridSize();
+        int Xloc = ((ThreadLocalRandom.current().nextInt(width-1) % (width-1))+1) * size;
+        int Yloc = ((ThreadLocalRandom.current().nextInt(height-1) % (height-1))+1) * size;
+        location = new Location(Xloc, Yloc);
+        this.avatarLocation = game.getPlayer().getAvatar().getLocation(); 
+        this.isBottlePowerupActive = game.getPlayer().getPlayerState().getIsBottlePowerupActive();
         blindAlienTimer.start();
     }
 
@@ -62,9 +67,9 @@ public class BlindAlien implements Alien {
     public void draw(Graphics g) {
         Location loc = this.location;
         g.setColor(Color.MAGENTA);
-        g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), width, height);
+        g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), size, size);
         Image image = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/alien.png").getImage();
-        g.drawImage(image, (int) location.getXLocation(), (int) location.getYLocation(), 25, 25, null);
+        g.drawImage(image, (int) location.getXLocation(), (int) location.getYLocation(), size, size, null);
     }
 
     @Override
@@ -72,19 +77,19 @@ public class BlindAlien implements Alien {
         double xDistance = Math.abs(avatarLocation.getXLocation() - location.getXLocation());
     	double yDistance = Math.abs(avatarLocation.getYLocation() - location.getYLocation());
         
-        System.out.println(escapeFromKocGame.getGameState().getIsBottlePowerupActive());
-        if(escapeFromKocGame.getGameState().getIsBottlePowerupActive()==false) {
+        System.out.println(game.getGameState().getIsBottlePowerupActive());
+        if(game.getGameState().getIsBottlePowerupActive()==false) {
             //alien randomly moves 
     		moveRandomly();
             if(xDistance < 20 && yDistance < 20){
-                escapeFromKocGame.getPlayer().getPlayerState().setHealth(0);
+            	game.getPlayer().getPlayerState().setHealth(0);
             }
-    	}if(escapeFromKocGame.getGameState().getIsBottlePowerupActive()==true){
+    	}if(game.getGameState().getIsBottlePowerupActive()==true){
             //alien goes in the direction of plastic bottle powerup
-            System.out.println(escapeFromKocGame.getBottlePowerupDirection());
-            moveToDirection(escapeFromKocGame.getBottlePowerupDirection());
+            System.out.println(game.getBottlePowerupDirection());
+            moveToDirection(game.getBottlePowerupDirection());
             if(xDistance < 20 && yDistance < 20){
-                escapeFromKocGame.getPlayer().getPlayerState().setHealth(0);
+            	game.getPlayer().getPlayerState().setHealth(0);
             }    
         }       
     }
@@ -99,22 +104,24 @@ public class BlindAlien implements Alien {
 	}  
 
     public void moveLeft() {
-		if(location.xLocation>60) {
+		if(location.xLocation>game.getGridSize()) {
 			location.updateLocation(location.xLocation-speed, location.yLocation);
 		}
 	}
 	public void moveRight() {
-		if(location.xLocation<500-width) {
+		int maxWidth = game.getGridSize()*game.getGridWidth();
+		if(location.xLocation<maxWidth-width) {
 			location.updateLocation(location.xLocation+speed, location.yLocation);
 		}
 	}
 	public void moveDown() {
-		if(location.yLocation<500-width) {
+		int maxHeight = game.getGridSize()*game.getGridHeight();
+		if(location.yLocation<maxHeight-width) {
 			location.updateLocation(location.xLocation, location.yLocation+speed);
 		}
 	}
 	public void moveUp() {
-		if(location.yLocation>60) {
+		if(location.yLocation>game.getGridSize()) {
 			location.updateLocation(location.xLocation, location.yLocation-speed);
 		}
 	}

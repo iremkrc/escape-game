@@ -18,7 +18,7 @@ public class BuildingLayoutPanel extends JPanel {
 	public BuildingLayoutPanel(String title) {
         super();
         game = GameController.getInstance();
-        setSize(800, 800);
+        setSize(1800, 1500);
         setVisible(true);
         GameMouseListener mlisteners = new GameMouseListener(game);
 		addMouseListener(mlisteners);
@@ -33,9 +33,9 @@ public class BuildingLayoutPanel extends JPanel {
     } 
     
     public void paint( Graphics g ) {  
-	    for (int x = 50; x <= 500; x += 50 ){
-	        for (int y = 50; y <= 500; y += 50 ){
-	            g.drawRect(x, y, 50, 50);
+	    for (int x = game.getGridSize(); x <= game.getGridSize()*game.getGridWidth(); x += game.getGridSize() ){
+	        for (int y = game.getGridSize(); y <= game.getGridSize()*game.getGridHeight(); y += game.getGridSize() ){
+	            g.drawRect(x, y, game.getGridSize(), game.getGridSize());
 	        }
 	    }
     	LinkedList<GameObject> objectList = game.currentBuilding.getObjectList();
@@ -46,6 +46,6 @@ public class BuildingLayoutPanel extends JPanel {
     }
     
     public Dimension getPreferredSize() {
-        return new Dimension(800,600);
+        return new Dimension(1000,600);
     }
 }
