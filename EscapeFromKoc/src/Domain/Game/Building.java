@@ -3,11 +3,12 @@ package Domain.Game;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.LinkedList;
+import java.util.LinkedList;
 
 import Domain.GameObjects.GameObject;
 
 public class Building {
-	public LinkedList<GameObject> gameObjectList = new LinkedList<GameObject>();
+	private LinkedList<GameObject> gameObjectList;
 	private int currentObjectCount = 0;
 	private int intendedObjectCount;
 	private boolean isFull;
@@ -26,6 +27,8 @@ public class Building {
 		this.width = width;
 		this.gridSize = gridSize;
 		gridNonAvailability = new int[width][height];
+		this.gameObjectList = new LinkedList<GameObject>();
+		
 	}
 
 	public void addAlien(int x, int y){
@@ -217,5 +220,7 @@ public class Building {
 	public LinkedList<GameObject> getObjectList() {
 		return gameObjectList;
 	}
-	
+	public void setGameObjectList(LinkedList<GameObject> gameObjectList) {
+		this.gameObjectList = gameObjectList;
+	}	
 }
