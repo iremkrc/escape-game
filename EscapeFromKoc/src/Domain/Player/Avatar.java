@@ -14,14 +14,15 @@ public class Avatar {
     public int width;
 	public int height;
 	int angle;
-	double speed = 50;
+	double speed;
 	Location location;
 	
     public Avatar(int unitLength) {
-		width = unitLength/2;
+    	game = GameController.getInstance();
+		width = unitLength;
 		height = unitLength;
-		location = new Location(60, 60);
-		game = GameController.getInstance();
+		location = new Location(game.getGridSize(), game.getGridSize());
+		speed = game.getGameState().gridSize;
 	}
     
     public void draw(Graphics g) {
@@ -66,22 +67,24 @@ public class Avatar {
     }  
 
 	private void moveLeft() {
-		if(location.xLocation>60 && game.getGridAvailability(location.getXGrid() - 1, location.getYGrid())) {
+		if(location.xLocation>game.getGridSize() && game.getGridAvailability(location.getXGrid() - 1, location.getYGrid())) {
 			location.updateLocation(location.xLocation-speed, location.yLocation);
 		}
 	}
 	private void moveRight() {
-		if(location.xLocation<500-width && game.getGridAvailability(location.getXGrid() + 1, location.getYGrid())) {
+		int maxWidth = game.getGridSize()*game.getGridWidth();
+		if(location.xLocation<maxWidth && game.getGridAvailability(location.getXGrid() + 1, location.getYGrid())) {
 			location.updateLocation(location.xLocation+speed, location.yLocation);
 		}
 	}
 	private void moveDown() {
-		if(location.yLocation<500-width && game.getGridAvailability(location.getXGrid(), location.getYGrid() + 1)) {
+		int maxHeight = game.getGridSize()*game.getGridHeight();
+		if(location.yLocation<maxHeight && game.getGridAvailability(location.getXGrid(), location.getYGrid() + 1)) {
 			location.updateLocation(location.xLocation, location.yLocation+speed);
 		}
 	}
 	private void moveUp() {
-		if(location.yLocation>60 && game.getGridAvailability(location.getXGrid(), location.getYGrid() - 1)) {
+		if(location.yLocation>game.getGridSize() && game.getGridAvailability(location.getXGrid(), location.getYGrid() - 1)) {
 			location.updateLocation(location.xLocation, location.yLocation-speed);
 		}
 	}
@@ -91,7 +94,7 @@ public class Avatar {
     }
     
     public void putAvatarToInitialLocation(){
-    	this.setLocation(60, 60);
+    	this.setLocation(game.getGridSize(), game.getGridSize());
     }
 
 }

@@ -2,6 +2,8 @@ package Domain.GameObjects.Powerups;
 
 import java.awt.Graphics;
 import java.util.concurrent.ThreadLocalRandom;
+
+import Domain.Controllers.GameController;
 import Domain.Game.Location;
 import javax.swing.ImageIcon;
 import java.awt.Image;
@@ -12,15 +14,17 @@ public class VestPowerup implements IPowerup  {
     public String type;
     public String imagePath;
     public Location location;
-    private int width;
-    private int height;
+    private int width, height, size;
+    public GameController game;
 
     public VestPowerup() {
         type = "vest";
-        width = 25;
-        height = 25;
-        int Xloc = ((ThreadLocalRandom.current().nextInt(9) % 9)+1) * 50 + 10;
-        int Yloc = ((ThreadLocalRandom.current().nextInt(9) % 9)+1) * 50 + 10;
+        game = GameController.getInstance();
+        width = game.getGameState().width;
+        height = game.getGameState().height;
+        size = game.getGameState().gridSize;
+        int Xloc = ((ThreadLocalRandom.current().nextInt(width-1) % (width-1))+1) * size;
+        int Yloc = ((ThreadLocalRandom.current().nextInt(height-1) % (height-1))+1) * size;
         location = new Location(Xloc, Yloc); 
         imagePath = "EscapeFromKoc/src/UI/Utilities/Images/vestPowerup.png";
     }	
@@ -38,6 +42,11 @@ public class VestPowerup implements IPowerup  {
     @Override
     public int getHeight() {
         return height;
+    }
+    
+    @Override
+    public int getSize() {
+        return size;
     }
 
     @Override
@@ -59,6 +68,6 @@ public class VestPowerup implements IPowerup  {
     public void draw(Graphics g) {
         Location loc = this.location;
         Image image = new ImageIcon(imagePath).getImage();
-        g.drawImage(image, (int)loc.getXLocation(), (int)loc.getYLocation(), 25, 25, null);
+        g.drawImage(image, (int)loc.getXLocation(), (int)loc.getYLocation(), size, size, null);
     }  
 }

@@ -1,24 +1,28 @@
 package Domain.Game;
 
-public class Location {
+import Domain.Controllers.GameController;
 
+public class Location {
+	public GameController game;
     public double xLocation;
 	public double yLocation;
 	public int xGrid;
 	public int yGrid;
 	
+	
 	public Location(double xLocation, double yLocation) {
+    	game = GameController.getInstance();
 		this.xLocation=xLocation;
 		this.yLocation=yLocation;
-		this.xGrid = (int) (xLocation/50);
-		this.yGrid = (int) (yLocation/50);
+		this.xGrid = (int) (xLocation/game.getGridSize());
+		this.yGrid = (int) (yLocation/game.getGridSize());
 	}
 	
 	public void updateLocation(double newXLocation, double newYLocation) {
 		xLocation=newXLocation;
 		yLocation=newYLocation;
-		this.xGrid = (int) (newXLocation/50);
-		this.yGrid = (int) (newYLocation/50);
+		this.xGrid = (int) (newXLocation/game.getGridSize());
+		this.yGrid = (int) (newYLocation/game.getGridSize());
 	}
 	
 	public double getXLocation() {

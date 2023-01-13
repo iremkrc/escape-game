@@ -3,6 +3,7 @@ package Domain.Alien;
 import java.awt.Graphics;
 import java.util.concurrent.ThreadLocalRandom;
 
+import Domain.Controllers.GameController;
 import Domain.Game.Location;
 import java.awt.Color;
 import javax.swing.ImageIcon;
@@ -12,10 +13,12 @@ public class TimeWastingAlien implements Alien {
 
     private int width;
 	private int height;
+	private int size;
 	private String type;
 	private Location location;
     private TimeWastingStrategy strategy;
     private boolean empty;
+    private GameController game;
 
     public int getWidth() {
         return this.width;
@@ -73,11 +76,13 @@ public class TimeWastingAlien implements Alien {
     public TimeWastingAlien() {
         type = "TimeWasting";
         empty = false;
-        width = 25;
-        height = 25;
-        int coorX = ((ThreadLocalRandom.current().nextInt(9) % 9)+1) * 50 + 10;
-        int coorY = ((ThreadLocalRandom.current().nextInt(9) % 9)+1) * 50 + 10;
-        location = new Location(coorX, coorY);
+        game = GameController.getInstance();
+        width = game.getGridWidth();
+        height = game.getGridHeight();
+        size = game.getGridSize();
+        int Xloc = ((ThreadLocalRandom.current().nextInt(width-1) % (width-1))+1) * size;
+        int Yloc = ((ThreadLocalRandom.current().nextInt(height-1) % (height-1))+1) * size;
+        location = new Location(Xloc, Yloc);
     }
 
     @Override
@@ -91,10 +96,10 @@ public class TimeWastingAlien implements Alien {
         // TODO Auto-generated method stub
         Location loc = this.location;
         g.setColor(Color.GREEN);
-        g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), width, height);
+        g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), size, size);
         Image image = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/alien.png").getImage();
         
-        g.drawImage(image, (int) location.getXLocation(), (int) location.getYLocation(), 25, 25, null);
+        g.drawImage(image, (int) location.getXLocation(), (int) location.getYLocation(), size, size, null);
         
     }
 

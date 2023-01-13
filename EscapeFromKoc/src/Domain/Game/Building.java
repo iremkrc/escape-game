@@ -12,17 +12,20 @@ public class Building {
 	private int intendedObjectCount;
 	private boolean isFull;
 	boolean doorOpen;
-	public int width = 10;
-	public int height = 10;
-	private int[][] gridNonAvailability = new int[width][height];
+	public int width, height, gridSize;
+	private int[][] gridNonAvailability;
 
 	public String buildingName;
 	
-    public Building(String buildingName, int intendedObjectCount) {
+    public Building(String buildingName, int intendedObjectCount, int width, int height, int gridSize) {
     	this.buildingName = buildingName;
     	this.intendedObjectCount = intendedObjectCount;
 		this.doorOpen = false; 
 		this.isFull = false;
+		this.height = height;
+		this.width = width;
+		this.gridSize = gridSize;
+		gridNonAvailability = new int[width][height];
 	}
 
 	public void addAlien(int x, int y){
@@ -40,10 +43,10 @@ public class Building {
     	   			 gameObjectList gets a new object
     	   Effects:  The building mode, objects and the GameController
     	*/			 
-		int xGrid = (int) (x/50);
-		int yGrid = (int) (y/50);
+		int xGrid = (int) (x/gridSize);
+		int yGrid = (int) (y/gridSize);
 		System.out.println("x: " + xGrid + " y: " + yGrid);
-		if(xGrid <=10 && xGrid >=1 && yGrid <=10 && yGrid >=1) {
+		if(xGrid <=width && xGrid >=1 && yGrid <=height && yGrid >=1 && !(xGrid==1 && yGrid==1)) {
 			if(!doesCauseUnreachableRegion(xGrid, yGrid) && (!isFull)) {
 				boolean isContained = false;
 				for(GameObject obj: gameObjectList) {
@@ -53,8 +56,8 @@ public class Building {
 					}
 				}
 				if(!isContained) {
-					GameObject obj = new GameObject(25);
-					obj.setLocation(50*xGrid+20, 50*yGrid+10);
+					GameObject obj = new GameObject(gridSize);
+					obj.setLocation(gridSize*xGrid, gridSize*yGrid);
 					gameObjectList.add(obj);
 					gridNonAvailability[xGrid-1][yGrid-1] = 1;
 			    	incrementCurrentObjectCount();

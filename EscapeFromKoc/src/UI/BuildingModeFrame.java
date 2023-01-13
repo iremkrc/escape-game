@@ -35,23 +35,25 @@ public class BuildingModeFrame extends JFrame{
 	private static JButton passNextButton;
 	private int lastBuildingIndex;
 	public int clockMiliSeconds;
+	private boolean buildingModeDone = false;
 
     GameController game;
     
     @SuppressWarnings("deprecation")
 	public BuildingModeFrame() {
-		super("Running Mode");
+		super("Building Mode");
 		
-		setLayout(new BorderLayout());
+		
 		game = GameController.getInstance();
 		lastBuildingIndex = game.getBuildingCount();
 		clockMiliSeconds = 5;
 		
 		//initialize frame
-		setBounds(300,100, 800, 800);
+		setBounds(100,100, 2400, 1200);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
-
+		setLayout(new BorderLayout());
+		
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		add(mainPanel);
@@ -111,13 +113,13 @@ public class BuildingModeFrame extends JFrame{
 		ActionListener tickListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(!game.isBuildingModeDone()) {
+				if(!buildingModeDone) {
 					buildPanel.repaint();
 					ObjectsLeftLabel.setText("Current Object Amount: " + game.currentBuilding.getCurrentObjectCount());
 					if(game.currentBuilding.getCurrentObjectCount() == game.currentBuilding.getIntendedObjectCount()) {
 						passNextButton.setEnabled(true);
 						if(game.getCurrentBuildingIndex() == lastBuildingIndex - 1) {
-							game.setBuildingModeDone(true);
+							buildingModeDone = true;
 						}
 					}
 				}

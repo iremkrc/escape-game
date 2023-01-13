@@ -12,8 +12,8 @@ public class PlayerController {
 	PlayerState playerState;
 
 	public PlayerController() {
-		avatar = new Avatar(25); 
-		escapeFromKocGame = GameController.getInstance();	
+		escapeFromKocGame = GameController.getInstance();
+		avatar = new Avatar(escapeFromKocGame.getGameState().gridSize); 
 		playerState = new PlayerState();
 		this.health = playerState.getHealth();
 		this.score = playerState.getScore();

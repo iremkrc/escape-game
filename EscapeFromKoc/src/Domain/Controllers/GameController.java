@@ -32,8 +32,9 @@ public class GameController{
 	
 	public GameController() {
 		gameState = new GameState();
+		
 		for(int i=0 ;i<gameState.getBuildingCount() ;i++) {
-			Building building = new Building(gameState.buildingNames[i],gameState.objCounts[i]);
+			Building building = new Building(gameState.buildingNames[i],gameState.objCounts[i], gameState.width, gameState.height, gameState.gridSize);
 			buildings.add(building);
 		}
 		currentBuilding = buildings.get(gameState.getCurrentBuildingIndex());
@@ -123,8 +124,8 @@ public class GameController{
         if(powerup != null){
             double pwupX = powerup.getLocation().getXLocation();
 		    double pwupY = powerup.getLocation().getYLocation();
-		    int pwupH = powerup.getHeight();
-		    int pwupW = powerup.getWidth();
+		    int pwupH = powerup.getSize();
+		    int pwupW = powerup.getSize();
 		    if(x>=pwupX && x<=pwupX+pwupW && y>=pwupY && y<=pwupY+pwupH) {
 				System.out.println("catch powerup");
 				powerupController.deletePowerup(powerup);
@@ -169,19 +170,19 @@ public class GameController{
 	}
 
 	public Location getHintLocation(){
-		double x = 50; 
-		double y = 50;
+		double x = gameState.gridSize; 
+		double y = gameState.gridSize;
 		for(GameObject o: this.currentBuilding.getObjectList()){
 			if(o.isContainsKey()) {
-				x = o.getLocation().getXLocation()-120;
-				y = o.getLocation().getYLocation()-110;
+				x = o.getLocation().getXLocation()-2*gameState.gridSize;
+				y = o.getLocation().getYLocation()-2*gameState.gridSize;
 				break;
 			}
 		}
-		if(x<50) x=50;
-		if(y<50) y=50;
-		if(x>350) x=350;
-		if(y>350) y=350;
+		if(x<gameState.gridSize) x=gameState.gridSize;
+		if(y<gameState.gridSize) y=gameState.gridSize;
+		if(x>(this.getGridWidth()-3)*gameState.gridSize) x=(this.getGridWidth()-3)*gameState.gridSize;
+		if(y>(this.getGridHeight()-3)*gameState.gridSize) y=(this.getGridHeight()-3)*gameState.gridSize;
 		return new Location(x,y);
 	}
 
@@ -199,7 +200,7 @@ public class GameController{
 		    	if(x>=objX && x<=objX+objW && y>=objY && y<=objY+objH) {
 		    		double avtX = player.getAvatar().getLocation().xLocation;
 		    		double avtY = player.getAvatar().getLocation().yLocation;
-		    		if(Math.abs(avtY-objY)<70 && Math.abs(avtX-objX)<70) {
+		    		if(Math.abs(avtY-objY)<=gameState.gridSize && Math.abs(avtX-objX)<=gameState.gridSize) {
 		    			performKeyFoundAction();
 		    		}
 		    	}
@@ -297,6 +298,22 @@ public class GameController{
 	public void setBuildings(LinkedList<Building> buildings) {
 		this.buildings = buildings;
 		
+	}
+	
+	public int getGridSize() {
+		return gameState.gridSize;
+	}
+	
+	public int getGridWidth() {
+		return gameState.width;
+	}
+	
+	public int getGridHeight() {
+		return gameState.height;
+	}
+	
+	public int getPlayerHealth() {
+		return player.health;
 	}
 }
 	
