@@ -22,9 +22,7 @@ public class LifePowerup implements IPowerup  {
         width = game.getGameState().width;
         height = game.getGameState().height;
         size = game.getGameState().gridSize;
-        int Xloc = ((ThreadLocalRandom.current().nextInt(width-1) % (width-1))+1) * size;
-        int Yloc = ((ThreadLocalRandom.current().nextInt(height-1) % (height-1))+1) * size;
-        location = new Location(Xloc, Yloc); 
+        location = game.getAvailableLocation(); 
         imagePath =  "EscapeFromKoc/src/UI/Utilities/Images/lifePowerup.png";
     }	
 

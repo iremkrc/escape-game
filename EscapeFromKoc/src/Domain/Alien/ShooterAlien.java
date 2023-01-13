@@ -22,9 +22,8 @@ public class ShooterAlien implements Alien {
 	private Location location;
 	private Location avatarLocation;
 	private boolean isProtectionVestActive;
-	private GameController escapeFromKocGame;	
+	private GameController game;	
 	private boolean empty;
-    private GameController game;
 
     @Override
     public String getType() {
@@ -34,8 +33,8 @@ public class ShooterAlien implements Alien {
     ActionListener shooterActionListener = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(escapeFromKocGame.getAlienController().getAlien() != null){
-				if(!escapeFromKocGame.isPaused() && escapeFromKocGame.getAlienController().getAlien().getType().equals("Shooter")) {
+			if(game.getAlienController().getAlien() != null){
+				if(!game.isPaused() && game.getAlienController().getAlien().getType().equals("Shooter")) {
 					System.out.println("SHOOT");
 					action();
 				}
@@ -48,15 +47,13 @@ public class ShooterAlien implements Alien {
 	public ShooterAlien(/*Location avatarLocation, boolean wornProtectionVest*/) {	
         type = "Shooter";
 		empty = false;
-		escapeFromKocGame = GameController.getInstance();
-        width = escapeFromKocGame.getGridWidth();
-        height = escapeFromKocGame.getGridHeight();
-        size = escapeFromKocGame.getGridSize();
-        int Xloc = ((ThreadLocalRandom.current().nextInt(width-1) % (width-1))+1) * size;
-        int Yloc = ((ThreadLocalRandom.current().nextInt(height-1) % (height-1))+1) * size;
-        location = new Location(Xloc, Yloc);
-        this.avatarLocation = escapeFromKocGame.getPlayer().getAvatar().getLocation(); //avatarLocation;
-        this.isProtectionVestActive = escapeFromKocGame.getPlayer().getPlayerState().getIsProtectionVestActive();
+		game = GameController.getInstance();
+        width = game.getGridWidth();
+        height = game.getGridHeight();
+        size = game.getGridSize();
+        location = game.getAvailableLocation(); 
+        this.avatarLocation = game.getPlayer().getAvatar().getLocation(); //avatarLocation;
+        this.isProtectionVestActive = game.getPlayer().getPlayerState().getIsProtectionVestActive();
         alienTimer.start();
 	}
     
@@ -71,10 +68,10 @@ public class ShooterAlien implements Alien {
     @Override
     public void action() {
     	double distance = Math.abs(avatarLocation.getXLocation() - location.getXLocation()) + Math.abs(avatarLocation.getYLocation() - location.getYLocation());
-    	if(distance <= escapeFromKocGame.getGridSize()*4 && isProtectionVestActive == false) {
-    		escapeFromKocGame.getPlayer().getPlayerState().setHealth(escapeFromKocGame.getPlayer().getPlayerState().getHealth() - 1);
+    	if(distance <= game.getGridSize()*4 && isProtectionVestActive == false) {
+    		game.getPlayer().getPlayerState().setHealth(game.getPlayer().getPlayerState().getHealth() - 1);
     		System.out.println(distance);
-    		System.out.println(escapeFromKocGame.getPlayer().getPlayerState().getHealth());	
+    		System.out.println(game.getPlayer().getPlayerState().getHealth());	
     	}    
     }
 
@@ -85,5 +82,9 @@ public class ShooterAlien implements Alien {
 
 	public void setEmpty(boolean empty) {
 		this.empty = empty;
+	}
+	
+    public Location getLocation() {
+		return location;
 	}
 }

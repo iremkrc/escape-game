@@ -1,6 +1,8 @@
 package Domain.Alien;
 import java.awt.Graphics;
 
+import Domain.Game.Location;
+
 
 public interface Alien {
 
@@ -9,4 +11,5 @@ public interface Alien {
     public void action();
     public boolean isEmpty();
     public void setEmpty(boolean empty);
+    public Location getLocation();
 }
