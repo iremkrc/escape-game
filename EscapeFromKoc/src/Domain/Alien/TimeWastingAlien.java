@@ -80,9 +80,7 @@ public class TimeWastingAlien implements Alien {
         width = game.getGridWidth();
         height = game.getGridHeight();
         size = game.getGridSize();
-        int Xloc = ((ThreadLocalRandom.current().nextInt(width-1) % (width-1))+1) * size;
-        int Yloc = ((ThreadLocalRandom.current().nextInt(height-1) % (height-1))+1) * size;
-        location = new Location(Xloc, Yloc);
+        location = game.getAvailableLocation();
     }
 
     @Override

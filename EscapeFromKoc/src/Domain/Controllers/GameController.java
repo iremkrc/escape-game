@@ -294,6 +294,46 @@ public class GameController{
 			buildingKeyMap.put(b.getBuildingName(), keyObject);
 		}
 	}
+	
+	public Location getAvailableLocation() {
+		/*
+		 * This function returns a location that is available.
+		 * It checks the location of objects, avatar, power-ups and aliens
+		 * Then returns a location that does not include any of these.
+		 * This function copes with the collision problem while
+		 * creating an alien or power-up.
+		 */
+		int x = 0;
+        int y = 0;
+		int avtX = player.getAvatar().getLocation().xGrid;
+		int avtY = player.getAvatar().getLocation().yGrid;
+		while(true) {
+			x = ThreadLocalRandom.current().nextInt(gameState.width-1)+1;
+			y = ThreadLocalRandom.current().nextInt(gameState.height-1)+1;
+			if(!getGridAvailability(x,y)) {
+				continue;
+			}
+			if(avtX == x && avtY == y) {
+				continue;
+			}
+			if(this.alienController.getAlien() != null) {
+				int alienX = alienController.getAlien().getLocation().xGrid;
+				int alienY = alienController.getAlien().getLocation().yGrid;
+				if(alienX == x && alienY == y) {
+					continue;
+				}
+			}
+			if(this.powerupController.getPowerup() != null) {
+				int powX = powerupController.getPowerup().getLocation().xGrid;
+				int powY = powerupController.getPowerup().getLocation().yGrid;
+				if(powX == x && powY == y) {
+					continue;
+				}
+			}
+			break;
+		}
+        return new Location(x*gameState.gridSize, y*gameState.gridSize);		
+	}
 
 	public void setBuildings(LinkedList<Building> buildings) {
 		this.buildings = buildings;

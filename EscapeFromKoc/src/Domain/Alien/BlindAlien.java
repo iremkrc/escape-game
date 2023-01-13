@@ -22,7 +22,7 @@ public class BlindAlien implements Alien {
 	public int size;
 	public String type;
 	private Location location;
-    private boolean empty;
+	private boolean empty;
     private Location avatarLocation;
 	private boolean isBottlePowerupActive;
     private double speed;
@@ -50,9 +50,7 @@ public class BlindAlien implements Alien {
         height = game.getGridHeight();
         size = game.getGridSize();
         speed = game.getGridSize();
-        int Xloc = ((ThreadLocalRandom.current().nextInt(width-1) % (width-1))+1) * size;
-        int Yloc = ((ThreadLocalRandom.current().nextInt(height-1) % (height-1))+1) * size;
-        location = new Location(Xloc, Yloc);
+        location = game.getAvailableLocation();
         this.avatarLocation = game.getPlayer().getAvatar().getLocation(); 
         this.isBottlePowerupActive = game.getPlayer().getPlayerState().getIsBottlePowerupActive();
         blindAlienTimer.start();
@@ -147,5 +145,9 @@ public class BlindAlien implements Alien {
 			moveDown();
 		}
     }
+    
+    public Location getLocation() {
+		return location;
+	}
 }
 
