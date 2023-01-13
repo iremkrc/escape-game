@@ -36,14 +36,14 @@ public class LoginFrame extends JFrame{
 	private JButton signUp;	
 	
 	private LoginController loginController;
-	
+	private GameController game;
 	
 	public LoginFrame() {
 		
 		super("Login Page");
 		this.loginController = new LoginController(GameController.getInstance());
-		 
-
+		this.game = GameController.getInstance();
+		
 					
 
 		setLayout(new BorderLayout());
@@ -77,6 +77,10 @@ public class LoginFrame extends JFrame{
 				
 				if (loginController.isRegistered(userName)) {
 					new BuildingModeFrame();
+					loginController.setLoginName(userName);
+
+					GameTypeFrame chooseLoadingOption = new GameTypeFrame();
+					chooseLoadingOption.setVisible(true);
 					dispose();
 				}
 				else {
