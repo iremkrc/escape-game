@@ -1,5 +1,6 @@
 package Domain.Controllers;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -295,6 +296,30 @@ public class GameController{
 		}
 	}
 	
+
+	public void saveGame(){
+
+		// save game to local JSON file
+		player.saveGameLocal();
+
+		// save game to mongoDB
+		player.saveGameDatabase();
+
+		// saveGame to
+	}
+	
+	public void loadGame(int mode) throws FileNotFoundException {
+		if(mode == 0){
+			player.loadGameLocal();
+		}else if (mode == 1){
+			player.loadGameDatabase();
+		}else{
+			System.out.println("There is an error with loading the game...");
+		}
+	}
+
+	
+	
 	public Location getAvailableLocation() {
 		/*
 		 * This function returns a location that is available.
@@ -339,7 +364,10 @@ public class GameController{
 		this.buildings = buildings;
 		
 	}
-	
+	public LinkedList<Building> getBuildings() {
+		return buildings;
+	}
+
 	public int getGridSize() {
 		return gameState.gridSize;
 	}
