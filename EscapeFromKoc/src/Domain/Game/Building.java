@@ -8,9 +8,10 @@ import java.util.LinkedList;
 import Domain.GameObjects.GameObject;
 
 public class Building {
-	public LinkedList<GameObject> gameObjectList;
+	public LinkedList<GameObject> gameObjectList = new LinkedList<GameObject>();
 	private int currentObjectCount = 0;
 	private int intendedObjectCount;
+	private Door door;
 	private boolean isFull;
 	boolean doorOpen;
 	public int width, height, gridSize;
@@ -26,9 +27,9 @@ public class Building {
 		this.height = height;
 		this.width = width;
 		this.gridSize = gridSize;
-		gridNonAvailability = new int[width][height];
-		this.gameObjectList = new LinkedList<GameObject>();
-		
+		gridNonAvailability = new int[width][height];	
+		door = new Door(gridSize, gridSize*width, gridSize*height);
+		gridNonAvailability[width-1][height-1] = 1;
 	}
 
 
@@ -230,8 +231,16 @@ public class Building {
 	public LinkedList<GameObject> getObjectList() {
 		return gameObjectList;
 	}
-	public void setGameObjectList(LinkedList<GameObject> gameObjectList) {
-		this.gameObjectList = gameObjectList;
+	
+	public Location getDoorLocation() {
+		return door.getLocation();
 	}
-
+	
+	public void setDoor(boolean flag) {
+		door.setIsOpen(flag);
+	}
+	
+	public Door getDoor() {
+		return door;
+	}
 }

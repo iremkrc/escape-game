@@ -7,6 +7,7 @@ import Domain.GameObjects.Powerups.IPowerup;
 import Domain.Alien.Alien;
 import Domain.Controllers.GameController;
 import Domain.Controllers.PowerupController;
+import Domain.Game.Door;
 import Domain.Game.GameKeyListener;
 import Domain.Game.GameMouseListener;
 import Domain.Game.Location;
@@ -47,6 +48,12 @@ public class LayoutPanel extends JPanel {
 	        Image image = new ImageIcon(obj.getImageDir()).getImage();
 	        g.drawImage(image, (int) loc.getXLocation(), (int) loc.getYLocation(), obj.getWidth(), obj.getHeight(), null);
 	    }
+	    
+
+	    Door door = game.currentBuilding.getDoor();
+	    Image doorImage = new ImageIcon(game.currentBuilding.getDoor().getDoorImgDirectory()).getImage();
+        g.drawImage(doorImage, (int) door.getLocation().getXLocation(), (int) door.getLocation().getYLocation(), door.getWidth(), door.getHeight(), null);
+  
 	    
         IPowerup powerup = game.getPowerupController().getPowerup();
         if(powerup != null){
