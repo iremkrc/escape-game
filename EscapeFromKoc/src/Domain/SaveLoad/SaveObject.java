@@ -1,20 +1,11 @@
 package Domain.SaveLoad;
 
+import Domain.Controllers.GameController;
 import Domain.Controllers.LoginController;
 import Domain.Game.Building;
-import Domain.GameObjects.GameObject;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
-import Domain.Controllers.GameController;
+import com.google.gson.*;
 
 import java.util.LinkedList;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class SaveObject {
 
@@ -28,21 +19,23 @@ public class SaveObject {
         this.currentGame = game;
         this.loginName = login.getLoginName();
     }
-
+   
     public JsonObject generateSaveJson() {
+
         JsonObject save = new JsonObject();
-        Gson gsonBuilder = new GsonBuilder().create();
+        //Gson gsonBuilder = new GsonBuilder().create();
+        final Gson gsonBuilder = new GsonBuilder().create();
         JsonParser jsonParser = new JsonParser();
 
         save.addProperty("playerName", loginName);
 
         // add building mode data, objects located at what positions
         LinkedList<Building> buildings = currentGame.getBuildings();
-        String buildingObjectsList_0 = gsonBuilder.toJson(buildings);
-        JsonArray buildingObjectsListJsonArray_0 = JsonParser.parseString(buildingObjectsList_0).getAsJsonArray();
+        String buildingObjectsList_0 = gsonBuilder.toJson(buildings.getFirst().getClass());//////////////ERROR ERROR ERROR ///////////////
+        //JsonArray buildingObjectsListJsonArray_0 = JsonParser.parseString(buildingObjectsList_0).getAsJsonArray();
 
-        save.add("building_mode_data", buildingObjectsListJsonArray_0);
-
+        //save.add("building_mode_data", buildingObjectsListJsonArray_0);
+        System.out.println(save);
         return save;
     }
 

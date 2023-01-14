@@ -49,8 +49,8 @@ public class PickKeyTest {
         game.setPowerupController(new PowerupController());
         game.setAlienController(new AlienController());
 
-        currBuild = new Building("Student Center",1);
-        nextBuilding = new Building("CASE",1);
+        currBuild = new Building("Student Center",1,10,10,10);
+        nextBuilding = new Building("CASE",1,10,10,10);
 
         currBuild.addObject(70,60);
         currBuild.incrementCurrentObjectCount();
