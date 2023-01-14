@@ -14,13 +14,14 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
-import javax.sound.midi.SysexMessage;
 
 public class FileSaveLoad {
     private GameController game = GameController.getInstance();
     private LoginController login = new LoginController(game);
 
     public void write(SaveObject currSave) {
+
+
         JsonObject save = currSave.generateSaveJson();
 
         String playerName = login.getLoginName();
@@ -28,14 +29,17 @@ public class FileSaveLoad {
 
         File myFile =  new File("EscapeFromKoc/src/Domain/SaveLoad/Saves/"+name);
         File parent = myFile.getParentFile();
-
+        System.out.println("parent is "+parent);
         if(!parent.exists()) {
+        	
             parent.mkdirs();
         }
         try (FileWriter file = new FileWriter("EscapeFromKoc/src/Domain/SaveLoad/Saves/"+ name +".json")) {
-
+        	System.out.println("I am about to write file");
             file.write(save.toString());
-            file.flush();
+          	file.flush();
+        	file.close();
+
 
         } catch (IOException e) {
             e.printStackTrace();

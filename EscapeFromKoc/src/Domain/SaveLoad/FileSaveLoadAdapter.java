@@ -24,6 +24,7 @@ public class FileSaveLoadAdapter implements ISaveLoadAdapter {
     private SaveObject currSave;
     private GameController game;
     public FileSaveLoadAdapter() {
+	   	System.out.println("I am about to FileSaveLoad...");
         this.fileSaveLoad = new FileSaveLoad();
         this.currSave = new SaveObject();
         this.game = GameController.getInstance();
