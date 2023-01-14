@@ -244,7 +244,7 @@ public class GameController{
 	
 	public void setObject(GameObject object) {
 		this.gameObjectList.add(object);
-		this.currentBuilding.gameObjectList.add(object);
+		this.currentBuilding.getObjectList().add(object);
 	}
 
 	public LinkedList<GameObject> getObjectList() {
@@ -300,6 +300,7 @@ public class GameController{
 	public void saveGame(){
 
 		// save game to local JSON file
+	   	System.out.println("I am about to saveGameLocal...");
 		player.saveGameLocal();
 
 		// save game to mongoDB
@@ -383,5 +384,6 @@ public class GameController{
 	public int getPlayerHealth() {
 		return player.getPlayerState().getHealth();
 	}
+
 }
 	

@@ -60,7 +60,9 @@ public class PlayerController {
 	}
 	
 	public void saveGameLocal (){
+	   	System.out.println("I am about to FileSaveLoadAdapter...");
 		saveLoadService = new FileSaveLoadAdapter();
+ 
 		saveLoadService.save();
 
 	}

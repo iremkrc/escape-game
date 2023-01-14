@@ -76,7 +76,6 @@ public class LoginFrame extends JFrame{
 				userName = userNameField.getText();
 				
 				if (loginController.isRegistered(userName)) {
-					new BuildingModeFrame();
 					loginController.setLoginName(userName);
 
 					GameTypeFrame chooseLoadingOption = new GameTypeFrame();
