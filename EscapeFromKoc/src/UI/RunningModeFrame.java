@@ -18,10 +18,13 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.Timer;
 import Domain.GameObjects.Powerups.IPowerup;
 import Domain.GameObjects.GameObject;
@@ -46,8 +49,10 @@ public class RunningModeFrame extends JFrame{
 	private static JLabel TimeLabel;
 	private static JLabel powerUpCountLabel, powerUpCountLabel1, powerUpCountLabel2, powerUpCountLabel3;
 	private static JLabel LifeLabel;
+	private static JDialog dialog;
 	private static JButton pauseButton;
 	private static JButton exitButton;
+	private static JButton helpButton;
 	private int second;
 	private String ddSecond;
 	DecimalFormat dFormat = new DecimalFormat("00");
@@ -170,6 +175,24 @@ public class RunningModeFrame extends JFrame{
 		});
 		buttonPanel.add(exitButton);
 		exitButton.setFocusable(false);
+
+		//help button
+
+		helpButton = new JButton("Help");
+		helpButton.setBounds(455, 140, 90, 25);
+		helpButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				game.setPaused(true);
+				countdownTimer.stop();
+				System.out.println("help button");	
+				String menuMessage = "The player walks around using the arrow keys. He/she can go to the east, west, north and south but cannot pass through walls. He/she can only open the exit door of a building if he/she finds the key. The game starts from the Student Center. Finding the keys one by one, the player's aim is to travel to these buildings in the given order: CASE building, SOS building, SCI building, ENG building and SNA building. Once the player finds the exit key from the SNA building, the game ends and the player wins. To find the keys, the player uses a left click on the objects with the mouse and if the key is there, it appears for a second and then, the door is opened. However, to click the objects, the player should be next to the objects. Player has a bag to collect the power ups and keep them for later use. Player can collect powerups. Powerups include protection vest powerup, life powerup, extra life powerup, plastic bottle powerup and hint powerup. Also there are 3 types of aliens: blind alien, shooter alien and time wasting alien. Blind alien cannot see the player. He randomly walks around. However, this alien is sensitive to the voices. When the player has the plastic bottle power-up, if she/he throws the bottle, he/she can fool the alien.  Time wasting alien does not kill the player but it changes the location of the key randomly every 5 seconds. Shooter alien appears in a random location in the building and shoots a bullet every second. If the player is close to the shooter alien less than 4 squares, then he/she will lose a life. Also, if the player wears a protection vest, then he/she can get close to the shooter alien without losing a life.";				
+				JOptionPane.showMessageDialog(null, "<html><body><p style='width: 300px;'>"+menuMessage+"</p></body></html>", "HOW TO PLAY? ",JOptionPane.PLAIN_MESSAGE);
+				game.setPaused(false);
+				countdownTimer.start();			
+			}
+		});
+		buttonPanel.add(helpButton);
+		helpButton.setFocusable(false);
 		
 		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 		//-----------------------------------------------------------------
