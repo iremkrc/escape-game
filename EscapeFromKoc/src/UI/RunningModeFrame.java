@@ -247,9 +247,8 @@ public class RunningModeFrame extends JFrame{
 								}
 								((TimeWastingAlien) alien).setStrategy(s);
 								System.out.println("Strategy changed from " + currentStrategy.getType() + " to "  + s.getType());
-								alien.action();
+								if(!(alien.getType() == "TimeWasting") || !game.isKeyFound()) alien.action();
 							}
-							
 						}
 					}
 				}
@@ -275,7 +274,7 @@ public class RunningModeFrame extends JFrame{
 					}
 	
 					game.getAlienController().setAlien(alien);
-					alien.action();
+					if(!(alien.getType() == "TimeWasting") || !game.isKeyFound()) alien.action();
 					System.out.println("time left: " + game.getGameState().getTime() + " seconds");
 				}
 			}
