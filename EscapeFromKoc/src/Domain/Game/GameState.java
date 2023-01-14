@@ -3,7 +3,7 @@ package Domain.Game;
 public class GameState {
 	private final int buildingCount = 6;
 	public String[] buildingNames = {"Student Center","CASE","SOS","SCI","ENG","SNA"}; //
-	public int[] objCounts = {10,1,1,1,1,1};  //5,7,10,14,19,25
+	public int[] objCounts = {1,1,1,1,1,1};  //5,7,10,14,19,25
 	public static final int height = 12;
 	public static final int width = 18;
 	public static final int gridSize = 40;

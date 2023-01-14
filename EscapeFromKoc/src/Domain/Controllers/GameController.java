@@ -27,7 +27,7 @@ public class GameController{
 	public Building currentBuilding;
 	private LinkedList<Building> buildings = new LinkedList<Building>();
 	private LinkedList<GameObject> gameObjectList = new LinkedList<GameObject>();
-	private Map<String, Integer> buildingKeyMap = new HashMap<>();
+	private HashMap<String, Integer> buildingKeyMap = new HashMap<>();
 	private Location keyLocation;
 	private String bottlePowerupDirection;
 	
@@ -370,7 +370,7 @@ public class GameController{
 		
 	}
 	public LinkedList<Building> getBuildings() {
-		return buildings;
+		return this.buildings;
 	}
 
 	public int getGridSize() {

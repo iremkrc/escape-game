@@ -24,7 +24,7 @@ public class SaveObject {
 
         JsonObject save = new JsonObject();
         //Gson gsonBuilder = new GsonBuilder().create();
-        final Gson gsonBuilder = new GsonBuilder().create();
+        Gson gsonBuilder = new GsonBuilder().create();
         JsonParser jsonParser = new JsonParser();
 
         save.addProperty("playerName", loginName);
@@ -32,10 +32,10 @@ public class SaveObject {
         // add building mode data, objects located at what positions
         LinkedList<Building> buildings = currentGame.getBuildings();
         System.out.println("I am about to bug...");
-        String buildingObjectsList_0 = gsonBuilder.toJson(buildings.get(0).getClass());//////////////ERROR ERROR ERROR ///////////////
-        //JsonArray buildingObjectsListJsonArray_0 = JsonParser.parseString(buildingObjectsList_0).getAsJsonArray();
+        String buildingObjectsList_0 = gsonBuilder.toJson(buildings);//////////////ERROR ERROR ERROR ///////////////
+        JsonArray buildingObjectsListJsonArray_0 = JsonParser.parseString(buildingObjectsList_0).getAsJsonArray();
 
-        //save.add("building_mode_data", buildingObjectsListJsonArray_0);
+        save.add("building_mode_data", buildingObjectsListJsonArray_0);
         System.out.println(save);
         return save;
     }

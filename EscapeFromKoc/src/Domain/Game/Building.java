@@ -243,4 +243,11 @@ public class Building {
 	public Door getDoor() {
 		return door;
 	}
+
+
+	public void setGameObjectList(LinkedList<GameObject> objList) {
+		// TODO Auto-generated method stub
+		this.gameObjectList = objList;
+	}
+
 }
