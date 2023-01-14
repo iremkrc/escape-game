@@ -51,15 +51,18 @@ public class Building {
 		int yGrid = (int) (y/gridSize);
 		System.out.println("x: " + xGrid + " y: " + yGrid);
 		if(xGrid <=width && xGrid >=1 && yGrid <=height && yGrid >=1 && !(xGrid==1 && yGrid==1)) {
-			if(!doesCauseUnreachableRegion(xGrid, yGrid) && (!isFull)) {
+			if(!doesCauseUnreachableRegion(xGrid, yGrid)) {
 				boolean isContained = false;
+				int i = 0;
 				for(GameObject obj: gameObjectList) {
 					if(obj.getLocation().xGrid == xGrid && obj.getLocation().yGrid == yGrid) {
 						isContained = true;
 						break;
 					}
+					i++;
 				}
-				if(!isContained) {
+				System.out.println("addObject");
+				if(!isContained && !isFull) {
 					GameObject obj = new GameObject(gridSize);
 					obj.setLocation(gridSize*xGrid, gridSize*yGrid);
 					gameObjectList.add(obj);
@@ -68,6 +71,12 @@ public class Building {
 			    	if(currentObjectCount == intendedObjectCount) {
 			    		isFull = true;
 			    	}
+				} 
+				if (isContained) {
+					isFull = false;
+					gameObjectList.remove(i);
+					gridNonAvailability[xGrid-1][yGrid-1] = 0;
+					decrementCurrentObjectCount();
 				}
 			}
 		}
@@ -199,7 +208,7 @@ public class Building {
  	}
     
     public void decrementCurrentObjectCount() {
- 		this.currentObjectCount++;
+ 		this.currentObjectCount--;
  	}
     
     public int getIntendedObjectCount() {
