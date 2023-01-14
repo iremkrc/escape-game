@@ -36,18 +36,6 @@ public class LayoutPanel extends JPanel {
             //g.drawRect((int) game.getHintLocation().xLocation,(int) game.getHintLocation().yLocation, 4*game.getGridSize(), 4*game.getGridSize());
             g.setColor(Color.black); 
         }
-        
-        IPowerup powerup = game.getPowerupController().getPowerup();
-        if(powerup != null){
-            powerup.draw(g);
-        }
-
-        Alien alien = game.getAlienController().getAlien();
-        if(alien != null){
-            if(!alien.isEmpty()){
-                alien.draw(g);
-            }
-        }
 	    
         LinkedList<GameObject> objectList = game.currentBuilding.getObjectList();
 	    for(int i=0; i<objectList.size(); i++) { //Hardcoded
@@ -59,13 +47,24 @@ public class LayoutPanel extends JPanel {
 	        Image image = new ImageIcon(obj.getImageDir()).getImage();
 	        g.drawImage(image, (int) loc.getXLocation(), (int) loc.getYLocation(), obj.getWidth(), obj.getHeight(), null);
 	    }
+	    
+        IPowerup powerup = game.getPowerupController().getPowerup();
+        if(powerup != null){
+            powerup.draw(g);
+        }
 
+        Alien alien = game.getAlienController().getAlien();
+        if(alien != null){
+            if(!alien.isEmpty()){
+                alien.draw(g);
+            }
+        }
+        
         Avatar avatar = game.getPlayer().getAvatar();
     	Location loc = avatar.getLocation();
-        //g.setColor(Color.red);
-        //g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), width, height);
         Image image = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/avatar.png").getImage();
         g.drawImage(image, (int) loc.getXLocation(), (int) loc.getYLocation(), avatar.getWidth(), avatar.getHeight(), null);
+        
         
         g.setColor(Color.black); 
     	for (int x = game.getGridSize(); x <= game.getGridSize()*game.getGridWidth(); x += game.getGridSize() ){
