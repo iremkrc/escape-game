@@ -225,9 +225,4 @@ public class Building {
 		this.gameObjectList = gameObjectList;
 	}
 
-
-	public LinkedList<GameObject> getGameObjectList() {
-		// TODO Auto-generated method stub
-		return this.gameObjectList;
-	}
 }
