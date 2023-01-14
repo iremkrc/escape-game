@@ -1,9 +1,5 @@
 package Domain.Player;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Point;
-
 import Domain.GameObjects.Key;
 import Domain.Controllers.GameController;
 import Domain.Game.Location;
@@ -24,12 +20,6 @@ public class Avatar {
 		location = new Location(game.getGridSize(), game.getGridSize());
 		speed = game.getGameState().gridSize;
 	}
-    
-    public void draw(Graphics g) {
-    	Location loc = this.location;
-        g.setColor(Color.red);
-        g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), width, height);
-    }
     
 	public int getWidth() {
 		return width;
