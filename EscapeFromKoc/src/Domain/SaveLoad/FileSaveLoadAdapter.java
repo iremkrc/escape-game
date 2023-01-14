@@ -8,6 +8,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import Domain.Controllers.GameController;
 import Domain.Game.Building;
+import Domain.Game.Door;
 import Domain.GameObjects.GameObject;
 import com.google.gson.*;
 
@@ -47,23 +48,52 @@ public class FileSaveLoadAdapter implements ISaveLoadAdapter {
         JsonPrimitive loginName = jo.getAsJsonPrimitive("playerName"); //shooter inventory
         System.out.println("login name is: " + loginName);
 
-
-
+        
         LinkedList<Building> buildingList = game.getBuildings();
         int buildingIndex = 0;
         for (JsonElement at : jo.get("building_mode_data").getAsJsonArray()) {
             Building tempBuilding = buildingList.get(buildingIndex);
 
             JsonObject objTemp = at.getAsJsonObject(); // every building information,
-            System.out.println("gameObjectList is \n" + objTemp.get("gameObjectList") + "\n");
 
             LinkedList<GameObject> tempGameObjectList = new LinkedList<GameObject>();
             for (JsonElement dummyObject : objTemp.getAsJsonArray("gameObjectList")) {
                 tempGameObjectList.add(gson.fromJson(dummyObject.getAsJsonObject(),GameObject.class));
             }
             tempBuilding.setGameObjectList(tempGameObjectList);
+            
+            // set current object count
+            tempBuilding.setCurrentObjectCount(objTemp.get("currentObjectCount").getAsInt());
+            
+            // set IntendedObjectCount
+            tempBuilding.setIntendedObjectCount(objTemp.get("intendedObjectCount").getAsInt());
+            
+            // set door data
+            tempBuilding.setDoor(gson.fromJson(objTemp.get("door"), Door.class));
+            
+            // set availability matrix
+            tempBuilding.setGridAvaliabilityMatrix(gson.fromJson(objTemp.get("gridNonAvailability"), int[][].class));
+            
+            //set isFull 
+            tempBuilding.setIsFull(objTemp.get("isFull").getAsBoolean());
+            
+            //set is door open
+            tempBuilding.setDoorState(objTemp.get("doorOpen").getAsBoolean());
+            
+            // set width 
+            tempBuilding.setWidth(objTemp.get("width").getAsInt());
+            
+            // set height 
+            tempBuilding.setHeight(objTemp.get("height").getAsInt());
+            
+            // set grid size
+            tempBuilding.setGridSize(objTemp.get("gridSize").getAsInt());
+            
+            // set building name 
+            tempBuilding.setBuildingName(objTemp.get("buildingName").getAsString());
+            
             buildingIndex++;
-
+            
             //buildingList.add(new Building(objTemp.get("buildingName").getAsString(), objTemp.get("currentObjectCount").getAsInt()));
         }
         System.out.println("\n Building size is"+game.getBuildings().size());
