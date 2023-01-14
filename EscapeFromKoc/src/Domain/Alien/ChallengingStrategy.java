@@ -47,7 +47,9 @@ public class ChallengingStrategy implements TimeWastingStrategy {
     }
 
     public void stopTimer(){
-    	timer.stop();
+    	if(timer != null) {
+        	timer.stop();
+    	}
     }
     
     public void changeKeyLocation(){
