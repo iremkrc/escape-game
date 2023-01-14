@@ -244,7 +244,7 @@ public class GameController{
 	
 	public void setObject(GameObject object) {
 		this.gameObjectList.add(object);
-		this.currentBuilding.getObjectList().add(object);
+		this.currentBuilding.gameObjectList.add(object);
 	}
 
 	public LinkedList<GameObject> getObjectList() {

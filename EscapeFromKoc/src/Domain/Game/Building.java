@@ -1,14 +1,14 @@
 package Domain.Game;
 
+
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.LinkedList;
 import java.util.LinkedList;
 
 import Domain.GameObjects.GameObject;
 
 public class Building {
-	private LinkedList<GameObject> gameObjectList;
+	public LinkedList<GameObject> gameObjectList;
 	private int currentObjectCount = 0;
 	private int intendedObjectCount;
 	private boolean isFull;

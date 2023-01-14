@@ -31,7 +31,8 @@ public class SaveObject {
 
         // add building mode data, objects located at what positions
         LinkedList<Building> buildings = currentGame.getBuildings();
-        String buildingObjectsList_0 = gsonBuilder.toJson(buildings.getFirst().getClass());//////////////ERROR ERROR ERROR ///////////////
+        System.out.println("I am about to bug...");
+        String buildingObjectsList_0 = gsonBuilder.toJson(buildings.get(0).getClass());//////////////ERROR ERROR ERROR ///////////////
         //JsonArray buildingObjectsListJsonArray_0 = JsonParser.parseString(buildingObjectsList_0).getAsJsonArray();
 
         //save.add("building_mode_data", buildingObjectsListJsonArray_0);
