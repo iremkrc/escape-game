@@ -89,6 +89,9 @@ public class BuildingModeFrame extends JFrame{
 					}
 					passNextButton.setEnabled(false);
 				}else {
+					if(game.getCurrentBuildingIndex() == lastBuildingIndex - 1) {
+						buildingModeDone = true;
+					}
 					game.initializeRunningMode();
 					game.setCurrentBuilding(0);
 					new RunningModeFrame();
@@ -118,9 +121,8 @@ public class BuildingModeFrame extends JFrame{
 					ObjectsLeftLabel.setText("Current Object Amount: " + game.currentBuilding.getCurrentObjectCount());
 					if(game.currentBuilding.getCurrentObjectCount() == game.currentBuilding.getIntendedObjectCount()) {
 						passNextButton.setEnabled(true);
-						if(game.getCurrentBuildingIndex() == lastBuildingIndex - 1) {
-							buildingModeDone = true;
-						}
+					}else {
+						passNextButton.setEnabled(false);
 					}
 				}
 			}

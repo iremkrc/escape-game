@@ -268,9 +268,7 @@ public class GameController{
 	}
 	
 	public void addObjectToCurrentBuilding(int x, int y) {
-		if(!currentBuilding.getIsFull()) {
 			currentBuilding.addObject(x,y);
-		}
 	}
 
 	public int getBuildingCount() {
