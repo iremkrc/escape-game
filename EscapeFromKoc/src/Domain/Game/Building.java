@@ -246,7 +246,7 @@ public class Building {
 		return door.getLocation();
 	}
 	
-	public void setDoorOpen(boolean flag) {
+	public void setDoorState(boolean flag) {
 		door.setIsOpen(flag);
 	}
 	

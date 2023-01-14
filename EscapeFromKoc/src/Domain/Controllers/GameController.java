@@ -223,7 +223,7 @@ public class GameController{
 		System.out.println("Key is found");
 		// What to do when key is found
 		setKeyFound(true);
-		this.currentBuilding.setDoor(true);
+		this.currentBuilding.setDoorState(true);
 	}
 	
 	public void performDoorPassingAction() {
