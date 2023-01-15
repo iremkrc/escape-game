@@ -11,7 +11,6 @@ import Domain.Game.GameState;
 import Domain.Game.Location;
 import Domain.GameObjects.GameObject;
 import Domain.GameObjects.Powerups.IPowerup;
-import UI.KeyFoundAlert;
 import UI.StartFrame;
 
 public class GameController{
