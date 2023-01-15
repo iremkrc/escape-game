@@ -210,6 +210,11 @@ public class RunningModeFrame extends JFrame{
 				}
 			}
 		};
+		Timer timer = new Timer(clockMiliSeconds, tickListener);
+		timer.start();
+		timer.getDelay();
+		
+		
 		
 		ActionListener hintListener = new ActionListener() {
 			@Override
@@ -218,9 +223,10 @@ public class RunningModeFrame extends JFrame{
 				game.getGameState().setHintActive(false);
 			}
 		};
-
 		hintTimer = new Timer(10000, hintListener);
-
+		
+		
+		
 		ActionListener bottlePowerupListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -228,8 +234,8 @@ public class RunningModeFrame extends JFrame{
 				game.getGameState().setIsBottlePowerupActive(false);
 			}
 		};
-
 		bottlePowerupTimer = new Timer(10000, bottlePowerupListener);
+
 
 
 		//powerup timer tick
@@ -248,14 +254,9 @@ public class RunningModeFrame extends JFrame{
 				}
 			}
 		};
-		
-		Timer timer = new Timer(clockMiliSeconds, tickListener);
-		timer.start();
-		timer.getDelay();
-
-
 		Timer powerupTimer = new Timer(6000, powerupListener);
 		powerupTimer.start();
+		
 		
 		GameKeyListener listeners = new GameKeyListener(game);
 		addKeyListener(listeners);

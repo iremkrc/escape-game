@@ -38,6 +38,7 @@ public class LayoutPanel extends JPanel {
             g.setColor(Color.black); 
         }
 	    
+        
         LinkedList<GameObject> objectList = game.currentBuilding.getObjectList();
 	    for(int i=0; i<objectList.size(); i++) { //Hardcoded
 	    	GameObject obj = objectList.get(i);
@@ -56,19 +57,36 @@ public class LayoutPanel extends JPanel {
   
 	    
         IPowerup powerup = game.getPowerupController().getPowerup();
+        Location loc = new Location(0,0);
         if(powerup != null){
-            powerup.draw(g);
-        }
+        	loc = powerup.getLocation();
+            Image powerupImage = new ImageIcon(powerup.getImagePath()).getImage();
+            g.drawImage(powerupImage, (int)loc.getXLocation(), (int)loc.getYLocation(), powerup.getSize(), powerup.getSize(), null);
 
+        }
+        
+        
         Alien alien = game.getAlienController().getAlien();
+        loc = new Location(0,0);
         if(alien != null){
-            if(!alien.isEmpty()){
-                alien.draw(g);
+            if(!alien.isEmpty()) {
+            	loc = alien.getLocation();
+            	Image AlienImage = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/alien.png").getImage();;
+            	if(alien.getType()=="TimeWasting") {
+            		g.setColor(Color.GREEN);
+            	}else if(alien.getType()=="Blind") {
+                    g.setColor(Color.MAGENTA);
+            	}else if(alien.getType()=="Shooter") {
+            		g.setColor(Color.CYAN);
+            	}
+            	g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), alien.getSize(), alien.getSize());
+            	g.drawImage(AlienImage, (int) loc.getXLocation(), (int) loc.getYLocation(), alien.getSize(), alien.getSize(), null);
             }
         }
         
+        
         Avatar avatar = game.getPlayer().getAvatar();
-    	Location loc = avatar.getLocation();
+    	loc = avatar.getLocation();
         Image image = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/avatar.png").getImage();
         g.drawImage(image, (int) loc.getXLocation(), (int) loc.getYLocation(), avatar.getWidth(), avatar.getHeight(), null);
         
