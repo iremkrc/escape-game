@@ -3,6 +3,7 @@ package Domain.Alien;
 import java.awt.Graphics;
 import java.util.concurrent.ThreadLocalRandom;
 
+import Domain.Controllers.AlienController;
 import Domain.Controllers.GameController;
 import Domain.Game.Location;
 import java.awt.Color;
@@ -63,12 +64,11 @@ public class TimeWastingAlien implements Alien {
         }else{
             strategy = new ConfusedStrategy();
         }
-        this.strategy = strategy;
-        strategy.setAlien(this);
         return strategy;
     }
 
     public void setStrategy(TimeWastingStrategy strategy) {
+    	strategy.setAlien(this);
         this.strategy = strategy;
     }
     
@@ -82,7 +82,7 @@ public class TimeWastingAlien implements Alien {
         size = game.getGridSize();
         location = game.getAvailableLocation();
     }
-
+    
     @Override
     public String getType() {
         // TODO Auto-generated method stub

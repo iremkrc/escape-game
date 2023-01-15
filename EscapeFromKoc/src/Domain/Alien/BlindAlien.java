@@ -28,20 +28,6 @@ public class BlindAlien implements Alien {
     private double speed;
     private GameController game;
 
-    ActionListener blindAlienActionListener = new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(game.getAlienController().getAlien() != null) {
-				if(!game.isPaused() && game.getAlienController().getAlien().getType().equals("Blind")) {
-					System.out.println("Blind");
-					action();
-				}
-			}
-		}
-	};
-
-	Timer blindAlienTimer = new Timer(500, blindAlienActionListener);
-
     public BlindAlien() {
         type = "Blind";
         empty = false;
@@ -53,7 +39,6 @@ public class BlindAlien implements Alien {
         location = game.getAvailableLocation();
         this.avatarLocation = game.getPlayer().getAvatar().getLocation(); 
         this.isBottlePowerupActive = game.getPlayer().getPlayerState().getIsBottlePowerupActive();
-        blindAlienTimer.start();
     }
 
     @Override
@@ -75,7 +60,7 @@ public class BlindAlien implements Alien {
         double xDistance = Math.abs(avatarLocation.getXLocation() - location.getXLocation());
     	double yDistance = Math.abs(avatarLocation.getYLocation() - location.getYLocation());
         
-        System.out.println(game.getGameState().getIsBottlePowerupActive());
+        //System.out.println(game.getGameState().getIsBottlePowerupActive());
         if(game.getGameState().getIsBottlePowerupActive()==false) {
             //alien randomly moves 
     		moveRandomly();
@@ -137,7 +122,7 @@ public class BlindAlien implements Alien {
 	public void moveRandomly(){
     	List<String> directionsList = Arrays.asList("South", "North", "West", "East");
     	while(true) {
-    		int randomTypeIndex = ThreadLocalRandom.current().nextInt(directionsList.size()) % directionsList.size();
+    		int randomTypeIndex = ThreadLocalRandom.current().nextInt(directionsList.size());
             String direction = directionsList.get(randomTypeIndex);
             if(moveToDirection(direction)) {
             	break;
@@ -164,4 +149,5 @@ public class BlindAlien implements Alien {
     public Location getLocation() {
 		return location;
 	}
+    
 }
