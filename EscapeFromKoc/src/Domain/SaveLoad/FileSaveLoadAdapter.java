@@ -9,6 +9,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import Domain.Controllers.GameController;
 import Domain.Game.Building;
 import Domain.Game.Door;
+import Domain.Game.GameState;
 import Domain.GameObjects.GameObject;
 import com.google.gson.*;
 
@@ -24,11 +25,13 @@ public class FileSaveLoadAdapter implements ISaveLoadAdapter {
     private FileSaveLoad fileSaveLoad;
     private SaveObject currSave;
     private GameController game;
+    private GameState gameState;
     public FileSaveLoadAdapter() {
 	   	System.out.println("I am about to FileSaveLoad...");
         this.fileSaveLoad = new FileSaveLoad();
         this.currSave = new SaveObject();
         this.game = GameController.getInstance();
+        this.gameState = new GameState();
     }
 
     @Override
@@ -96,9 +99,18 @@ public class FileSaveLoadAdapter implements ISaveLoadAdapter {
             
             //buildingList.add(new Building(objTemp.get("buildingName").getAsString(), objTemp.get("currentObjectCount").getAsInt()));
         }
+        
+        // set at what building did the user left off
+        this.gameState.setCurrentBuildingIndex(jo.get("currentBuildingIndex").getAsInt()); // this is where I left off, 
+        																					// I save game only exit button is clicked at the moment. 
+        																					// May be also just after building mode. 
+        																					// This line also is not working as I expect. 
+        //game.setGameState(gameState);
+        System.out.println(jo.get("currentBuildingIndex").getAsInt());
+        
         System.out.println("\n Building size is"+game.getBuildings().size());
         game.initializeRunningMode();
-        game.setCurrentBuilding(0);
+        //game.setCurrentBuilding(0);
         //game.setBuildings(buildingList);
 
         /*

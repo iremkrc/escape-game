@@ -40,6 +40,7 @@ public class GameController{
 		}
 		currentBuilding = buildings.get(gameState.getCurrentBuildingIndex());
 		gameState.setNewBuildingTime();
+		
 	}
 	
     public static GameController getInstance() {
@@ -387,6 +388,31 @@ public class GameController{
 	
 	public int getPlayerHealth() {
 		return player.getPlayerState().getHealth();
+	}
+
+	public PlayerState getPlayerState() {
+		return this.playerState;
+	}
+
+	public void setPlayerState(PlayerState playerState) {
+		this.playerState = playerState;
+	}
+
+	public Location getKeyLocation() {
+		return keyLocation;
+	}
+
+	public void setKeyLocation(Location keyLocation) {
+		this.keyLocation = keyLocation;
+	}
+
+	public void setGameState(GameState gameState) {
+		this.gameState = gameState;
+	}
+
+
+	public void setBuildingKeyMap(HashMap<String, Integer> buildingKeyMap) {
+		this.buildingKeyMap = buildingKeyMap;
 	}
 
 }
