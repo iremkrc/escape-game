@@ -114,6 +114,16 @@ public class GameController{
 
     public void moveAvatar(String direction) {
 		player.moveAvatar(direction);
+		
+		if(this.isKeyFound()) {
+			double doorX = this.currentBuilding.getDoor().getLocation().getXLocation();
+	    	double doorY = this.currentBuilding.getDoor().getLocation().getYLocation();
+    		double avtX = player.getAvatar().getLocation().xLocation;
+    		double avtY = player.getAvatar().getLocation().yLocation;
+    		if(Math.abs(avtY-doorY)<=gameState.gridSize && Math.abs(avtX-doorX)<=gameState.gridSize) {
+    			performDoorPassingAction();
+    		}
+		}
 	}
 
 	public void catchPowerUp(int x, int y) throws Exception {
@@ -211,25 +221,21 @@ public class GameController{
 	public void performKeyFoundAction(){
 		System.out.println("Key is found");
 		// What to do when key is found
-		KeyFoundAlert alertkey = new KeyFoundAlert();
-		this.setPaused(true);
 		setKeyFound(true);
+		this.currentBuilding.setDoor(true);
+	}
+	
+	public void performDoorPassingAction() {
 		if(gameState.getCurrentBuildingIndex() == 5) {
-			alertkey.alert(gameState.getCurrentBuildingIndex());
 			gameState.setIsOver(true);
 		}else {
-			boolean changeBuilding = alertkey.alert(gameState.getCurrentBuildingIndex());
-			if(changeBuilding) {
-				setCurrentBuilding(gameState.getCurrentBuildingIndex() + 1);
-				player.avatar.putAvatarToInitialLocation();
-				this.getPowerupController().setPowerup(null);
-				this.getAlienController().setAlien(null);
-				setNewBuildingTime();
-				this.setPaused(false);
-				this.getGameState().setHintActive(false);
-			}else {
-				gameState.setIsOver(true);
-			}
+			this.getPowerupController().setPowerup(null);
+			this.getAlienController().setAlien(null);
+			setCurrentBuilding(gameState.getCurrentBuildingIndex() + 1);
+			player.avatar.putAvatarToInitialLocation();
+			setNewBuildingTime();
+			this.setPaused(false);
+			this.getGameState().setHintActive(false);
 		}
 	}
 	

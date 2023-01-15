@@ -10,6 +10,7 @@ public class Building {
 	public LinkedList<GameObject> gameObjectList = new LinkedList<GameObject>();
 	private int currentObjectCount = 0;
 	private int intendedObjectCount;
+	private Door door;
 	private boolean isFull;
 	boolean doorOpen;
 	public int width, height, gridSize;
@@ -26,6 +27,8 @@ public class Building {
 		this.width = width;
 		this.gridSize = gridSize;
 		gridNonAvailability = new int[width][height];
+		door = new Door(gridSize, gridSize*width, gridSize*height);
+		gridNonAvailability[width-1][height-1] = 1;
 	}
 
 	public void addAlien(int x, int y){
@@ -227,4 +230,15 @@ public class Building {
 		return gameObjectList;
 	}
 	
+	public Location getDoorLocation() {
+		return door.getLocation();
+	}
+	
+	public void setDoor(boolean flag) {
+		door.setIsOpen(flag);
+	}
+	
+	public Door getDoor() {
+		return door;
+	}
 }
