@@ -98,7 +98,7 @@ public class BuildingModeFrame extends JFrame{
 				   	System.out.println("I am about to RunningModeFrame...");
 					new RunningModeFrame();
 				   	System.out.println("I am about to saveGame...");
-					game.saveGame(); // a save for usernames to json file when game starts.
+					//game.saveGame(); // a save for usernames to json file when game starts.
 					dispose();
 				}
 			}
