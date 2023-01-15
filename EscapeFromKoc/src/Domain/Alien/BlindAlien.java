@@ -1,6 +1,5 @@
 package Domain.Alien;
 
-
 import java.awt.Graphics;
 import Domain.Controllers.GameController;
 import java.util.concurrent.ThreadLocalRandom;
@@ -95,6 +94,7 @@ public class BlindAlien implements Alien {
 		}
 		return false;
 	}
+    
 	public boolean moveRight() {
 		int maxWidth = game.getGridSize()*game.getGridWidth();
 		if(location.xLocation<maxWidth-width && game.getGridAvailability(location.xGrid+1, location.yGrid)) {
@@ -103,6 +103,7 @@ public class BlindAlien implements Alien {
 		}
 		return false;
 	}
+	
 	public boolean moveDown() {
 		int maxHeight = game.getGridSize()*game.getGridHeight();
 		if(location.yLocation<maxHeight-width && game.getGridAvailability(location.xGrid, location.yGrid+1)) {
@@ -111,6 +112,7 @@ public class BlindAlien implements Alien {
 		}
 		return false;
 	}
+	
 	public boolean moveUp() {
 		if(location.yLocation>game.getGridSize() && game.getGridAvailability(location.xGrid, location.yGrid-1)) {
 			location.updateLocation(location.xLocation, location.yLocation-speed);
@@ -149,5 +151,4 @@ public class BlindAlien implements Alien {
     public Location getLocation() {
 		return location;
 	}
-    
 }

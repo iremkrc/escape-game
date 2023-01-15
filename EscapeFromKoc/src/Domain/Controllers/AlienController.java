@@ -20,7 +20,7 @@ public class AlienController {
     private AlienFactory factory;
     private Alien alien;
     private GameController game = GameController.getInstance();
-    private int alienTime = 8;
+    private long alienTime = 8;
     private static AlienController instance;
 
     ActionListener shooterActionListener = new ActionListener() {
@@ -112,4 +112,9 @@ public class AlienController {
     public void resetAlienTime() {
     	alienTime = 8;
     }
+    
+    public void setAlienTime(long alienTime) {
+    	this.alienTime = alienTime;
+    }
+    
 }
