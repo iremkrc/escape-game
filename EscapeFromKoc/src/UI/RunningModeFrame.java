@@ -6,6 +6,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -23,9 +24,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.Timer;
+import javax.swing.UIManager;
+
 import Domain.GameObjects.Powerups.IPowerup;
 import Domain.GameObjects.GameObject;
 import Domain.Alien.Alien;
@@ -49,7 +50,6 @@ public class RunningModeFrame extends JFrame{
 	private static JLabel TimeLabel;
 	private static JLabel powerUpCountLabel, powerUpCountLabel1, powerUpCountLabel2, powerUpCountLabel3;
 	private static JLabel LifeLabel;
-	private static JDialog dialog;
 	private static JButton pauseButton;
 	private static JButton exitButton;
 	private static JButton helpButton;
@@ -185,9 +185,10 @@ public class RunningModeFrame extends JFrame{
 				game.setPaused(true);
 				countdownTimer.stop();
 				System.out.println("help button");	
-				String menuMessage = "The player walks around using the arrow keys. He/she can go to the east, west, north and south but cannot pass through walls. He/she can only open the exit door of a building if he/she finds the key. The game starts from the Student Center. Finding the keys one by one, the player's aim is to travel to these buildings in the given order: CASE building, SOS building, SCI building, ENG building and SNA building. Once the player finds the exit key from the SNA building, the game ends and the player wins. To find the keys, the player uses a left click on the objects with the mouse and if the key is there, it appears for a second and then, the door is opened. However, to click the objects, the player should be next to the objects. Player has a bag to collect the power ups and keep them for later use. Player can collect powerups. Powerups include protection vest powerup, life powerup, extra life powerup, plastic bottle powerup and hint powerup. Also there are 3 types of aliens: blind alien, shooter alien and time wasting alien. Blind alien cannot see the player. He randomly walks around. However, this alien is sensitive to the voices. When the player has the plastic bottle power-up, if she/he throws the bottle, he/she can fool the alien.  Time wasting alien does not kill the player but it changes the location of the key randomly every 5 seconds. Shooter alien appears in a random location in the building and shoots a bullet every second. If the player is close to the shooter alien less than 4 squares, then he/she will lose a life. Also, if the player wears a protection vest, then he/she can get close to the shooter alien without losing a life.";				
-				JOptionPane.showMessageDialog(null, "<html><body><p style='width: 300px;'>"+menuMessage+"</p></body></html>", "HOW TO PLAY? ",JOptionPane.PLAIN_MESSAGE);
-				game.setPaused(false);
+				String menuMessage = "The player walks around using the arrow keys. \nHe/she can go to the east, west, north and south but cannot pass through walls.\nHe/she can only open the exit door of a building if he/she finds the key. \nThe game starts from the Student Center. \nFinding the keys one by one, the player's aim is to travel to these buildings in the given order: \nCASE building, SOS building, SCI building, ENG building and SNA building.\nOnce the player finds the exit key from the SNA building, the game ends and the player wins. \nTo find the keys, the player uses a left click on the objects with the mouse. \nIf the key is there, it appears for a second and then, the door is opened. \nTo click the objects, the player should be next to the objects. \nPlayer has a bag to collect the power ups and keep them for later use. \nPlayer can collect powerups. \nPowerups include protection vest powerup, life powerup, extra life powerup, plastic bottle powerup and hint powerup. \nThere are 3 types of aliens: blind alien, shooter alien and time wasting alien. \nBlind alien, which is represented by pink color, cannot see the player. He randomly walks around. However, this alien is sensitive to the voices. \nWhen the player has the plastic bottle power-up, if she/he throws the bottle, he/she can fool the alien.\nTime wasting alien, which is represented by green color, does not kill the player but it changes the location of the key randomly every 5 seconds. \nShooter alien, which is represented by blue color, appears in a random location in the building and shoots a bullet every second. \nIf the player is close to the shooter alien less than 4 squares, then he/she will lose a life. \nAlso, if the player wears a protection vest, then he/she can get close to the shooter alien without losing a life.";						
+				UIManager.put("OptionPane.minimumSize",new Dimension(500,500)); 
+				JOptionPane.showMessageDialog(null, menuMessage, "HOW TO PLAY?", JOptionPane.PLAIN_MESSAGE);
+				game.setPaused(false); 
 				countdownTimer.start();			
 			}
 		});
