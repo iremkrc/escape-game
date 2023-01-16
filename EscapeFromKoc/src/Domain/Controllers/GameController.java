@@ -32,6 +32,9 @@ public class GameController{
 	private Map<String, Integer> buildingKeyMap = new HashMap<>();
 	private Location keyLocation;
 	private String bottlePowerupDirection;
+	private int keyFoundCounter = 0;
+	private boolean keyFoundBoolean = false;
+	private boolean keyFoundBefore = false;
 	
 	ActionListener healthListener = new ActionListener() {
 		@Override
@@ -42,7 +45,21 @@ public class GameController{
 			
 			if(getGameState().isOver()) {
 				setPaused(true);
-			}	
+			}
+			
+			if(gameState.isKeyFound() && gameState.isKeyFound()!=keyFoundBefore) {
+				keyFoundBoolean = true;
+			}
+			
+			if(keyFoundBoolean) {
+				keyFoundCounter++;
+			}
+			
+			if(keyFoundCounter > 100) {
+				keyFoundCounter = 0;
+				keyFoundBoolean = false;
+			}
+			keyFoundBefore = gameState.isKeyFound();
 		}
 	};
 	
@@ -384,6 +401,10 @@ public class GameController{
 	
 	public int getPlayerHealth() {
 		return player.getPlayerState().getHealth();
+	}
+	
+	public boolean getKeyFoundBool() {
+		return keyFoundBoolean;
 	}
 }
 	
