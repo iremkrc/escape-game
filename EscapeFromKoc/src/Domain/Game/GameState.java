@@ -4,9 +4,9 @@ public class GameState {
 	private final int buildingCount = 6;
 	public String[] buildingNames = {"Student Center","CASE","SOS","SCI","ENG","SNA"}; //
 	public int[] objCounts = {10,1,1,1,1,1};  //5,7,10,14,19,25
-	public int height = 12;
-	public int width = 18;
-	public int gridSize = 40;
+	public static final int height = 12;
+	public static final int width = 18;
+	public static final int gridSize = 40;
 	private int timeGivenForEachObject = 600; // the given time for the building is this times the object count //10
 	private boolean paused = false;
 	private boolean isOver = false;

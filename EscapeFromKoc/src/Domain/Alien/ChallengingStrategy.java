@@ -48,7 +48,7 @@ public class ChallengingStrategy implements TimeWastingStrategy {
 
     public void stopTimer(){
     	if(timer != null) {
-            timer.stop();
+        	timer.stop();
     	}
     }
     

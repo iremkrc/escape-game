@@ -3,7 +3,6 @@ package Domain.Game;
 import Domain.Controllers.GameController;
 
 public class Location {
-	public GameController game;
     public double xLocation;
 	public double yLocation;
 	public int xGrid;
@@ -11,18 +10,17 @@ public class Location {
 	
 	
 	public Location(double xLocation, double yLocation) {
-    	game = GameController.getInstance();
 		this.xLocation=xLocation;
 		this.yLocation=yLocation;
-		this.xGrid = (int) (xLocation/game.getGridSize());
-		this.yGrid = (int) (yLocation/game.getGridSize());
+		this.xGrid = (int) (xLocation/GameState.gridSize);
+		this.yGrid = (int) (yLocation/GameState.gridSize);
 	}
 	
 	public void updateLocation(double newXLocation, double newYLocation) {
 		xLocation=newXLocation;
 		yLocation=newYLocation;
-		this.xGrid = (int) (newXLocation/game.getGridSize());
-		this.yGrid = (int) (newYLocation/game.getGridSize());
+		this.xGrid = (int) (newXLocation/GameState.gridSize);
+		this.yGrid = (int) (newYLocation/GameState.gridSize);
 	}
 	
 	public double getXLocation() {
