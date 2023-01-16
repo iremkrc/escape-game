@@ -197,12 +197,22 @@ public class Building {
     	return this.gridNonAvailability[x-1][y-1] == 0;
     }
     
+    public void setGridAvaliabilityMatrix(int[][] matrix){
+    	this.gridNonAvailability = matrix;
+    }
+    
     public boolean getIsFull() {
     	return isFull;
     }
-    
+    public void setIsFull(Boolean isFull) {
+    	this.isFull = isFull;
+    }
     public int getCurrentObjectCount() {
 		return currentObjectCount;
+	}
+    
+    public void setCurrentObjectCount(int count) {
+		this.currentObjectCount =  count;
 	}
     
     public void incrementCurrentObjectCount() {
@@ -237,11 +247,77 @@ public class Building {
 		return door.getLocation();
 	}
 	
-	public void setDoor(boolean flag) {
+	public void setDoorState(boolean flag) {
 		door.setIsOpen(flag);
 	}
 	
+	public void setDoor(Door door) {
+		this.door = door;
+	}
 	public Door getDoor() {
 		return door;
 	}
+
+
+	public void setGameObjectList(LinkedList<GameObject> objList) {
+		// TODO Auto-generated method stub
+		this.gameObjectList = objList;
+	}
+
+
+	public int getWidth() {
+		return width;
+	}
+
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+
+	public int getHeight() {
+		return height;
+	}
+
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+
+	public int getGridSize() {
+		return gridSize;
+	}
+
+
+	public void setGridSize(int gridSize) {
+		this.gridSize = gridSize;
+	}
+
+
+	public int[][] getGridNonAvailability() {
+		return gridNonAvailability;
+	}
+
+
+	public void setGridNonAvailability(int[][] gridNonAvailability) {
+		this.gridNonAvailability = gridNonAvailability;
+	}
+
+
+	public LinkedList<GameObject> getGameObjectList() {
+		return gameObjectList;
+	}
+
+
+	public boolean isDoorOpen() {
+		return doorOpen;
+	}
+
+
+	public void setFull(boolean isFull) {
+		this.isFull = isFull;
+	}
+	
+	
 }

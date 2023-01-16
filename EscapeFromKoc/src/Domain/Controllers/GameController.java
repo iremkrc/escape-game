@@ -1,5 +1,6 @@
 package Domain.Controllers;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -71,6 +72,7 @@ public class GameController{
 		currentBuilding = buildings.get(gameState.getCurrentBuildingIndex());
 		gameState.setNewBuildingTime();
 		healthTimer.scheduleAtFixedRate(tt,0,10);
+		
 	}
 	
     public static GameController getInstance() {
@@ -247,7 +249,7 @@ public class GameController{
 		System.out.println("Key is found");
 		// What to do when key is found
 		setKeyFound(true);
-		this.currentBuilding.setDoor(true);
+		this.currentBuilding.setDoorState(true);
 	}
 	
 	public void performDoorPassingAction() {
@@ -329,6 +331,31 @@ public class GameController{
 		}
 	}
 	
+
+	public void saveGame(){
+
+		// save game to local JSON file
+	   	System.out.println("I am about to saveGameLocal...");
+		player.saveGameLocal();
+
+		// save game to mongoDB
+		player.saveGameDatabase();
+
+		// saveGame to
+	}
+	
+	public void loadGame(int mode) throws FileNotFoundException {
+		if(mode == 0){
+			player.loadGameLocal();
+		}else if (mode == 1){
+			player.loadGameDatabase();
+		}else{
+			System.out.println("There is an error with loading the game...");
+		}
+	}
+
+	
+	
 	public Location getAvailableLocation() {
 		/*
 		 * This function returns a location that is available.
@@ -373,7 +400,10 @@ public class GameController{
 		this.buildings = buildings;
 		
 	}
-	
+	public LinkedList<Building> getBuildings() {
+		return this.buildings;
+	}
+
 	public int getGridSize() {
 		return gameState.gridSize;
 	}
@@ -389,6 +419,32 @@ public class GameController{
 	public int getPlayerHealth() {
 		return player.getPlayerState().getHealth();
 	}
+
+	public PlayerState getPlayerState() {
+		return this.playerState;
+	}
+
+	public void setPlayerState(PlayerState playerState) {
+		this.playerState = playerState;
+	}
+
+	public Location getKeyLocation() {
+		return keyLocation;
+	}
+
+	public void setKeyLocation(Location keyLocation) {
+		this.keyLocation = keyLocation;
+	}
+
+	public void setGameState(GameState gameState) {
+		this.gameState = gameState;
+	}
+
+
+	public void setBuildingKeyMap(HashMap<String, Integer> buildingKeyMap) {
+		this.buildingKeyMap = buildingKeyMap;
+	}
+
 	
 	public boolean getKeyFoundBool() {
 		return keyFoundBoolean;

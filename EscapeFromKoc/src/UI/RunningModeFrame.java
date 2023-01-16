@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.UIManager;
 
 import Domain.Controllers.AlienController;
 import Domain.Controllers.GameController;
@@ -26,16 +27,15 @@ import Domain.Game.GameKeyListener;
 
 
 public class RunningModeFrame extends JFrame{
-	private static final String BACKGROUND_IMAGE_ADDRESS = "";
 	private static final long serialVersionUID = 1L;
 	public int clockMiliSeconds;
 	private static JLabel BuildingLabel;
-	private static JLabel ScoreLabel;
 	private static JLabel TimeLabel;
 	private static JLabel powerUpCountLabel, powerUpCountLabel1, powerUpCountLabel2, powerUpCountLabel3;
 	private static JLabel LifeLabel;
 	private static JButton pauseButton;
 	private static JButton exitButton;
+	private static JButton helpButton;
 	private int second;
 	private String ddSecond;
 	private DecimalFormat dFormat = new DecimalFormat("00");
@@ -43,12 +43,10 @@ public class RunningModeFrame extends JFrame{
 	private int powerupTime = 0;
     private GameController game;
 	boolean timeIsRunning = false;
-	//private boolean isHealthDone = false;
     
     @SuppressWarnings("deprecation")
     public RunningModeFrame() {
 		super("Running Mode");
-		
 		setLayout(new BorderLayout());
 		game = GameController.getInstance();
 		game.getGameState().startGameTimer();
@@ -140,6 +138,7 @@ public class RunningModeFrame extends JFrame{
 				game.setPaused(true);
 				if (JOptionPane.showConfirmDialog(null, "Are you sure to exit?", "WARNING",
 				        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					game.saveGame();
 					dispose();	
 				} else {
 					game.setPaused(false);
@@ -148,6 +147,23 @@ public class RunningModeFrame extends JFrame{
 		});
 		buttonPanel.add(exitButton);
 		exitButton.setFocusable(false);
+
+		//help button
+
+		helpButton = new JButton("Help");
+		helpButton.setBounds(455, 140, 90, 25);
+		helpButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				game.setPaused(true);
+				System.out.println("help button");	
+				String menuMessage = "The player walks around using the arrow keys. \nHe/she can go to the east, west, north and south but cannot pass through walls.\nHe/she can only open the exit door of a building if he/she finds the key. \nThe game starts from the Student Center. \nFinding the keys one by one, the player's aim is to travel to these buildings in the given order: \nCASE building, SOS building, SCI building, ENG building and SNA building.\nOnce the player finds the exit key from the SNA building, the game ends and the player wins. \nTo find the keys, the player uses a left click on the objects with the mouse. \nIf the key is there, it appears for a second and then, the door is opened. \nTo click the objects, the player should be next to the objects. \nPlayer has a bag to collect the power ups and keep them for later use. \nPlayer can collect powerups. \nPowerups include protection vest powerup, life powerup, extra life powerup, plastic bottle powerup and hint powerup. \nThere are 3 types of aliens: blind alien, shooter alien and time wasting alien. \nBlind alien, which is represented by pink color, cannot see the player. He randomly walks around. However, this alien is sensitive to the voices. \nWhen the player has the plastic bottle power-up, if she/he throws the bottle, he/she can fool the alien.\nTime wasting alien, which is represented by green color, does not kill the player but it changes the location of the key randomly every 5 seconds. \nShooter alien, which is represented by blue color, appears in a random location in the building and shoots a bullet every second. \nIf the player is close to the shooter alien less than 4 squares, then he/she will lose a life. \nAlso, if the player wears a protection vest, then he/she can get close to the shooter alien without losing a life.";						
+				UIManager.put("OptionPane.minimumSize",new Dimension(500,500)); 
+				JOptionPane.showMessageDialog(null, menuMessage, "HOW TO PLAY?", JOptionPane.PLAIN_MESSAGE);
+				game.setPaused(false); 
+			}
+		});
+		buttonPanel.add(helpButton);
+		helpButton.setFocusable(false);
 		
 		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 		//-----------------------------------------------------------------
