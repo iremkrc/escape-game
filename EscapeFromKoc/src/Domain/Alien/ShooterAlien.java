@@ -2,15 +2,8 @@ package Domain.Alien;
 
 import Domain.Controllers.GameController;
 import Domain.Game.Location;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.swing.ImageIcon;
-import javax.swing.Timer;
 
 
 public class ShooterAlien implements Alien {
@@ -43,14 +36,6 @@ public class ShooterAlien implements Alien {
         this.isProtectionVestActive = game.getPlayer().getPlayerState().getIsProtectionVestActive();
 	}
     
-    public void draw(Graphics g) {
-    	Location loc = this.location;
-        g.setColor(Color.CYAN);
-        g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), size, size);
-        Image image = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/alien.png").getImage();
-        g.drawImage(image, (int) location.getXLocation(), (int) location.getYLocation(), size, size, null);
-    }
-
     @Override
     public void action() {
     	double distance = Math.abs(avatarLocation.getXLocation() - location.getXLocation()) + Math.abs(avatarLocation.getYLocation() - location.getYLocation());
@@ -73,4 +58,8 @@ public class ShooterAlien implements Alien {
     public Location getLocation() {
 		return location;
 	}
+    
+    public int getSize() {
+    	return size;
+    }
 }

@@ -1,7 +1,5 @@
 package Domain.Game;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.util.LinkedList;
 
 import Domain.GameObjects.GameObject;

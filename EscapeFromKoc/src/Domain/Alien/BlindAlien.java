@@ -1,15 +1,9 @@
 package Domain.Alien;
 
-import java.awt.Graphics;
 import Domain.Controllers.GameController;
 import java.util.concurrent.ThreadLocalRandom;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
+
 import Domain.Game.Location;
-import java.awt.Color;
-import java.awt.Image;
-import javax.swing.Timer;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -46,15 +40,6 @@ public class BlindAlien implements Alien {
     }
 
     @Override
-    public void draw(Graphics g) {
-        Location loc = this.location;
-        g.setColor(Color.MAGENTA);
-        g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), size, size);
-        Image image = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/alien.png").getImage();
-        g.drawImage(image, (int) location.getXLocation(), (int) location.getYLocation(), size, size, null);
-    }
-
-    @Override
     public void action() {
         double xDistance = Math.abs(avatarLocation.getXLocation() - location.getXLocation());
     	double yDistance = Math.abs(avatarLocation.getYLocation() - location.getYLocation());
@@ -63,7 +48,7 @@ public class BlindAlien implements Alien {
         if(game.getGameState().getIsBottlePowerupActive()==false) {
             //alien randomly moves 
     		moveRandomly();
-            if(xDistance < 20 && yDistance < 20){
+            if(xDistance + yDistance <= game.getGridSize()){
             	game.getPlayer().getPlayerState().setHealth(0);
             }
     	}if(game.getGameState().getIsBottlePowerupActive()==true){
@@ -72,7 +57,7 @@ public class BlindAlien implements Alien {
             if(!moveToDirection(game.getBottlePowerupDirection())) {
             	game.getGameState().setIsBottlePowerupActive(false);
             }
-            if(xDistance < 20 && yDistance < 20){
+            if(xDistance + yDistance <= game.getGridSize()){
             	game.getPlayer().getPlayerState().setHealth(0);
             }    
         }       
@@ -151,4 +136,8 @@ public class BlindAlien implements Alien {
     public Location getLocation() {
 		return location;
 	}
+    
+    public int getSize() {
+    	return size;
+    }
 }
