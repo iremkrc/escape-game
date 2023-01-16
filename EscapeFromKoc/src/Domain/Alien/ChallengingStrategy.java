@@ -15,24 +15,13 @@ public class ChallengingStrategy implements TimeWastingStrategy {
 
     private TimeWastingAlien alien;
     private GameController game;
-    private Timer timer;
 
     @Override
     public void wasteTime() {
         // TODO Auto-generated method stub
         System.out.println("ChallengingStrategy");
-        timer = new Timer(3000, alienListener);
-		timer.start();
+        changeKeyLocation();
     }
-
-    ActionListener alienListener = new ActionListener() {
-
-        @Override
-        public void actionPerformed(ActionEvent arg0) {
-            // TODO Auto-generated method stub
-            changeKeyLocation();
-        }
-    };
 
     @Override
     public String getType() {
@@ -44,12 +33,6 @@ public class ChallengingStrategy implements TimeWastingStrategy {
     public void setAlien(TimeWastingAlien alien) {
         // TODO Auto-generated method stub
         this.alien = alien;
-    }
-
-    public void stopTimer(){
-    	if(timer != null) {
-        	timer.stop();
-    	}
     }
     
     public void changeKeyLocation(){

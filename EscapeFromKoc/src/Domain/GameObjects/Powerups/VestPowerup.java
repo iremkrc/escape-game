@@ -1,13 +1,8 @@
 package Domain.GameObjects.Powerups;
 
-import java.awt.Graphics;
 import java.util.concurrent.ThreadLocalRandom;
-
 import Domain.Controllers.GameController;
 import Domain.Game.Location;
-import javax.swing.ImageIcon;
-import java.awt.Image;
-
 
 public class VestPowerup implements IPowerup  {
 
@@ -62,10 +57,4 @@ public class VestPowerup implements IPowerup  {
         return imagePath;
     }
 
-    @Override
-    public void draw(Graphics g) {
-        Location loc = this.location;
-        Image image = new ImageIcon(imagePath).getImage();
-        g.drawImage(image, (int)loc.getXLocation(), (int)loc.getYLocation(), size, size, null);
-    }  
 }

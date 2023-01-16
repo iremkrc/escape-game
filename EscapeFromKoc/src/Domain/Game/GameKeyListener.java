@@ -54,6 +54,13 @@ public class GameKeyListener implements KeyListener{
                 e.printStackTrace();
             }
         }
+        if(arg0.getKeyCode()==KeyEvent.VK_V){
+            try {
+                escapeFromKocGame.activatePowerUp("vest");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         
         if(arg0.getKeyCode()==KeyEvent.VK_A){
             escapeFromKocGame.setBottlePowerupDirection("West");

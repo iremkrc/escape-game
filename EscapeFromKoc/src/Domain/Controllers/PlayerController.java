@@ -54,6 +54,14 @@ public class PlayerController {
 			System.out.println("Bottle Power-up Activated");
 		}
 	}
+	
+	public void useVestPowerUp() throws Exception{
+		if(this.getPlayerState().inventory.checkInventory("vest")){
+			this.getPlayerState().inventory.decrementPowerups("vest");
+			escapeFromKocGame.getGameState().setIsVestPowerupActive(true);
+			System.out.println("Protection-Vest Power-up Activated");
+		}
+	}
 
 	public PlayerState getPlayerState() {
 		return playerState;

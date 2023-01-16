@@ -1,10 +1,14 @@
 package Domain.Controllers;
 
 import java.io.FileNotFoundException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
+
+import javax.swing.Timer;
 
 import Domain.Game.Building;
 import Domain.Game.PlayerState;
@@ -12,7 +16,6 @@ import Domain.Game.GameState;
 import Domain.Game.Location;
 import Domain.GameObjects.GameObject;
 import Domain.GameObjects.Powerups.IPowerup;
-import UI.KeyFoundAlert;
 import UI.StartFrame;
 
 public class GameController{
@@ -27,9 +30,41 @@ public class GameController{
 	public Building currentBuilding;
 	private LinkedList<Building> buildings = new LinkedList<Building>();
 	private LinkedList<GameObject> gameObjectList = new LinkedList<GameObject>();
-	private HashMap<String, Integer> buildingKeyMap = new HashMap<>();
+	private Map<String, Integer> buildingKeyMap = new HashMap<>();
 	private Location keyLocation;
 	private String bottlePowerupDirection;
+	private int keyFoundCounter = 0;
+	private boolean keyFoundBoolean = false;
+	private boolean keyFoundBefore = false;
+	
+	ActionListener healthListener = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			int healthControl = player.getPlayerState().getHealth();			
+			if(healthControl <= 0) gameState.setIsOver(true);
+			
+			if(getGameState().isOver()) {
+				setPaused(true);
+			}
+			
+			if(gameState.isKeyFound() && gameState.isKeyFound()!=keyFoundBefore) {
+				keyFoundBoolean = true;
+			}
+			
+			if(keyFoundBoolean) {
+				keyFoundCounter++;
+			}
+			
+			if(keyFoundCounter > 100) {
+				keyFoundCounter = 0;
+				keyFoundBoolean = false;
+			}
+			keyFoundBefore = gameState.isKeyFound();
+		}
+	};
+	
+	Timer healthTimer = new Timer(10, healthListener);
 	
 	public GameController() {
 		gameState = new GameState();
@@ -76,6 +111,7 @@ public class GameController{
 */
     public void setPlayer(PlayerController player) {
 		this.player=player;
+		healthTimer.start();
 	}
 
     public PlayerController getPlayer() {
@@ -171,6 +207,9 @@ public class GameController{
 		else if(type == "bottle"){
 			this.player.useBottlePowerUp();
 		}
+		else if(type == "vest"){
+			this.player.useVestPowerUp();
+		}
 	}
 
 	public String getBottlePowerupDirection() {
@@ -231,13 +270,17 @@ public class GameController{
 		if(gameState.getCurrentBuildingIndex() == 5) {
 			gameState.setIsOver(true);
 		}else {
-			this.getPowerupController().setPowerup(null);
 			this.getAlienController().setAlien(null);
+			this.getAlienController().resetAlienTime();
+			this.getPowerupController().setPowerup(null);
+			this.getPowerupController().resetPowerupTime();
+			
 			setCurrentBuilding(gameState.getCurrentBuildingIndex() + 1);
 			player.avatar.putAvatarToInitialLocation();
 			setNewBuildingTime();
 			this.setPaused(false);
 			this.getGameState().setHintActive(false);
+			this.getGameState().setKeyFound(false);
 		}
 	}
 	
@@ -272,7 +315,7 @@ public class GameController{
 	}
 
 	public void setNewBuildingTime() {
-		gameState.setTime(20*gameState.objCounts[getCurrentBuildingIndex()]);
+		gameState.setTime(gameState.timeGivenForEachObject*gameState.objCounts[getCurrentBuildingIndex()]);
 	}
 	
 	public void addObjectToCurrentBuilding(int x, int y) {
@@ -415,5 +458,9 @@ public class GameController{
 		this.buildingKeyMap = buildingKeyMap;
 	}
 
+	
+	public boolean getKeyFoundBool() {
+		return keyFoundBoolean;
+	}
 }
 	

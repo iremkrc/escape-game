@@ -6,6 +6,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -18,17 +19,16 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.UIManager;
+
 import Domain.GameObjects.Powerups.IPowerup;
-import Domain.GameObjects.GameObject;
-import Domain.Alien.Alien;
-import Domain.Alien.TimeWastingAlien;
-import Domain.Alien.TimeWastingStrategy;
-import Domain.Alien.ChallengingStrategy;
+
 import Domain.Controllers.AlienController;
 import Domain.Controllers.GameController;
 import Domain.Controllers.PowerupController;
@@ -38,38 +38,32 @@ import Domain.Game.GameKeyListener;
 
 
 public class RunningModeFrame extends JFrame{
-	private static final String BACKGROUND_IMAGE_ADDRESS = "";
 	private static final long serialVersionUID = 1L;
 	public int clockMiliSeconds;
 	private static JLabel BuildingLabel;
-	private static JLabel ScoreLabel;
 	private static JLabel TimeLabel;
 	private static JLabel powerUpCountLabel, powerUpCountLabel1, powerUpCountLabel2, powerUpCountLabel3;
 	private static JLabel LifeLabel;
 	private static JButton pauseButton;
 	private static JButton exitButton;
+	private static JButton helpButton;
 	private int second;
 	private String ddSecond;
 	DecimalFormat dFormat = new DecimalFormat("00");
 	private int gameStatus = 0;
-	private int powerupTime = 0;
     GameController game;
-	Timer mainTimer, powerupTimer, alienTimer, countdownTimer, hintTimer, bottlePowerupTimer;
 	boolean timeIsRunning = false;
-	private Alien alien;
-	//private boolean isHealthDone = false;
     
     @SuppressWarnings("deprecation")
     public RunningModeFrame() {
 		super("Running Mode");
-		
 		setLayout(new BorderLayout());
 		game = GameController.getInstance();
 		game.setBuildingModeDone(true);
 		game.setPlayer(new PlayerController());
-		game.setAlienController(new AlienController());
+		game.setAlienController(AlienController.getInstance());
 		game.setPowerupController(new PowerupController());
-		
+		game.getGameState().startGameTimer();
 		clockMiliSeconds = 10;	
 		
 		//initialize frame
@@ -121,8 +115,6 @@ public class RunningModeFrame extends JFrame{
 		TimeLabel = new JLabel("Time: "+ second+"s");
 		TimeLabel.setBounds(500, 50, 200,20);
 		statsPanel.add(TimeLabel,BorderLayout.WEST);
-		countdownTimer();
-		countdownTimer.start();
 
 		//-----------------------------------------------------------------
 		// BUTTON PART
@@ -137,16 +129,11 @@ public class RunningModeFrame extends JFrame{
 					System.out.println(game.isPaused());
 					game.setPaused(true);
 					pauseButton.setText("Resume");
-					countdownTimer.stop();
-					alienTimer.stop();
 					
 				}else {
 					System.out.println(game.isPaused());
 					game.setPaused(false);
 					pauseButton.setText("Pause");
-					countdownTimer.start();
-					countdownTimer.start();
-					alienTimer.start();
 				}
 			}
 		});
@@ -158,19 +145,34 @@ public class RunningModeFrame extends JFrame{
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.setPaused(true);
-				countdownTimer.stop();
 				if (JOptionPane.showConfirmDialog(null, "Are you sure to exit?", "WARNING",
 				        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					game.saveGame();
 					dispose();	
 				} else {
 					game.setPaused(false);
-					countdownTimer.start();
 				}
 			}
 		});
 		buttonPanel.add(exitButton);
 		exitButton.setFocusable(false);
+
+		//help button
+
+		helpButton = new JButton("Help");
+		helpButton.setBounds(455, 140, 90, 25);
+		helpButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				game.setPaused(true);
+				System.out.println("help button");	
+				String menuMessage = "The player walks around using the arrow keys. \nHe/she can go to the east, west, north and south but cannot pass through walls.\nHe/she can only open the exit door of a building if he/she finds the key. \nThe game starts from the Student Center. \nFinding the keys one by one, the player's aim is to travel to these buildings in the given order: \nCASE building, SOS building, SCI building, ENG building and SNA building.\nOnce the player finds the exit key from the SNA building, the game ends and the player wins. \nTo find the keys, the player uses a left click on the objects with the mouse. \nIf the key is there, it appears for a second and then, the door is opened. \nTo click the objects, the player should be next to the objects. \nPlayer has a bag to collect the power ups and keep them for later use. \nPlayer can collect powerups. \nPowerups include protection vest powerup, life powerup, extra life powerup, plastic bottle powerup and hint powerup. \nThere are 3 types of aliens: blind alien, shooter alien and time wasting alien. \nBlind alien, which is represented by pink color, cannot see the player. He randomly walks around. However, this alien is sensitive to the voices. \nWhen the player has the plastic bottle power-up, if she/he throws the bottle, he/she can fool the alien.\nTime wasting alien, which is represented by green color, does not kill the player but it changes the location of the key randomly every 5 seconds. \nShooter alien, which is represented by blue color, appears in a random location in the building and shoots a bullet every second. \nIf the player is close to the shooter alien less than 4 squares, then he/she will lose a life. \nAlso, if the player wears a protection vest, then he/she can get close to the shooter alien without losing a life.";						
+				UIManager.put("OptionPane.minimumSize",new Dimension(500,500)); 
+				JOptionPane.showMessageDialog(null, menuMessage, "HOW TO PLAY?", JOptionPane.PLAIN_MESSAGE);
+				game.setPaused(false); 
+			}
+		});
+		buttonPanel.add(helpButton);
+		helpButton.setFocusable(false);
 		
 		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 		//-----------------------------------------------------------------
@@ -193,16 +195,9 @@ public class RunningModeFrame extends JFrame{
 					powerUpCountLabel2.setText("\t      Protection Vest: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("vest"));
 					powerUpCountLabel3.setText("\t      Bottle: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("bottle"));
 					int time = game.getGameState().getTime();
-					if(second != time){
-						second = time;
-						TimeLabel.setText("Time: "+ second+"s");
-					}
-					if(game.getGameState().getHintActive()){
-						hintTimer.start();
-					}
-					if(game.getGameState().getIsBottlePowerupActive()){
-						bottlePowerupTimer.start();
-					}
+					ddSecond = dFormat.format(time);
+					TimeLabel.setText("Time: "+ ddSecond+"s");
+					LifeLabel.setText("Life: "+ game.getPlayerHealth());
 				}else {
 					if(gameStatus==0) {
 						gameStatus=1;
@@ -212,148 +207,13 @@ public class RunningModeFrame extends JFrame{
 				}
 			}
 		};
-		
-		ActionListener hintListener = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				hintTimer.stop();
-				game.getGameState().setHintActive(false);
-			}
-		};
-
-		hintTimer = new Timer(10000, hintListener);
-
-		ActionListener bottlePowerupListener = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				bottlePowerupTimer.stop();
-				game.getGameState().setIsBottlePowerupActive(false);
-			}
-		};
-
-		bottlePowerupTimer = new Timer(10000, bottlePowerupListener);
-
-
-		ActionListener timeWastingListener = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(!game.isPaused()) {
-					if(alien != null && !alien.isEmpty()){
-						if(alien.getType() == "TimeWasting"){
-							TimeWastingStrategy s = ((TimeWastingAlien) alien).findStrategy(game.getGameState().getTotalTime(), game.getGameState().getTime());
-							TimeWastingStrategy currentStrategy = ((TimeWastingAlien) alien).getStrategy();
-							if(s.getType() != currentStrategy.getType()){
-								if(currentStrategy.getType() == "ChallengingStrategy"){
-									((ChallengingStrategy) currentStrategy).stopTimer();
-								}
-								((TimeWastingAlien) alien).setStrategy(s);
-								System.out.println("Strategy changed from " + currentStrategy.getType() + " to "  + s.getType());
-								alien.action();
-							}
-							
-						}
-					}
-				}
-			}
-
-		};
-
-		ActionListener alienListener = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(!game.isPaused()) {
-					if(alien != null){
-						if(alien.getType() == "TimeWasting"){
-							if(((TimeWastingAlien) alien).getStrategy().getType() == "ChallengingStrategy"){
-								((ChallengingStrategy) ((TimeWastingAlien) alien).getStrategy()).stopTimer();
-							}
-						}
-					}
-					alien = game.getAlienController().createAlienRandomly();
-					if(alien.getType() == "TimeWasting"){
-						TimeWastingStrategy s = ((TimeWastingAlien) alien).findStrategy(game.getGameState().getTotalTime(), game.getGameState().getTime());
-						((TimeWastingAlien) alien).setStrategy(s);
-					}
-	
-					game.getAlienController().setAlien(alien);
-					alien.action();
-					System.out.println("time left: " + game.getGameState().getTime() + " seconds");
-				}
-			}
-		};
-
-		//powerup timer tick
-		ActionListener powerupListener = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(!game.isPaused()) {
-					powerupTime ++;
-					if(powerupTime % 2 == 0){
-						powerupTime = 0;
-						IPowerup powerup = game.getPowerupController().createPowerupRandomly();
-						game.getPowerupController().setPowerup(powerup);
-					}else{
-						game.getPowerupController().setPowerup(null);
-					}
-				}
-			}
-		};
-		
 		Timer timer = new Timer(clockMiliSeconds, tickListener);
 		timer.start();
 		timer.getDelay();
-
-		Timer alienTimer = new Timer(10000, alienListener);
-		alienTimer.start();
-
-		Timer timeWastingTimer = new Timer(1000, timeWastingListener);
-		timeWastingTimer.start();
-
-
-		Timer powerupTimer = new Timer(6000, powerupListener);
-		powerupTimer.start();
 		
+
 		GameKeyListener listeners = new GameKeyListener(game);
 		addKeyListener(listeners);
 		
-		ActionListener healthListener = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				int healthControl = game.getPlayer().getPlayerState().getHealth();
-				LifeLabel.setText("Life: "+ game.getPlayerHealth());
-				
-				if(healthControl <= 0) game.getGameState().setIsOver(true);
-				
-				if(game.getGameState().isOver()) {
-					game.setPaused(true);
-					countdownTimer.stop();
-					//isHealthDone = true;
-					dispose();
-				}	
-			}
-		};
-		
-		Timer healthTimer = new Timer(10, healthListener);
-		healthTimer.start();
-	}
-	
-	public void countdownTimer(){
-		countdownTimer = new Timer(1000, new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(!game.isPaused()){
-					second = game.getGameState().getTime() - 1;
-					game.getGameState().setTime(second);
-					ddSecond = dFormat.format(second);
-					TimeLabel.setText("Time: "+ ddSecond+"s");
-					if(game.getGameState().getTime()==0){
-						countdownTimer.stop();
-						game.getGameState().setIsOver(true);
-					}
-				}
-			}
-		});
 	}
 }

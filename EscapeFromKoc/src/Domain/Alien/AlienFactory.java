@@ -3,11 +3,11 @@ package Domain.Alien;
 public class AlienFactory {
     public Alien createAlien(String type) {
         if (type.equals("Blind")) {
-            return new BlindAlien();
+            return new ShooterAlien();
         } else if (type.equals("Shooter")) {
             return new ShooterAlien();
         } else if (type.equals("TimeWasting")) {
-            return new TimeWastingAlien();
+            return new ShooterAlien();
         } else {
             throw new IllegalArgumentException("Unknown alien type: " + type);
         }

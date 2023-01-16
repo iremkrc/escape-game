@@ -2,15 +2,7 @@ package Domain.Alien;
 
 import Domain.Controllers.GameController;
 import Domain.Game.Location;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.concurrent.ThreadLocalRandom;
-
-import javax.swing.ImageIcon;
-import javax.swing.Timer;
 
 
 public class ShooterAlien implements Alien {
@@ -21,7 +13,6 @@ public class ShooterAlien implements Alien {
 	private String type;
 	private Location location;
 	private Location avatarLocation;
-	private boolean isProtectionVestActive;
 	private GameController game;	
 	private boolean empty;
 
@@ -30,20 +21,6 @@ public class ShooterAlien implements Alien {
         return this.type;
     }
     
-    ActionListener shooterActionListener = new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(game.getAlienController().getAlien() != null){
-				if(!game.isPaused() && game.getAlienController().getAlien().getType().equals("Shooter")) {
-					System.out.println("SHOOT");
-					action();
-				}
-			}
-		}
-	};
-	
-	Timer alienTimer = new Timer(1000, shooterActionListener);
-
 	public ShooterAlien(/*Location avatarLocation, boolean wornProtectionVest*/) {	
         type = "Shooter";
 		empty = false;
@@ -53,24 +30,15 @@ public class ShooterAlien implements Alien {
         size = game.getGridSize();
         location = game.getAvailableLocation(); 
         this.avatarLocation = game.getPlayer().getAvatar().getLocation(); //avatarLocation;
-        this.isProtectionVestActive = game.getPlayer().getPlayerState().getIsProtectionVestActive();
-        alienTimer.start();
 	}
     
-    public void draw(Graphics g) {
-    	Location loc = this.location;
-        g.setColor(Color.CYAN);
-        g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), size, size);
-        Image image = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/alien.png").getImage();
-        g.drawImage(image, (int) location.getXLocation(), (int) location.getYLocation(), size, size, null);
-    }
-
     @Override
     public void action() {
-    	double distance = Math.abs(avatarLocation.getXLocation() - location.getXLocation()) + Math.abs(avatarLocation.getYLocation() - location.getYLocation());
-    	if(distance <= game.getGridSize()*4 && isProtectionVestActive == false) {
+    	double distancex = Math.abs(avatarLocation.getXLocation() - location.getXLocation());
+    	double distancey = Math.abs(avatarLocation.getYLocation() - location.getYLocation());
+    	
+    	if(distancex < game.getGridSize()*4 && distancey < game.getGridSize()*4 && !game.getGameState().getIsVestPowerupActive()) {
     		game.getPlayer().getPlayerState().setHealth(game.getPlayer().getPlayerState().getHealth() - 1);
-    		System.out.println(distance);
     		System.out.println(game.getPlayer().getPlayerState().getHealth());	
     	}    
     }
@@ -83,8 +51,12 @@ public class ShooterAlien implements Alien {
 	public void setEmpty(boolean empty) {
 		this.empty = empty;
 	}
-	
+    
     public Location getLocation() {
 		return location;
 	}
+    
+    public int getSize() {
+    	return size;
+    }
 }
