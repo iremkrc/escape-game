@@ -1,14 +1,11 @@
 package Domain.Controllers;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ThreadLocalRandom;
-
-import javax.swing.Timer;
-
 import Domain.Game.Building;
 import Domain.Game.PlayerState;
 import Domain.Game.GameState;
@@ -25,7 +22,6 @@ public class GameController{
 	private GameState gameState;
 	private PowerupController powerupController;
     private static GameController instance;
-	private boolean buildingModeDone = false;
 	public Building currentBuilding;
 	private LinkedList<Building> buildings = new LinkedList<Building>();
 	private LinkedList<GameObject> gameObjectList = new LinkedList<GameObject>();
@@ -36,35 +32,35 @@ public class GameController{
 	private boolean keyFoundBoolean = false;
 	private boolean keyFoundBefore = false;
 	
-	ActionListener healthListener = new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			
-			int healthControl = player.getPlayerState().getHealth();			
-			if(healthControl <= 0) gameState.setIsOver(true);
-			
-			if(getGameState().isOver()) {
-				setPaused(true);
-			}
-			
-			if(gameState.isKeyFound() && gameState.isKeyFound()!=keyFoundBefore) {
-				keyFoundBoolean = true;
-			}
-			
-			if(keyFoundBoolean) {
-				keyFoundCounter++;
-			}
-			
-			if(keyFoundCounter > 100) {
-				keyFoundCounter = 0;
-				keyFoundBoolean = false;
-			}
-			keyFoundBefore = gameState.isKeyFound();
-		}
-	};
-	
-	Timer healthTimer = new Timer(10, healthListener);
-	
+	Timer healthTimer = new Timer();  
+	TimerTask tt = new TimerTask() {  
+	    @Override  
+	    public void run() {  
+	    	if(!gameState.isPaused() && player != null){
+	    		int healthControl = player.getPlayerState().getHealth();			
+				if(healthControl <= 0) gameState.setIsOver(true);
+				
+				if(getGameState().isOver()) {
+					setPaused(true);
+				}
+				
+				if(gameState.isKeyFound() && gameState.isKeyFound()!=keyFoundBefore) {
+					keyFoundBoolean = true;
+				}
+				
+				if(keyFoundBoolean) {
+					keyFoundCounter++;
+				}
+				
+				if(keyFoundCounter > 100) {
+					keyFoundCounter = 0;
+					keyFoundBoolean = false;
+				}
+				keyFoundBefore = gameState.isKeyFound();
+	    	}
+	    };  
+	};  
+
 	public GameController() {
 		gameState = new GameState();
 		
@@ -74,6 +70,7 @@ public class GameController{
 		}
 		currentBuilding = buildings.get(gameState.getCurrentBuildingIndex());
 		gameState.setNewBuildingTime();
+		healthTimer.scheduleAtFixedRate(tt,0,10);
 	}
 	
     public static GameController getInstance() {
@@ -96,20 +93,9 @@ public class GameController{
 	public void setKeyFound(boolean b) {
 		gameState.setKeyFound(b); 
 	}
-/* 
-    public void isGameOver() {
-		boolean isDead = playerState.getHealth() <= 0;
-		boolean noTime = timeLeft <= 0;
-		gameState.setIsOver(isDead||noTime);
-		if(gameState.isOver()) {
-			double collectionTime = (600000-timeLeft) / 1000;
-			player.incrementScore(1 / collectionTime);
-		}
-	}
-*/
+
     public void setPlayer(PlayerController player) {
 		this.player=player;
-		healthTimer.start();
 	}
 
     public PlayerController getPlayer() {
@@ -137,11 +123,11 @@ public class GameController{
 	}
     
     public boolean isBuildingModeDone() {
-		return buildingModeDone;
+		return gameState.isBuildingModeDone();
 	}
     
     public void setBuildingModeDone(boolean b) {
-		buildingModeDone = b;
+    	gameState.setBuildingModeDone(b);;
 	}
 
 	public Map<String, Integer> getBuildingKeyMap() {

@@ -1,8 +1,5 @@
 package Domain.Alien;
 
-import java.util.concurrent.ThreadLocalRandom;
-
-import Domain.Controllers.AlienController;
 import Domain.Controllers.GameController;
 import Domain.Game.Location;
 

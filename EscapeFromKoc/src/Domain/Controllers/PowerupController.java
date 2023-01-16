@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
+import java.util.TimerTask;
 import java.util.concurrent.ThreadLocalRandom;
-
-import javax.swing.Timer;
+import java.util.Timer;
 
 import Domain.GameObjects.Powerups.PowerupFactory;
 import Domain.Alien.TimeWastingAlien;
@@ -24,11 +24,11 @@ public class PowerupController {
     private int bottleTime = 0;
     private int vestTime = 0;
 
-    
-    ActionListener shooterActionListener = new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(!game.isPaused()) {
+    Timer powerupTimer = new Timer();  
+	TimerTask tt = new TimerTask() {  
+	    @Override  
+	    public void run() {  
+	    	if(!game.isPaused()) {
 				if(PowerupCounterTime == 6){
 					IPowerup powerupx = createPowerupRandomly();
 					setPowerup(powerupx);
@@ -70,15 +70,13 @@ public class PowerupController {
 				}
 			}
 			PowerupCounterTime++;
-		}
-	};
-	
-    private Timer powerupTimer = new Timer(powerupTimersec, shooterActionListener);
-
+	    };  
+	};  
+    
     public PowerupController() {
         factory = new PowerupFactory();
         System.out.println("powerup timer start");
-        powerupTimer.start();
+        powerupTimer.scheduleAtFixedRate(tt,0,powerupTimersec);
     }
 
     public IPowerup getPowerup(){

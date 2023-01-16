@@ -2,8 +2,6 @@ package Domain.Alien;
 
 import Domain.Controllers.GameController;
 import Domain.Game.Location;
-import java.util.concurrent.ThreadLocalRandom;
-
 
 public class ShooterAlien implements Alien {
 

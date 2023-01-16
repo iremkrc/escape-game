@@ -34,7 +34,11 @@ public class StartFrame extends JFrame{
 		initializeMiddlePanel(mainPanel, middlePanel);
 		setVisible(true);	
 	}
-
+	
+	public static void main(String[] args) {
+		new StartFrame();
+	}
+	
 	private void initializeMainPanel(JPanel mainPanel) {
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		add(mainPanel);

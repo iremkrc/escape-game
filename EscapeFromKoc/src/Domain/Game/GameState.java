@@ -1,8 +1,7 @@
 package Domain.Game;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.Timer;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GameState {
 	private final int buildingCount = 6;
@@ -23,10 +22,11 @@ public class GameState {
 	private int currentBuildingIndex = 0;
 	private int time;
 	
-	ActionListener timeListener = new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(!paused){
+	Timer healthTimer = new Timer();  
+	TimerTask tt = new TimerTask() {  
+	    @Override  
+	    public void run() {  
+	    	if(!paused){
 				System.out.println("time: "+time);
 				int second = time - 1;
 				setTime(second);
@@ -34,11 +34,9 @@ public class GameState {
 					setIsOver(true);
 				}
 			}
-		}
-	};
-	
-	Timer healthTimer = new Timer(1000, timeListener);
-	
+	    };  
+	};  
+	  
 	public GameState(){
 		this.time = 0;
 	}
@@ -121,7 +119,7 @@ public class GameState {
 	
 	public void startGameTimer() {
 		System.out.println("game timer start");
-		healthTimer.start();
+		healthTimer.scheduleAtFixedRate(tt,0,1000);
 	}
 	
 	public boolean isWon() {
@@ -130,6 +128,14 @@ public class GameState {
 
 	public void setWon(boolean won) {
 		Won = won;
+	}
+	
+	public boolean isBuildingModeDone() {
+		return buildingModeDone;
+	}
+
+	public void setBuildingModeDone(boolean buildingModeDone) {
+		this.buildingModeDone = buildingModeDone;
 	}
 		
 }
