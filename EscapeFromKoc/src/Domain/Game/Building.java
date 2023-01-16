@@ -46,6 +46,10 @@ public class Building {
     	*/			 
 		int xGrid = (int) (x/gridSize);
 		int yGrid = (int) (y/gridSize);
+		if(xGrid == width && yGrid == height) {
+			return;
+		}
+		
 		System.out.println("x: " + xGrid + " y: " + yGrid);
 		if(xGrid <=width && xGrid >=1 && yGrid <=height && yGrid >=1 && !(xGrid==1 && yGrid==1)) {
 			if(!doesCauseUnreachableRegion(xGrid, yGrid)) {
@@ -58,6 +62,7 @@ public class Building {
 					}
 					i++;
 				}
+				
 				System.out.println("addObject");
 				if(!isContained && !isFull) {
 					GameObject obj = new GameObject(gridSize);
