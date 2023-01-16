@@ -7,6 +7,7 @@ import Domain.GameObjects.Powerups.IPowerup;
 import Domain.Alien.Alien;
 import Domain.Controllers.GameController;
 import Domain.Controllers.PowerupController;
+import Domain.Game.Door;
 import Domain.Game.GameKeyListener;
 import Domain.Game.GameMouseListener;
 import Domain.Game.Location;
@@ -37,34 +38,54 @@ public class LayoutPanel extends JPanel {
             g.setColor(Color.black); 
         }
 	    
+        Alien alien = game.getAlienController().getAlien();
+        Location loc = new Location(0,0);
+        if(alien != null){
+            if(!alien.isEmpty()) {
+            	loc = alien.getLocation();
+            	Image AlienImage = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/alien.png").getImage();;
+            	if(alien.getType()=="Shooter") {
+            		g.setColor(Color.darkGray);
+            		g.fillRect((int)loc.getXLocation()-3*game.getGridSize(), (int)loc.getYLocation()-3*game.getGridSize(), 7*game.getGridSize(), 7*game.getGridSize());
+            	}
+            	
+            	if(alien.getType()=="TimeWasting") {
+            		g.setColor(Color.GREEN);
+            	}else if(alien.getType()=="Blind") {
+                    g.setColor(Color.MAGENTA);
+            	}else if(alien.getType()=="Shooter") {
+            		g.setColor(Color.CYAN);
+            	}
+            	g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), alien.getSize(), alien.getSize());
+            	g.drawImage(AlienImage, (int) loc.getXLocation(), (int) loc.getYLocation(), alien.getSize(), alien.getSize(), null);
+            }
+        }
+        
         LinkedList<GameObject> objectList = game.currentBuilding.getObjectList();
 	    for(int i=0; i<objectList.size(); i++) { //Hardcoded
 	    	GameObject obj = objectList.get(i);
-	    	Location loc = obj.getLocation();
+	    	loc = obj.getLocation();
 	        //g.setColor(Color.lightGray);
 	        //g.fillRect((int)loc.getXLocation(), (int)loc.getYLocation(), obj.getWidth(), obj.getHeight());
 	        //g.setColor(Color.black);
 	        Image image = new ImageIcon(obj.getImageDir()).getImage();
 	        g.drawImage(image, (int) loc.getXLocation(), (int) loc.getYLocation(), obj.getWidth(), obj.getHeight(), null);
 	    }
-	    
+	    	    
         IPowerup powerup = game.getPowerupController().getPowerup();
+        loc = new Location(0,0);
         if(powerup != null){
-            powerup.draw(g);
-        }
+        	loc = powerup.getLocation();
+            Image powerupImage = new ImageIcon(powerup.getImagePath()).getImage();
+            g.drawImage(powerupImage, (int)loc.getXLocation(), (int)loc.getYLocation(), powerup.getSize(), powerup.getSize(), null);
 
-        Alien alien = game.getAlienController().getAlien();
-        if(alien != null){
-            if(!alien.isEmpty()){
-                alien.draw(g);
-            }
         }
         
+                
         Avatar avatar = game.getPlayer().getAvatar();
-    	Location loc = avatar.getLocation();
+    	loc = avatar.getLocation();
         Image image = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/avatar.png").getImage();
         g.drawImage(image, (int) loc.getXLocation(), (int) loc.getYLocation(), avatar.getWidth(), avatar.getHeight(), null);
-        
         
         g.setColor(Color.black); 
     	for (int x = game.getGridSize(); x <= game.getGridSize()*game.getGridWidth(); x += game.getGridSize() ){
@@ -72,6 +93,16 @@ public class LayoutPanel extends JPanel {
 	            g.drawRect(x, y, game.getGridSize(), game.getGridSize());
 	        }
 	    }
+    	
+    	Door door = game.currentBuilding.getDoor();
+	    Image doorImage = new ImageIcon(game.currentBuilding.getDoor().getDoorImgDirectory()).getImage();
+        g.drawImage(doorImage, (int) door.getLocation().getXLocation(), (int) door.getLocation().getYLocation(), door.getWidth(), door.getHeight(), null);
+  
+        if(game.getKeyFoundBool()) {
+        	image = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/key.png").getImage();
+            g.drawImage(image, (int) loc.getXLocation()+avatar.getWidth()/2, (int) loc.getYLocation()+avatar.getWidth()/2, avatar.getWidth(), Math.round(avatar.getHeight()/2), null);
+            
+        }
     	
     }
     

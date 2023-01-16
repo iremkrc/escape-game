@@ -1,13 +1,11 @@
 package Domain.Alien;
 
-import java.awt.Graphics;
 import java.util.concurrent.ThreadLocalRandom;
 
+import Domain.Controllers.AlienController;
 import Domain.Controllers.GameController;
 import Domain.Game.Location;
-import java.awt.Color;
-import javax.swing.ImageIcon;
-import java.awt.Image;
+
 
 public class TimeWastingAlien implements Alien {
 
@@ -63,12 +61,11 @@ public class TimeWastingAlien implements Alien {
         }else{
             strategy = new ConfusedStrategy();
         }
-        this.strategy = strategy;
-        strategy.setAlien(this);
         return strategy;
     }
 
     public void setStrategy(TimeWastingStrategy strategy) {
+    	strategy.setAlien(this);
         this.strategy = strategy;
     }
     
@@ -82,23 +79,11 @@ public class TimeWastingAlien implements Alien {
         size = game.getGridSize();
         location = game.getAvailableLocation();
     }
-
+    
     @Override
     public String getType() {
         // TODO Auto-generated method stub
         return this.type;
-    }
-
-    @Override
-    public void draw(Graphics g) {
-        // TODO Auto-generated method stub
-        Location loc = this.location;
-        g.setColor(Color.GREEN);
-        g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), size, size);
-        Image image = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/alien.png").getImage();
-        
-        g.drawImage(image, (int) location.getXLocation(), (int) location.getYLocation(), size, size, null);
-        
     }
 
     @Override
@@ -116,4 +101,8 @@ public class TimeWastingAlien implements Alien {
 	public void setEmpty(boolean empty) {
 		this.empty = empty;
 	}
+	
+    public int getSize() {
+    	return size;
+    }
 }

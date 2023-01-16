@@ -1,7 +1,5 @@
 package Domain.Game;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.util.LinkedList;
 
 import Domain.GameObjects.GameObject;
@@ -10,6 +8,7 @@ public class Building {
 	public LinkedList<GameObject> gameObjectList = new LinkedList<GameObject>();
 	private int currentObjectCount = 0;
 	private int intendedObjectCount;
+	private Door door;
 	private boolean isFull;
 	boolean doorOpen;
 	public int width, height, gridSize;
@@ -26,6 +25,8 @@ public class Building {
 		this.width = width;
 		this.gridSize = gridSize;
 		gridNonAvailability = new int[width][height];
+		door = new Door(gridSize, gridSize*width, gridSize*height);
+		gridNonAvailability[width-1][height-1] = 1;
 	}
 
 	public void addAlien(int x, int y){
@@ -45,6 +46,10 @@ public class Building {
     	*/			 
 		int xGrid = (int) (x/gridSize);
 		int yGrid = (int) (y/gridSize);
+		if(xGrid == width && yGrid == height) {
+			return;
+		}
+		
 		System.out.println("x: " + xGrid + " y: " + yGrid);
 		if(xGrid <=width && xGrid >=1 && yGrid <=height && yGrid >=1 && !(xGrid==1 && yGrid==1)) {
 			if(!doesCauseUnreachableRegion(xGrid, yGrid)) {
@@ -57,6 +62,7 @@ public class Building {
 					}
 					i++;
 				}
+				
 				System.out.println("addObject");
 				if(!isContained && !isFull) {
 					GameObject obj = new GameObject(gridSize);
@@ -227,4 +233,15 @@ public class Building {
 		return gameObjectList;
 	}
 	
+	public Location getDoorLocation() {
+		return door.getLocation();
+	}
+	
+	public void setDoor(boolean flag) {
+		door.setIsOpen(flag);
+	}
+	
+	public Door getDoor() {
+		return door;
+	}
 }
