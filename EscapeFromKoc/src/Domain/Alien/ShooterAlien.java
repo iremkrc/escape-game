@@ -30,19 +30,6 @@ public class ShooterAlien implements Alien {
         return this.type;
     }
     
-    ActionListener shooterActionListener = new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(game.getAlienController().getAlien() != null){
-				if(!game.isPaused() && game.getAlienController().getAlien().getType().equals("Shooter")) {
-					System.out.println("SHOOT");
-					action();
-				}
-			}
-		}
-	};
-	
-	Timer alienTimer = new Timer(1000, shooterActionListener);
 
 	public ShooterAlien(/*Location avatarLocation, boolean wornProtectionVest*/) {	
         type = "Shooter";
@@ -54,7 +41,6 @@ public class ShooterAlien implements Alien {
         location = game.getAvailableLocation(); 
         this.avatarLocation = game.getPlayer().getAvatar().getLocation(); //avatarLocation;
         this.isProtectionVestActive = game.getPlayer().getPlayerState().getIsProtectionVestActive();
-        alienTimer.start();
 	}
     
     public void draw(Graphics g) {
@@ -83,7 +69,7 @@ public class ShooterAlien implements Alien {
 	public void setEmpty(boolean empty) {
 		this.empty = empty;
 	}
-	
+    
     public Location getLocation() {
 		return location;
 	}

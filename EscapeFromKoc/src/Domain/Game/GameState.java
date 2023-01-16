@@ -7,7 +7,7 @@ public class GameState {
 	public static final int height = 12;
 	public static final int width = 18;
 	public static final int gridSize = 40;
-	private int timeGivenForEachObject = 600; // the given time for the building is this times the object count //10
+	private int timeGivenForEachObject = 30; // the given time for the building is this times the object count //10
 	private boolean paused = false;
 	private boolean isOver = false;
 	private boolean hintActive = false;

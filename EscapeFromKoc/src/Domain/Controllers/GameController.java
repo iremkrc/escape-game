@@ -231,6 +231,7 @@ public class GameController{
 		}else {
 			this.getPowerupController().setPowerup(null);
 			this.getAlienController().setAlien(null);
+			this.getAlienController().resetAlienTime();
 			setCurrentBuilding(gameState.getCurrentBuildingIndex() + 1);
 			player.avatar.putAvatarToInitialLocation();
 			setNewBuildingTime();

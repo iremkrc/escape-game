@@ -3,6 +3,7 @@ package UI;
 import javax.swing.*;
 
 import Domain.Player.Avatar;
+import Domain.Game.Door;
 import Domain.Game.GameKeyListener;
 import Domain.Game.GameMouseListener;
 import Domain.Game.Location;
@@ -45,6 +46,10 @@ public class BuildingLayoutPanel extends JPanel {
 	        g.drawImage(image, (int) loc.getXLocation(), (int) loc.getYLocation(), obj.getWidth(), obj.getHeight(), null);
 	    }
 	    
+	    Door door = game.currentBuilding.getDoor();
+	    Image doorImage = new ImageIcon(game.currentBuilding.getDoor().getDoorImgDirectory()).getImage();
+        g.drawImage(doorImage, (int) door.getLocation().getXLocation(), (int) door.getLocation().getYLocation(), door.getWidth(), door.getHeight(), null);
+  
 	    for (int x = game.getGridSize(); x <= game.getGridSize()*game.getGridWidth(); x += game.getGridSize() ){
 	        for (int y = game.getGridSize(); y <= game.getGridSize()*game.getGridHeight(); y += game.getGridSize() ){
 	            g.drawRect(x, y, game.getGridSize(), game.getGridSize());
