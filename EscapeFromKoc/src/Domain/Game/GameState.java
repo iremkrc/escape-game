@@ -2,14 +2,13 @@ package Domain.Game;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.Timer;
 
 public class GameState {
 	private final int buildingCount = 6;
 	private boolean buildingModeDone = false;
 	public String[] buildingNames = {"Student Center","CASE","SOS","SCI","ENG","SNA"}; //
-	public int[] objCounts = {10,1,1,1,1,1};  //5,7,10,14,19,25
+	public int[] objCounts = {1,1,1,1,1,1};  //5,7,10,14,19,25
 	public static final int height = 12;
 	public static final int width = 18;
 	public static final int gridSize = 40;
@@ -20,6 +19,7 @@ public class GameState {
 	private boolean isBottlePowerupActive = false;
 	private boolean isVestPowerupActive = false;
 	private boolean isKeyFound = false;
+	private boolean Won = false;
 	private int currentBuildingIndex = 0;
 	private int time;
 	
@@ -122,6 +122,14 @@ public class GameState {
 	public void startGameTimer() {
 		System.out.println("game timer start");
 		healthTimer.start();
+	}
+	
+	public boolean isWon() {
+		return Won;
+	}
+
+	public void setWon(boolean won) {
+		Won = won;
 	}
 		
 }

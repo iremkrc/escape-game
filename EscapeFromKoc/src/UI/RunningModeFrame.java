@@ -46,11 +46,10 @@ public class RunningModeFrame extends JFrame{
 	private static JButton exitButton;
 	private int second;
 	private String ddSecond;
-	DecimalFormat dFormat = new DecimalFormat("00");
+	private DecimalFormat dFormat = new DecimalFormat("00");
 	private int gameStatus = 0;
 	private int powerupTime = 0;
-    GameController game;
-	Timer mainTimer;
+    private GameController game;
 	boolean timeIsRunning = false;
 	//private boolean isHealthDone = false;
     

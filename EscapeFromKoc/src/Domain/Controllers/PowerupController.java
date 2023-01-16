@@ -41,7 +41,10 @@ public class PowerupController {
 				
 				if(game.getGameState().getHintActive()){
 					hintTime++;
+				}else {
+					hintTime = 0;
 				}
+				
 				if(hintTime == 10*1000/powerupTimersec) {
 					game.getGameState().setHintActive(false);
 					hintTime = 0;
@@ -49,7 +52,10 @@ public class PowerupController {
 				
 				if(game.getGameState().getIsBottlePowerupActive()){
 					bottleTime++;
+				}else {
+					bottleTime = 0;
 				}
+				
 				if(bottleTime == 10*1000/powerupTimersec) {
 					game.getGameState().setIsBottlePowerupActive(false);
 					bottleTime = 0;

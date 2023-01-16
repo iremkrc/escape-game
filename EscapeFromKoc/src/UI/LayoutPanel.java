@@ -31,23 +31,22 @@ public class LayoutPanel extends JPanel {
     }
 
     public void paint( Graphics g ) {  
-        if(game.getGameState().getHintActive()){
-            g.setColor(Color.RED);
-            g.fillRect((int) game.getHintLocation().xLocation,(int) game.getHintLocation().yLocation, 4*game.getGridSize(), 4*game.getGridSize());
-            //g.drawRect((int) game.getHintLocation().xLocation,(int) game.getHintLocation().yLocation, 4*game.getGridSize(), 4*game.getGridSize());
-            g.setColor(Color.black); 
-        }
-	    
         Alien alien = game.getAlienController().getAlien();
-        Location loc = new Location(0,0);
+        Location alienLoc = new Location(0,0);
         if(alien != null){
+        	alienLoc = alien.getLocation();
             if(!alien.isEmpty()) {
-            	loc = alien.getLocation();
-            	Image AlienImage = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/alien.png").getImage();;
             	if(alien.getType()=="Shooter") {
             		g.setColor(Color.darkGray);
-            		g.fillRect((int)loc.getXLocation()-3*game.getGridSize(), (int)loc.getYLocation()-3*game.getGridSize(), 7*game.getGridSize(), 7*game.getGridSize());
+            		g.fillRect((int)alienLoc.getXLocation()-3*game.getGridSize(), (int)alienLoc.getYLocation()-3*game.getGridSize(), 7*game.getGridSize(), 7*game.getGridSize());
             	}
+            }
+        }
+        
+        if(alien != null){
+            if(!alien.isEmpty()) {
+            	alienLoc = alien.getLocation();
+            	Image AlienImage = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/alien.png").getImage();;
             	
             	if(alien.getType()=="TimeWasting") {
             		g.setColor(Color.GREEN);
@@ -56,15 +55,24 @@ public class LayoutPanel extends JPanel {
             	}else if(alien.getType()=="Shooter") {
             		g.setColor(Color.CYAN);
             	}
-            	g.fillOval((int)loc.getXLocation(), (int)loc.getYLocation(), alien.getSize(), alien.getSize());
-            	g.drawImage(AlienImage, (int) loc.getXLocation(), (int) loc.getYLocation(), alien.getSize(), alien.getSize(), null);
+            	g.fillOval((int)alienLoc.getXLocation(), (int)alienLoc.getYLocation(), alien.getSize(), alien.getSize());
+            	g.drawImage(AlienImage, (int) alienLoc.getXLocation(), (int) alienLoc.getYLocation(), alien.getSize(), alien.getSize(), null);
             }
         }
+        
+        if(game.getGameState().getHintActive()){
+            g.setColor(Color.RED);
+            g.fillRect((int) game.getHintLocation().xLocation,(int) game.getHintLocation().yLocation, 4*game.getGridSize(), 4*game.getGridSize());
+            //g.drawRect((int) game.getHintLocation().xLocation,(int) game.getHintLocation().yLocation, 4*game.getGridSize(), 4*game.getGridSize());
+            g.setColor(Color.black); 
+        }
+        
+        
         
         LinkedList<GameObject> objectList = game.currentBuilding.getObjectList();
 	    for(int i=0; i<objectList.size(); i++) { //Hardcoded
 	    	GameObject obj = objectList.get(i);
-	    	loc = obj.getLocation();
+	    	Location loc = obj.getLocation();
 	        //g.setColor(Color.lightGray);
 	        //g.fillRect((int)loc.getXLocation(), (int)loc.getYLocation(), obj.getWidth(), obj.getHeight());
 	        //g.setColor(Color.black);
@@ -73,7 +81,7 @@ public class LayoutPanel extends JPanel {
 	    }
 	    	    
         IPowerup powerup = game.getPowerupController().getPowerup();
-        loc = new Location(0,0);
+        Location loc = new Location(0,0);
         if(powerup != null){
         	loc = powerup.getLocation();
             Image powerupImage = new ImageIcon(powerup.getImagePath()).getImage();

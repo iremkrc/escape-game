@@ -30,6 +30,7 @@ public class AlienController {
 				System.out.println("alien time: "+alienTime/2);
 				if((alienTime%20 == 0)) {
 					createAlienRandomly();
+					game.getGameState().setIsBottlePowerupActive(false);
 					System.out.println("---------------------------------new-alien-----------------------------");
 					if(alien.getType() == "TimeWasting"){
 						TimeWastingStrategy s = ((TimeWastingAlien) alien).findStrategy(game.getGameState().getTotalTime(), game.getGameState().getTime());

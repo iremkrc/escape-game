@@ -202,10 +202,10 @@ public class GameController{
 		if(type == "hint"){
 			this.player.useHintPowerUp();
 		}
-		else if(type == "bottle"){
+		else if(type == "bottle" && !gameState.getIsBottlePowerupActive()){
 			this.player.useBottlePowerUp();
 		}
-		else if(type == "vest"){
+		else if(type == "vest" && !gameState.getIsVestPowerupActive()){
 			this.player.useVestPowerUp();
 		}
 	}
@@ -267,6 +267,7 @@ public class GameController{
 	public void performDoorPassingAction() {
 		if(gameState.getCurrentBuildingIndex() == 5) {
 			gameState.setIsOver(true);
+			gameState.setWon(true);
 		}else {
 			this.getAlienController().setAlien(null);
 			this.getAlienController().resetAlienTime();

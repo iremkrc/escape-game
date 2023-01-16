@@ -1,4 +1,5 @@
 package UI;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -13,7 +14,7 @@ import Domain.Controllers.GameController;
 public class EndGameFrame extends JFrame{
     private static final Color BACKGROUND_COLOR = new Color(255, 0, 0);
     private static final long serialVersionUID = 1L;
-    double score = GameController.getInstance().getPlayer().getPlayerState().getScore();
+    GameController game = GameController.getInstance();
 
     public EndGameFrame() {
         super("EndGame");
@@ -46,11 +47,20 @@ public class EndGameFrame extends JFrame{
     }
 
     private void initializeBottomPanel(JPanel mainPanel, JPanel bottomPanel) {
-        bottomPanel.setLayout(new GridBagLayout());
-        JLabel message = new JLabel("Final score: "+ score);
+        bottomPanel.setLayout(new BorderLayout());
+        JLabel message = new JLabel("You could achieve the Building: "+ game.currentBuilding.getBuildingName());
+        JLabel message2 = new JLabel();
+        if(game.getGameState().isWon()) {
+        	message2.setText("YOU WON THE GAME! YOU SUCCESSFULLY ESCAPED!");
+        }else {
+        	message2.setText("YOU LOST! YOU CANNOT ESCAPE!");
+        }
         message.setSize(300, 200);
+        message2.setSize(300, 200);
         message.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
-        bottomPanel.add(message);
+        message2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+        bottomPanel.add(message, BorderLayout.CENTER);
+        bottomPanel.add(message2, BorderLayout.AFTER_LAST_LINE);
         bottomPanel.setBackground(BACKGROUND_COLOR);
         mainPanel.add(bottomPanel);
         System.out.println("Game ended");
