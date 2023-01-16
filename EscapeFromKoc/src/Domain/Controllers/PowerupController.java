@@ -22,6 +22,7 @@ public class PowerupController {
     private boolean powerupBoolean = false;
     private int hintTime = 0;
     private int bottleTime = 0;
+    private int vestTime = 0;
     
     ActionListener shooterActionListener = new ActionListener() {
 		@Override
@@ -51,6 +52,14 @@ public class PowerupController {
 				if(bottleTime == 10*1000/powerupTimersec) {
 					game.getGameState().setIsBottlePowerupActive(false);
 					bottleTime = 0;
+				}
+				
+				if(game.getGameState().getIsVestPowerupActive()){
+					vestTime++;
+				}
+				if(vestTime == 20*1000/powerupTimersec) {
+					game.getGameState().setIsVestPowerupActive(false);
+					vestTime = 0;
 				}
 			}
 			PowerupCounterTime++;
