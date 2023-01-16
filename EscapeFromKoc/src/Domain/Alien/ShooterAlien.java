@@ -21,7 +21,6 @@ public class ShooterAlien implements Alien {
         return this.type;
     }
     
-
 	public ShooterAlien(/*Location avatarLocation, boolean wornProtectionVest*/) {	
         type = "Shooter";
 		empty = false;
