@@ -8,8 +8,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="C:/Users/birka/Downloads/bson-4.8.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/birka/Downloads/gson-2.9.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/birka/Downloads/mongo-java-driver-3.12.11.jar"/>
+	<classpathentry kind="lib" path="./lib/bson-4.8.1.jar"/>
+	<classpathentry kind="lib" path="./lib/gson-2.9.0.jar"/>
+	<classpathentry kind="lib" path="./lib/mongo-java-driver-3.12.11.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
