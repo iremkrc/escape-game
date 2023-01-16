@@ -1,7 +1,6 @@
 package Domain.Game;
 
 import java.util.LinkedList;
-
 import Domain.GameObjects.GameObject;
 
 public class Building {

@@ -1,5 +1,4 @@
 package Domain.Alien;
-import java.awt.Graphics;
 
 import Domain.Game.Location;
 

@@ -4,8 +4,6 @@ import javax.swing.*;
 
 import Domain.Player.Avatar;
 import Domain.Game.Door;
-import Domain.Game.GameKeyListener;
-import Domain.Game.GameMouseListener;
 import Domain.Game.Location;
 import Domain.GameObjects.GameObject;
 import Domain.Controllers.GameController;

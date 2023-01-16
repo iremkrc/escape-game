@@ -3,23 +3,14 @@ package UI;
 import java.awt.*;  
 import java.awt.AWTEvent;
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -27,13 +18,10 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 
-import Domain.GameObjects.Powerups.IPowerup;
-
 import Domain.Controllers.AlienController;
 import Domain.Controllers.GameController;
 import Domain.Controllers.PowerupController;
 import Domain.Controllers.PlayerController;
-import Domain.Game.GameKeyListener;
 
 
 
@@ -49,9 +37,10 @@ public class RunningModeFrame extends JFrame{
 	private static JButton helpButton;
 	private int second;
 	private String ddSecond;
-	DecimalFormat dFormat = new DecimalFormat("00");
+	private DecimalFormat dFormat = new DecimalFormat("00");
 	private int gameStatus = 0;
-    GameController game;
+	private int powerupTime = 0;
+    private GameController game;
 	boolean timeIsRunning = false;
     
     @SuppressWarnings("deprecation")
@@ -59,11 +48,12 @@ public class RunningModeFrame extends JFrame{
 		super("Running Mode");
 		setLayout(new BorderLayout());
 		game = GameController.getInstance();
+		game.getGameState().startGameTimer();
+		
 		game.setBuildingModeDone(true);
 		game.setPlayer(new PlayerController());
 		game.setAlienController(AlienController.getInstance());
 		game.setPowerupController(new PowerupController());
-		game.getGameState().startGameTimer();
 		clockMiliSeconds = 10;	
 		
 		//initialize frame

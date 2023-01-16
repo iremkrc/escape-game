@@ -1,12 +1,12 @@
 package Domain.Controllers;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
+import java.util.TimerTask;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.swing.Timer;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import Domain.Alien.Alien;
 import Domain.Alien.AlienFactory;
@@ -23,13 +23,15 @@ public class AlienController {
     private long alienTime = 11;
     private static AlienController instance;
 
-    ActionListener shooterActionListener = new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(!game.isPaused()) {
+    Timer alienTimer = new Timer();  
+	TimerTask tt = new TimerTask() {  
+	    @Override  
+	    public void run() {  
+	    	if(!game.isPaused()) {
 				System.out.println("alien time: "+alienTime/2);
 				if((alienTime%20 == 0)) {
 					createAlienRandomly();
+					game.getGameState().setIsBottlePowerupActive(false);
 					System.out.println("---------------------------------new-alien-----------------------------");
 					if(alien.getType() == "TimeWasting"){
 						TimeWastingStrategy s = ((TimeWastingAlien) alien).findStrategy(game.getGameState().getTotalTime(), game.getGameState().getTime());
@@ -77,16 +79,12 @@ public class AlienController {
 				
 				alienTime++;
 			}
-		}
-	};
-	
-    private Timer alienTimer = new Timer(500, shooterActionListener);
-
-	
+	    };  
+	};  
 	
     public AlienController() {
         factory = new AlienFactory();
-        alienTimer.start();
+        alienTimer.scheduleAtFixedRate(tt,0,500);
     }
 
     public static AlienController getInstance() {
