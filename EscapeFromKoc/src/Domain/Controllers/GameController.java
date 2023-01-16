@@ -188,6 +188,9 @@ public class GameController{
 		else if(type == "bottle"){
 			this.player.useBottlePowerUp();
 		}
+		else if(type == "vest"){
+			this.player.useVestPowerUp();
+		}
 	}
 
 	public String getBottlePowerupDirection() {

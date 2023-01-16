@@ -72,6 +72,11 @@ public class LayoutPanel extends JPanel {
             if(!alien.isEmpty()) {
             	loc = alien.getLocation();
             	Image AlienImage = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/alien.png").getImage();;
+            	if(alien.getType()=="Shooter") {
+            		g.setColor(Color.darkGray);
+            		g.fillRect((int)loc.getXLocation()-3*game.getGridSize(), (int)loc.getYLocation()-3*game.getGridSize(), 7*game.getGridSize(), 7*game.getGridSize());
+            	}
+            	
             	if(alien.getType()=="TimeWasting") {
             		g.setColor(Color.GREEN);
             	}else if(alien.getType()=="Blind") {

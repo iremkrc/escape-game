@@ -18,6 +18,7 @@ public class GameState {
 	private boolean isOver = false;
 	private boolean hintActive = false;
 	private boolean isBottlePowerupActive = false;
+	private boolean isVestPowerupActive = false;
 	private boolean isKeyFound = false;
 	private int currentBuildingIndex = 0;
 	private int time;
@@ -73,9 +74,17 @@ public class GameState {
 	public boolean getIsBottlePowerupActive() {
 		return isBottlePowerupActive;
 	}
+	
+	public boolean getIsVestPowerupActive() {
+		return isVestPowerupActive;
+	}
 
 	public void setIsBottlePowerupActive(boolean isBottlePowerupActive) {
 		this.isBottlePowerupActive = isBottlePowerupActive;
+	}
+	
+	public void setIsVestPowerupActive(boolean isVestPowerupActive) {
+		this.isVestPowerupActive = isVestPowerupActive;
 	}
 
 	public void setNewBuildingTime() {

@@ -5,7 +5,6 @@ import Domain.Game.Location;
 import java.util.concurrent.ThreadLocalRandom;
 
 
-
 public class ShooterAlien implements Alien {
 
 	private int width;
@@ -14,7 +13,6 @@ public class ShooterAlien implements Alien {
 	private String type;
 	private Location location;
 	private Location avatarLocation;
-	private boolean isProtectionVestActive;
 	private GameController game;	
 	private boolean empty;
 
@@ -33,15 +31,15 @@ public class ShooterAlien implements Alien {
         size = game.getGridSize();
         location = game.getAvailableLocation(); 
         this.avatarLocation = game.getPlayer().getAvatar().getLocation(); //avatarLocation;
-        this.isProtectionVestActive = game.getPlayer().getPlayerState().getIsProtectionVestActive();
 	}
     
     @Override
     public void action() {
-    	double distance = Math.abs(avatarLocation.getXLocation() - location.getXLocation()) + Math.abs(avatarLocation.getYLocation() - location.getYLocation());
-    	if(distance <= game.getGridSize()*4 && isProtectionVestActive == false) {
+    	double distancex = Math.abs(avatarLocation.getXLocation() - location.getXLocation());
+    	double distancey = Math.abs(avatarLocation.getYLocation() - location.getYLocation());
+    	
+    	if(distancex < game.getGridSize()*4 && distancey < game.getGridSize()*4 && !game.getGameState().getIsVestPowerupActive()) {
     		game.getPlayer().getPlayerState().setHealth(game.getPlayer().getPlayerState().getHealth() - 1);
-    		System.out.println(distance);
     		System.out.println(game.getPlayer().getPlayerState().getHealth());	
     	}    
     }
