@@ -29,6 +29,7 @@ import javax.swing.UIManager;
 import Domain.Controllers.GameController;
 import Domain.Game.GameKeyListener;
 
+
 public class BuildingModeFrame extends JFrame{
 	private static final String BACKGROUND_IMAGE_ADDRESS = "src/images/background.png";
 	private static JLabel BuildingLabel;
@@ -97,7 +98,10 @@ public class BuildingModeFrame extends JFrame{
 					}
 					game.initializeRunningMode();
 					game.setCurrentBuilding(0);
+				   	System.out.println("I am about to RunningModeFrame...");
 					new RunningModeFrame();
+				   	System.out.println("I am about to saveGame...");
+					//game.saveGame(); // a save for usernames to json file when game starts.
 					dispose();
 				}
 			}

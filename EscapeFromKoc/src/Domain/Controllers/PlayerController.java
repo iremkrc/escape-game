@@ -1,15 +1,21 @@
 package Domain.Controllers;
 
-import java.security.Key;
 import Domain.Game.PlayerState;
 import Domain.Player.Avatar;
+
+import Domain.SaveLoad.FileSaveLoadAdapter;
+import Domain.SaveLoad.MongoSaveLoad;
+
+import java.io.FileNotFoundException;
+
 
 public class PlayerController {
 	public Avatar avatar;
 	int score;
 	GameController escapeFromKocGame;	
 	PlayerState playerState;
-
+	private FileSaveLoadAdapter saveLoadService;
+	
 	public PlayerController() {
 		escapeFromKocGame = GameController.getInstance();
 		avatar = new Avatar(escapeFromKocGame.getGameState().gridSize); 
@@ -60,5 +66,27 @@ public class PlayerController {
 	public PlayerState getPlayerState() {
 		return playerState;
 	}
+	
+	public void saveGameLocal (){
+	   	System.out.println("I am about to FileSaveLoadAdapter...");
+		saveLoadService = new FileSaveLoadAdapter();
+ 
+		saveLoadService.save();
 
+	}
+
+	public void loadGameLocal() throws FileNotFoundException {
+		saveLoadService = new FileSaveLoadAdapter();
+		//new MongoSaveLoad();
+		saveLoadService.load();
+	}
+
+	public void saveGameDatabase(){
+		new MongoSaveLoad();
+	}
+
+	public void loadGameDatabase(){
+
+	}
+	
 }

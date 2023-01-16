@@ -147,6 +147,7 @@ public class RunningModeFrame extends JFrame{
 				game.setPaused(true);
 				if (JOptionPane.showConfirmDialog(null, "Are you sure to exit?", "WARNING",
 				        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					game.saveGame();
 					dispose();	
 				} else {
 					game.setPaused(false);
