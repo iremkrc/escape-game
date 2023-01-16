@@ -1,5 +1,6 @@
 package UI;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -45,11 +46,15 @@ public class StartFrame extends JFrame{
 	}
 
 	private void initializeTopPanel(JPanel mainPanel, JPanel topPanel) {
-		topPanel.setLayout(new GridBagLayout());
-		JLabel welcome = new JLabel("ESCAPE FROM KOC GAME");
+		topPanel.setLayout(new BorderLayout());
+		JLabel welcome = new JLabel("ESCAPE FROM KOC GAME", JLabel.CENTER);
 		welcome.setSize(1000, 200);
-		welcome.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
-		topPanel.add(welcome);
+		welcome.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 60));
+		JLabel welcome2 = new JLabel("By Group B.A.M.B.I.", JLabel.CENTER);
+		welcome2.setSize(1000, 200);
+		welcome2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
+		topPanel.add(welcome, BorderLayout.CENTER);
+		topPanel.add(welcome2, BorderLayout.SOUTH);
 		topPanel.setBackground(BACKGROUND_COLOR);
 		mainPanel.add(topPanel);
 	}
@@ -58,7 +63,7 @@ public class StartFrame extends JFrame{
 		bottomPanel.setLayout(new GridBagLayout());
 		JLabel message = new JLabel("Press the button to start.");
 		message.setSize(300, 200);
-		message.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+		message.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
 		bottomPanel.add(message);
 		bottomPanel.setBackground(BACKGROUND_COLOR);
 		mainPanel.add(bottomPanel);
@@ -66,7 +71,9 @@ public class StartFrame extends JFrame{
 
 	private void initializeMiddlePanel(JPanel mainPanel, JPanel middlePanel) {
 		JButton startButton = new JButton("Start Game");
+		startButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
 		middlePanel.add(startButton);
+		
 		middlePanel.setBackground(BACKGROUND_COLOR);
 		mainPanel.add(middlePanel);
 

@@ -19,7 +19,7 @@ public class GameTypeFrame extends JFrame {
 
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-
+        setBounds(300, 200, 1000, 600);
         setSize(1000, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
