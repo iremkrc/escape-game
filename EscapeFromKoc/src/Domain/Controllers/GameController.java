@@ -1,9 +1,13 @@
 package Domain.Controllers;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
+
+import javax.swing.Timer;
 
 import Domain.Game.Building;
 import Domain.Game.PlayerState;
@@ -28,6 +32,21 @@ public class GameController{
 	private Map<String, Integer> buildingKeyMap = new HashMap<>();
 	private Location keyLocation;
 	private String bottlePowerupDirection;
+	
+	ActionListener healthListener = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			int healthControl = player.getPlayerState().getHealth();			
+			if(healthControl <= 0) gameState.setIsOver(true);
+			
+			if(getGameState().isOver()) {
+				setPaused(true);
+			}	
+		}
+	};
+	
+	Timer healthTimer = new Timer(10, healthListener);
 	
 	public GameController() {
 		gameState = new GameState();
@@ -73,6 +92,7 @@ public class GameController{
 */
     public void setPlayer(PlayerController player) {
 		this.player=player;
+		healthTimer.start();
 	}
 
     public PlayerController getPlayer() {
@@ -228,14 +248,17 @@ public class GameController{
 		if(gameState.getCurrentBuildingIndex() == 5) {
 			gameState.setIsOver(true);
 		}else {
-			this.getPowerupController().setPowerup(null);
 			this.getAlienController().setAlien(null);
 			this.getAlienController().resetAlienTime();
+			this.getPowerupController().setPowerup(null);
+			this.getPowerupController().resetPowerupTime();
+			
 			setCurrentBuilding(gameState.getCurrentBuildingIndex() + 1);
 			player.avatar.putAvatarToInitialLocation();
 			setNewBuildingTime();
 			this.setPaused(false);
 			this.getGameState().setHintActive(false);
+			this.getGameState().setKeyFound(false);
 		}
 	}
 	
@@ -270,7 +293,7 @@ public class GameController{
 	}
 
 	public void setNewBuildingTime() {
-		gameState.setTime(20*gameState.objCounts[getCurrentBuildingIndex()]);
+		gameState.setTime(gameState.timeGivenForEachObject*gameState.objCounts[getCurrentBuildingIndex()]);
 	}
 	
 	public void addObjectToCurrentBuilding(int x, int y) {

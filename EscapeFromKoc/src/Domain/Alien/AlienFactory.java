@@ -3,9 +3,9 @@ package Domain.Alien;
 public class AlienFactory {
     public Alien createAlien(String type) {
         if (type.equals("Blind")) {
-            return new BlindAlien();
+            return new TimeWastingAlien();
         } else if (type.equals("Shooter")) {
-            return new ShooterAlien();
+            return new TimeWastingAlien();
         } else if (type.equals("TimeWasting")) {
             return new TimeWastingAlien();
         } else {
