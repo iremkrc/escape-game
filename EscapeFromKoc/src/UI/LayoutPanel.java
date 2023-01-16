@@ -8,8 +8,6 @@ import Domain.Alien.Alien;
 import Domain.Controllers.GameController;
 import Domain.Controllers.PowerupController;
 import Domain.Game.Door;
-import Domain.Game.GameKeyListener;
-import Domain.Game.GameMouseListener;
 import Domain.Game.Location;
 import Domain.Player.Avatar;
 
