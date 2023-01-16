@@ -20,13 +20,14 @@ public class AlienController {
     private AlienFactory factory;
     private Alien alien;
     private GameController game = GameController.getInstance();
-    private long alienTime = 8;
+    private long alienTime = 11;
     private static AlienController instance;
 
     ActionListener shooterActionListener = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(!game.isPaused()) {
+				System.out.println("alien time: "+alienTime/2);
 				if((alienTime%20 == 0)) {
 					createAlienRandomly();
 					System.out.println("---------------------------------new-alien-----------------------------");
@@ -110,7 +111,7 @@ public class AlienController {
     }
     
     public void resetAlienTime() {
-    	alienTime = 8;
+    	alienTime = 11;
     }
     
     public void setAlienTime(long alienTime) {
