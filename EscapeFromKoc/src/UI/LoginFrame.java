@@ -2,6 +2,7 @@ package UI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -56,16 +57,20 @@ public class LoginFrame extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
-		userNameLabel = new JLabel("Username");
-		userNameLabel.setBounds(465, 50, 70, 20);
+		userNameLabel = new JLabel("Username:",JLabel.CENTER);
+		userNameLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+		userNameLabel.setBounds(420, 50, 150, 20);
 		panel.add(userNameLabel);
 		
 		userNameField = new JTextField();
-		userNameField.setBounds(400, 80, 200, 28);
+		userNameField.setBounds(350, 80, 300, 50);
+		userNameField.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
 		panel.add(userNameField);
 		
 		loginButton = new JButton("Login");
-		loginButton.setBounds(455, 140, 90, 25);
+		loginButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+		loginButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+		loginButton.setBounds(435, 140, 120, 50);
 		loginButton.setForeground(Color.WHITE);
 		loginButton.setBackground(Color.BLACK);
 		loginButton.addActionListener(new ActionListener() {
@@ -94,20 +99,25 @@ public class LoginFrame extends JFrame{
 		});
 		panel.add(loginButton);
 		
-		askSign = new JLabel("Haven't signed up yet? Let's change that!");
-		askSign.setBounds(380, 230, 240, 28);
+		askSign = new JLabel("Haven't signed up yet? Let's change that!",JLabel.CENTER);
+		askSign.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+		askSign.setBounds(250, 280, 500, 28);
 		panel.add(askSign);
 		
-		signNameLabel = new JLabel("Username");
-		signNameLabel.setBounds(465, 280, 70, 20);
+		signNameLabel = new JLabel("Username:",JLabel.CENTER);
+		signNameLabel.setBounds(420, 330, 150, 20);
+		signNameLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
 		panel.add(signNameLabel);
 		
 		signNameField = new JTextField();
-		signNameField.setBounds(400, 310, 200, 28);
+		signNameField.setBounds(350, 360, 300, 50);
+		signNameField.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
 		panel.add(signNameField);
 		
 		signUp = new JButton("Sign Up");
-		signUp.setBounds(455, 370, 90, 25);
+		signUp.setAlignmentX(JButton.CENTER_ALIGNMENT);
+		signUp.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+		signUp.setBounds(420, 420, 150, 50);
 		signUp.setForeground(Color.WHITE);
 		signUp.setBackground(Color.BLACK);
 		signUp.addActionListener(new ActionListener() {
