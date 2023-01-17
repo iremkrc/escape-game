@@ -100,5 +100,6 @@ public class PowerupController {
     
     public void resetPowerupTime() {
     	PowerupCounterTime = 1;
+    	powerupBoolean = false;
     }
 }
