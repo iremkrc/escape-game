@@ -185,7 +185,7 @@ public class GameController{
 	}
 
 	public void activatePowerUp(String type) throws Exception{
-		if(type == "hint"){
+		if(type == "hint" && !gameState.isKeyFound()){
 			this.player.useHintPowerUp();
 		}
 		else if(type == "bottle" && !gameState.getIsBottlePowerupActive()){
