@@ -67,8 +67,8 @@ public class PowerupController {
 					game.getGameState().setIsVestPowerupActive(false);
 					vestTime = 0;
 				}
+				PowerupCounterTime++;
 			}
-			PowerupCounterTime++;
 	    };  
 	};  
     

@@ -2,6 +2,7 @@ package UI;
 
 import Domain.Controllers.AlienController;
 import Domain.Controllers.GameController;
+import Domain.Controllers.PlayerController;
 import Domain.Controllers.PowerupController;
 
 import javax.swing.*;
@@ -87,10 +88,6 @@ public class GameTypeFrame extends JFrame {
                         JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 if (choice == 0) {
                     try {
-                    	game.setPaused(true);
-                		game.getGameState().startGameTimer();
-                		game.setAlienController(AlienController.getInstance());
-                		game.setPowerupController(new PowerupController());
                         game.loadGame(0);
                         new RunningModeFrame();
                         dispose();
@@ -100,10 +97,6 @@ public class GameTypeFrame extends JFrame {
 
                 } else if (choice == 1) {
                     try {
-                    	game.setPaused(true);
-                		game.getGameState().startGameTimer();
-                		game.setAlienController(AlienController.getInstance());
-                		game.setPowerupController(new PowerupController());
                         game.loadGame(1);
                         new RunningModeFrame();
                         dispose();

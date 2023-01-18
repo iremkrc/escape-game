@@ -87,7 +87,9 @@ public class TimeWastingAlien implements Alien {
     @Override
     public void action() {
         // TODO Auto-generated method stub
-        strategy.wasteTime();
+    	if(!game.getGameState().isKeyFound()) {
+            strategy.wasteTime();
+    	}
     }
     
     @Override

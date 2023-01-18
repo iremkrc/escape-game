@@ -48,8 +48,6 @@ public class RunningModeFrame extends JFrame{
 		super("Running Mode");
 		setLayout(new BorderLayout());
 		game = GameController.getInstance();
-		
-		game.setPlayer(new PlayerController());
 		game.setBuildingModeDone(true);
 		game.setPaused(false);
 		clockMiliSeconds = 10;	
