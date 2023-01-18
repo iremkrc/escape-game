@@ -18,10 +18,10 @@ public class EndGameFrame extends JFrame{
 
     public EndGameFrame() {
         super("EndGame");
-        setBounds(580, 350, 600, 300);
+        setBounds(400, 200, 800, 400);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBackground(BACKGROUND_COLOR);
+        setBackground(Color.black);
         JPanel mainPanel = new JPanel();
         JPanel topPanel = new JPanel();
         JPanel bottomPanel = new JPanel();
@@ -38,9 +38,9 @@ public class EndGameFrame extends JFrame{
 
     private void initializeTopPanel(JPanel mainPanel, JPanel topPanel) {
         topPanel.setLayout(new GridBagLayout());
-        JLabel gameOver = new JLabel("Game Over!");
+        JLabel gameOver = new JLabel("Game Over!", JLabel.CENTER);
         gameOver.setSize(1000, 200);
-        gameOver.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
+        gameOver.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
         topPanel.add(gameOver);
         topPanel.setBackground(BACKGROUND_COLOR);
         mainPanel.add(topPanel);
@@ -48,17 +48,17 @@ public class EndGameFrame extends JFrame{
 
     private void initializeBottomPanel(JPanel mainPanel, JPanel bottomPanel) {
         bottomPanel.setLayout(new BorderLayout());
-        JLabel message = new JLabel("You could achieve the Building: "+ game.currentBuilding.getBuildingName());
-        JLabel message2 = new JLabel();
+        JLabel message = new JLabel("You could achieve the Building: "+ game.currentBuilding.getBuildingName(),JLabel.CENTER);
+        JLabel message2 = new JLabel("",JLabel.CENTER);
         if(game.getGameState().isWon()) {
-        	message2.setText("YOU WON THE GAME! YOU SUCCESSFULLY ESCAPED!");
+        	message2.setText("YOU WON THE GAME! YOU ESCAPED!");
         }else {
         	message2.setText("YOU LOST! YOU CANNOT ESCAPE!");
         }
         message.setSize(300, 200);
         message2.setSize(300, 200);
-        message.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
-        message2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+        message.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
+        message2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
         bottomPanel.add(message, BorderLayout.CENTER);
         bottomPanel.add(message2, BorderLayout.AFTER_LAST_LINE);
         bottomPanel.setBackground(BACKGROUND_COLOR);

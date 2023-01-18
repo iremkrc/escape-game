@@ -13,7 +13,6 @@ import Domain.Game.GameState;
 import Domain.Game.Location;
 import Domain.GameObjects.GameObject;
 import Domain.GameObjects.Powerups.IPowerup;
-import UI.StartFrame;
 
 public class GameController{
 
@@ -317,10 +316,6 @@ public class GameController{
 		return gameState;
 	}
 
-	public static void main(String[] args) {
-		new StartFrame();
-	}
-
 	public void initializeRunningMode() {
 		for(Building b: buildings) {
 			int objCount = b.getIntendedObjectCount();
@@ -331,7 +326,6 @@ public class GameController{
 		}
 	}
 	
-
 	public void saveGame(){
 
 		// save game to local JSON file
