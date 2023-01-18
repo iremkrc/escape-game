@@ -26,7 +26,9 @@ import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 
+import Domain.Controllers.AlienController;
 import Domain.Controllers.GameController;
+import Domain.Controllers.PowerupController;
 
 
 public class BuildingModeFrame extends JFrame{
@@ -45,7 +47,6 @@ public class BuildingModeFrame extends JFrame{
     @SuppressWarnings("deprecation")
 	public BuildingModeFrame() {
 		super("Building Mode");
-		
 		
 		game = GameController.getInstance();
 		lastBuildingIndex = game.getBuildingCount();
@@ -101,6 +102,9 @@ public class BuildingModeFrame extends JFrame{
 					new RunningModeFrame();
 				   	System.out.println("I am about to saveGame...");
 					//game.saveGame(); // a save for usernames to json file when game starts.
+            		game.getGameState().startGameTimer();
+            		game.setAlienController(AlienController.getInstance());
+            		game.setPowerupController(new PowerupController());
 					dispose();
 				}
 			}

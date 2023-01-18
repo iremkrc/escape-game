@@ -1,6 +1,8 @@
 package UI;
 
+import Domain.Controllers.AlienController;
 import Domain.Controllers.GameController;
+import Domain.Controllers.PowerupController;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -27,17 +29,12 @@ public class GameTypeFrame extends JFrame {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
         startNewGameButton = new JButton(" \tStart New Game\t ");
-
         // set size
         startNewGameButton.setSize(120,120);
-
-
         // setBackground
         startNewGameButton.setBackground(new Color(241,170,106));
-
         // Set border
         startNewGameButton.setBorder(new LineBorder(new Color(241,170,106), 2, true));
-
         // Set font
         startNewGameButton.setFont(new Font("Open Sans", Font.BOLD, 24));
 
@@ -63,21 +60,15 @@ public class GameTypeFrame extends JFrame {
         });
 
         resumeGameButton = new JButton("\tResume Game \t\t");
-
         // set size
         resumeGameButton.setSize(120,120);
-
-
         // setBackground
         resumeGameButton.setBackground(new Color(241,170,106));
-
         // Set border
         resumeGameButton.setBorder(new LineBorder(new Color(241,170,106), 2, true));
         resumeGameButton.setBorderPainted(true);
-
         // Set font
         resumeGameButton.setFont(new Font("Open Sans", Font.BOLD, 24));
-
         // Add mouse listener to button
         resumeGameButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -96,8 +87,12 @@ public class GameTypeFrame extends JFrame {
                         JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 if (choice == 0) {
                     try {
-                        new RunningModeFrame();
+                    	game.setPaused(true);
+                		game.getGameState().startGameTimer();
+                		game.setAlienController(AlienController.getInstance());
+                		game.setPowerupController(new PowerupController());
                         game.loadGame(0);
+                        new RunningModeFrame();
                         dispose();
                     } catch (FileNotFoundException ex) {
                         throw new RuntimeException(ex);
@@ -105,8 +100,12 @@ public class GameTypeFrame extends JFrame {
 
                 } else if (choice == 1) {
                     try {
-                        new RunningModeFrame();
+                    	game.setPaused(true);
+                		game.getGameState().startGameTimer();
+                		game.setAlienController(AlienController.getInstance());
+                		game.setPowerupController(new PowerupController());
                         game.loadGame(1);
+                        new RunningModeFrame();
                         dispose();
                     } catch (FileNotFoundException ex) {
                         throw new RuntimeException(ex);
@@ -123,15 +122,11 @@ public class GameTypeFrame extends JFrame {
         gbc.insets = new Insets(15, 15, 15, 15); // Space between buttons
         gbc.anchor = GridBagConstraints.CENTER;
         mainPanel.add(startNewGameButton, gbc);
-
         mainPanel.add(Box.createRigidArea(new Dimension(5, 50))); // Space between buttons
-
 
         gbc.gridx = 1;
         gbc.gridy = 0;
         mainPanel.add(resumeGameButton,gbc);
         add(mainPanel);
     }
-
-
 }
