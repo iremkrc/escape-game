@@ -4,10 +4,16 @@ import Domain.Controllers.GameController;
 import Domain.Controllers.LoginController;
 import Domain.Game.Building;
 import Domain.Game.PlayerState;
+import Domain.Player.Inventory;
 
 import com.google.gson.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class SaveObject {
 
@@ -45,6 +51,35 @@ public class SaveObject {
         
         int health = currentGame.getPlayerHealth();
         save.addProperty("health", health);
+        
+        Inventory inventory = currentGame.getPlayerState().getInventory();
+        HashMap<String, Integer> powerupsMap = inventory.getPowerupsMap();        
+        Set<String> keySet = powerupsMap.keySet();
+        String arr[] = new String[3]; 
+        int i = 0; 
+        for (String x : keySet) 
+            arr[i++] = x; 
+        int hintNo = 0;
+        int vestNo = 0;
+        int bottleNo = 0;
+        for(int j = 0; j < keySet.size(); j++) {
+        	if(j==0) {
+        		hintNo = powerupsMap.get(arr[j]);
+        	}
+        	if(j==1) {
+        		vestNo = powerupsMap.get(arr[j]);
+        	}
+        	if(j==2) {
+        		bottleNo = powerupsMap.get(arr[j]);
+        	}
+        }
+        
+        System.out.println(keySet);
+        System.out.println(hintNo + "|" + vestNo + "|" + bottleNo);
+        
+        save.addProperty("hintNo", hintNo);
+        save.addProperty("vestNo", vestNo);
+        save.addProperty("bottleNo", bottleNo);
 
         System.out.println(save);
 

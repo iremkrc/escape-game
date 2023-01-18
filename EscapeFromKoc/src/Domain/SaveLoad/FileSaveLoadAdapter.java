@@ -4,6 +4,7 @@ import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import Domain.Controllers.GameController;
@@ -109,21 +110,12 @@ public class FileSaveLoadAdapter implements ISaveLoadAdapter {
         
         this.game.getPlayerState().setHealth(jo.get("health").getAsInt());
         
+        this.game.getPlayerState().getInventory().getPowerupsMap().put("hint", jo.get("hintNo").getAsInt());
         
-        System.out.println(jo.get("currentBuildingIndex").getAsInt());
+        this.game.getPlayerState().getInventory().getPowerupsMap().put("vest", jo.get("vestNo").getAsInt());
+
+        this.game.getPlayerState().getInventory().getPowerupsMap().put("bottle", jo.get("bottleNo").getAsInt());
         
-        System.out.println("\n Building size is"+game.getBuildings().size());
-        game.initializeRunningMode();
-        //game.setCurrentBuilding(0);
-        //game.setBuildings(buildingList);
-
-        /*
-        JsonArray buildingsObj = (JsonArray) jo.getAsJsonArray("building_mode_data");
-        //CopyOnWriteArrayList<Building> onScreenbuildingList = new CopyOnWriteArrayList<Building>();
-        JsonObject first_building = buildingsObj.get(0).getAsJsonObject();
-        System.out.println("buildingsObj is: " + first_building.get("buildingName"));
-        */
-
     }
-
+    
 }
