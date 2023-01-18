@@ -127,6 +127,13 @@ public class SaveObject {
             save.addProperty("powerupLocY", 0);
         }
         
+        save.addProperty("isHintActive", currentGame.getGameState().getHintActive());
+        save.addProperty("isBottleActive", currentGame.getGameState().getIsBottlePowerupActive());
+        save.addProperty("isVestActive", currentGame.getGameState().getIsVestPowerupActive());
+        save.addProperty("isKeyFound", currentGame.getGameState().isKeyFound());
+        save.addProperty("isDoorOpen", currentGame.getCurrentBuilding().getDoor().getIsOpen());
+        
+        
         System.out.println(save);
 
         return save;

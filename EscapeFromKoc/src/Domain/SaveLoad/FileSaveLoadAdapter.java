@@ -144,7 +144,12 @@ public class FileSaveLoadAdapter implements ISaveLoadAdapter {
         	this.game.getPowerupController().setPowerup(game.getPowerupController().getPowerupFactory().createPowerup(jo.get("powerup").getAsString()));
         	this.game.getPowerupController().getPowerup().setLocation(new Location(jo.get("powerupLocX").getAsDouble(),jo.get("powerupLocY").getAsDouble()));
         }
-
+        
+        this.game.getGameState().setIsVestPowerupActive(jo.get("isVestActive").getAsBoolean());
+        this.game.getGameState().setKeyFound(jo.get("isKeyFound").getAsBoolean());
+        this.game.getGameState().setHintActive(jo.get("isHintActive").getAsBoolean());
+        this.game.getGameState().setIsBottlePowerupActive(jo.get("isBottleActive").getAsBoolean());
+        this.game.getCurrentBuilding().getDoor().setIsOpen(jo.get("isDoorOpen").getAsBoolean());
         
     }
     
