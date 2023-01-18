@@ -11,4 +11,5 @@ public interface IPowerup {
 	public void setLocation(double x , double y, int width, int height);
 	public String getImagePath();
 	int getSize();
+	public void setLocation(Location location);
 }

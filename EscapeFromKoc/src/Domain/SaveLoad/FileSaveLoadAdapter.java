@@ -6,11 +6,13 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import Domain.Alien.Alien;
 import Domain.Controllers.GameController;
 import Domain.Game.Building;
 import Domain.Game.Door;
 import Domain.Game.GameState;
 import Domain.GameObjects.GameObject;
+import Domain.Game.Location;
 import com.google.gson.*;
 
 import com.google.gson.Gson;
@@ -100,7 +102,8 @@ public class FileSaveLoadAdapter implements ISaveLoadAdapter {
         
         // set at what building did the user left off
         this.game.getGameState().setCurrentBuildingIndex(jo.get("currentBuildingIndex").getAsInt()); // this is where I left off, 
-		// I save game only exit button is clicked at the moment. 
+		this.game.setCurrentBuilding(jo.get("currentBuildingIndex").getAsInt());
+        // I save game only exit button is clicked at the moment. 
 		// May be also just after building mode. 
 		// This line also is not working as I expect. 
 
@@ -109,7 +112,31 @@ public class FileSaveLoadAdapter implements ISaveLoadAdapter {
         System.out.println(jo.get("currentBuildingIndex").getAsInt());
         
         System.out.println("\n Building size is"+game.getBuildings().size());
-        game.initializeRunningMode();
+        
+        double avatarx = jo.get("avatarLocX").getAsInt();
+        double avatary = jo.get("avatarLocY").getAsInt();
+
+        this.game.getPlayer().getAvatar().setLocation(avatarx, avatary);
+        System.out.println(game.getPlayer().getAvatar().getLocation().xGrid);
+        
+        this.game.getAlienController().setAlienTime(jo.get("alienTime").getAsLong());
+        this.game.getPlayerState().setHealth(jo.get("health").getAsInt());
+        
+        int alienExists = jo.get("alienExists").getAsInt();
+        if(alienExists == 1) {
+        	this.game.getAlienController().setAlien(game.getAlienController().getAlienFactory().createAlien(jo.get("alien").getAsString()));
+        	this.game.getAlienController().getAlien().setLocation(new Location(jo.get("alienLocX").getAsDouble(),jo.get("alienLocY").getAsDouble()));
+        }
+        
+        this.game.getPowerupController().setPowerupTime(jo.get("powerupTime").getAsInt());
+        this.game.getPowerupController().setPowerupBoolean(jo.get("powerupBoolean").getAsBoolean());
+                
+        int powerupExists = jo.get("powerupExists").getAsInt();
+        if(powerupExists == 1) {
+        	this.game.getPowerupController().setPowerup(game.getPowerupController().getPowerupFactory().createPowerup(jo.get("powerup").getAsString()));
+        	this.game.getPowerupController().getPowerup().setLocation(new Location(jo.get("powerupLocX").getAsDouble(),jo.get("powerupLocY").getAsDouble()));
+        }
+//        game.initializeRunningMode();
         //game.setCurrentBuilding(0);
         //game.setBuildings(buildingList);
 

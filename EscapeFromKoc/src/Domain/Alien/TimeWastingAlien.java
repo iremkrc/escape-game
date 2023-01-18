@@ -38,9 +38,10 @@ public class TimeWastingAlien implements Alien {
         return this.location;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
-    }
+	@Override
+	public void setLocation(Location loc) {
+		this.location = loc;
+	}
 
     public TimeWastingStrategy getStrategy() {
         return this.strategy;

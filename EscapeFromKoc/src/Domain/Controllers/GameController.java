@@ -17,7 +17,6 @@ import Domain.GameObjects.Powerups.IPowerup;
 public class GameController{
 
     private PlayerController player;
-	private PlayerState playerState;
 	private AlienController alienController;
 	private GameState gameState;
 	private PowerupController powerupController;
@@ -415,11 +414,7 @@ public class GameController{
 	}
 
 	public PlayerState getPlayerState() {
-		return this.playerState;
-	}
-
-	public void setPlayerState(PlayerState playerState) {
-		this.playerState = playerState;
+		return this.player.getPlayerState();
 	}
 
 	public Location getKeyLocation() {
