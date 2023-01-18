@@ -30,10 +30,7 @@ public class MongoSaveLoad {
                 .append("info", new Document("x", 2052).append("y", 102));
         collection.insertOne(doc);
          */
-        
-       
         hello();
-
     }
 
     public void hello() {
@@ -41,17 +38,9 @@ public class MongoSaveLoad {
     }
     
     public void insert(Document obj) {
-		//String username = obj.get("username").toString();
-		//System.out.println("USERNAME IS " + username);
+    	String username = (String) obj.get("username");
 		// Check if username was already used and update if exists
-		//Document query = new Document("username", username);
-		Document doc = new Document("name", "MongoDB")
-                .append("type", "database")
-                .append("count", 1)
-                .append("info", new Document("x", 2052).append("y", 102));
-		this.collection.insertOne(obj);
-		 ///mongoClient.close();
-		/*
+		Document query = new Document("username", username);
 		long count = this.collection.count(query);
 		if (count > 0) {
 			Document toUpdate = new Document();
@@ -59,8 +48,7 @@ public class MongoSaveLoad {
 			this.collection.replaceOne(query, obj);
 		} else {
 			this.collection.insertOne(obj);			
-		}*/
-		
+		}
 		System.out.println("Saved to mongodb");
 	}
 	

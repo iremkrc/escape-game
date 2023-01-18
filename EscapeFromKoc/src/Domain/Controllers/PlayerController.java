@@ -9,6 +9,9 @@ import Domain.SaveLoad.MongoSaveLoadAdapter;
 
 import java.io.FileNotFoundException;
 
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
+
 
 public class PlayerController {
 	public Avatar avatar;
@@ -72,25 +75,21 @@ public class PlayerController {
 	public void saveGameLocal (){
 	   	System.out.println("I am about to FileSaveLoadAdapter...");
 		saveLoadService = new FileSaveLoadAdapter();
- 
 		saveLoadService.save();
-
 	}
 
 	public void loadGameLocal() throws FileNotFoundException {
 		saveLoadService = new FileSaveLoadAdapter();
-		//new MongoSaveLoad();
 		saveLoadService.load();
 	}
 
 	public void saveGameDatabase(){
 		this.mongoSaveLoadService = new MongoSaveLoadAdapter();
-		
 		mongoSaveLoadService.save();
 	}
 
-	public void loadGameDatabase(){
-
+	public void loadGameDatabase() throws JsonSyntaxException, JsonIOException, FileNotFoundException{
+		mongoSaveLoadService = new MongoSaveLoadAdapter();
+		mongoSaveLoadService.load();
 	}
-	
 }

@@ -22,7 +22,7 @@ import java.util.Set;
 public class SaveObject {
 
     private GameController currentGame;
-    private LoginController login;
+    public LoginController login;
     private String loginName;
 
     public SaveObject() {
