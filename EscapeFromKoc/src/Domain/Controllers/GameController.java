@@ -345,6 +345,17 @@ public class GameController{
 		}else{
 			System.out.println("There is an error with loading the game...");
 		}
+		
+		for(Building b: buildings) {
+			for(GameObject o: b.getGameObjectList()) {
+				int objCount = 0;
+				if(o.isContainsKey()) {
+					buildingKeyMap.put(b.getBuildingName(), objCount);
+					break;
+				}
+				objCount ++;
+			}
+		}
 	}
 
 	
