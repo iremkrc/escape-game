@@ -5,6 +5,7 @@ import Domain.Player.Avatar;
 
 import Domain.SaveLoad.FileSaveLoadAdapter;
 import Domain.SaveLoad.MongoSaveLoad;
+import Domain.SaveLoad.MongoSaveLoadAdapter;
 
 import java.io.FileNotFoundException;
 
@@ -15,6 +16,7 @@ public class PlayerController {
 	GameController escapeFromKocGame;	
 	PlayerState playerState;
 	private FileSaveLoadAdapter saveLoadService;
+	private MongoSaveLoadAdapter mongoSaveLoadService;
 	
 	public PlayerController() {
 		escapeFromKocGame = GameController.getInstance();
@@ -82,7 +84,9 @@ public class PlayerController {
 	}
 
 	public void saveGameDatabase(){
-		new MongoSaveLoad();
+		this.mongoSaveLoadService = new MongoSaveLoadAdapter();
+		
+		mongoSaveLoadService.save();
 	}
 
 	public void loadGameDatabase(){

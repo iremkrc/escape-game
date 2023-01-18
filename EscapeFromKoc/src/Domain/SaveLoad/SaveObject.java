@@ -5,20 +5,16 @@ import Domain.Controllers.GameController;
 import Domain.Controllers.LoginController;
 import Domain.Game.Building;
 import Domain.Game.Location;
-import Domain.Game.PlayerState;
 import Domain.Player.Inventory;
 
 import com.google.gson.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import Domain.GameObjects.Powerups.IPowerup;
 
-import com.google.gson.*;
+import org.bson.Document;
 
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class SaveObject {
@@ -131,5 +127,10 @@ public class SaveObject {
 
         return save;
     }
-
+    
+	public Document toDBObject() {
+		System.out.println("thisis some save \n\n" + this.generateSaveJson().toString() + " \n here ends ");
+		JsonObject temp = this.generateSaveJson();
+		return Document.parse(temp.toString());
+	}
 }
