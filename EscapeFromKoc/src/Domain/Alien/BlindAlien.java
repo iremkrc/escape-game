@@ -140,4 +140,9 @@ public class BlindAlien implements Alien {
     public int getSize() {
     	return size;
     }
+    
+	@Override
+	public void setLocation(Location loc) {
+		this.location = loc;
+	}
 }

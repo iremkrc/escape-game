@@ -10,5 +10,6 @@ public interface Alien {
     public boolean isEmpty();
     public void setEmpty(boolean empty);
     public Location getLocation();
+    public void setLocation(Location loc);
     public int getSize();
 }

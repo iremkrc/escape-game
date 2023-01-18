@@ -17,7 +17,6 @@ import Domain.GameObjects.Powerups.IPowerup;
 public class GameController{
 
     private PlayerController player;
-	private PlayerState playerState;
 	private AlienController alienController;
 	private GameState gameState;
 	private PowerupController powerupController;
@@ -346,6 +345,17 @@ public class GameController{
 		}else{
 			System.out.println("There is an error with loading the game...");
 		}
+		
+		for(Building b: buildings) {
+			for(GameObject o: b.getGameObjectList()) {
+				int objCount = 0;
+				if(o.isContainsKey()) {
+					buildingKeyMap.put(b.getBuildingName(), objCount);
+					break;
+				}
+				objCount ++;
+			}
+		}
 	}
 
 	
@@ -415,11 +425,7 @@ public class GameController{
 	}
 
 	public PlayerState getPlayerState() {
-		return this.playerState;
-	}
-
-	public void setPlayerState(PlayerState playerState) {
-		this.playerState = playerState;
+		return this.player.getPlayerState();
 	}
 
 	public Location getKeyLocation() {

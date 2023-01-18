@@ -116,4 +116,12 @@ public class AlienController {
     	this.alienTime = alienTime;
     }
     
+    public AlienFactory getAlienFactory() {
+    	return this.factory;
+    }
+    
+    public long getAlienTime() {
+    	return alienTime;
+    }
+    
 }

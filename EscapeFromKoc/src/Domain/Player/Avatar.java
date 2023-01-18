@@ -37,6 +37,10 @@ public class Avatar {
 	public void setLocation(double xLocation, double yLocation) {
 		this.location = new Location(xLocation,yLocation);
 	}
+	
+	public void setLocation(Location loc) {
+		this.location = loc;
+	}
 
     public void move(String direction) {
     	// Requires: Game is in the running mode.
