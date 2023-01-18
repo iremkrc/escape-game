@@ -7,6 +7,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.Timer;
 
 import Domain.GameObjects.Powerups.PowerupFactory;
+import Domain.Alien.AlienFactory;
 import Domain.Alien.TimeWastingAlien;
 import Domain.Alien.TimeWastingStrategy;
 import Domain.GameObjects.Powerups.IPowerup;
@@ -101,5 +102,25 @@ public class PowerupController {
     public void resetPowerupTime() {
     	PowerupCounterTime = 1;
     	powerupBoolean = false;
+    }
+    
+    public void setPowerupTime(int PowerupCounterTime) {
+    	this.PowerupCounterTime = PowerupCounterTime;
+    }
+    
+    public long getPowerupTime() {
+    	return PowerupCounterTime;
+    }
+    
+    public void setPowerupBoolean(boolean powerupBoolean) {
+    	this.powerupBoolean = powerupBoolean;
+    }
+    
+    public boolean getPowerupBoolean() {
+    	return powerupBoolean;
+    }
+    
+    public PowerupFactory getPowerupFactory() {
+    	return this.factory;
     }
 }

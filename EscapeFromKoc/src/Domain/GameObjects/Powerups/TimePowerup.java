@@ -56,5 +56,10 @@ public class TimePowerup implements IPowerup {
     public String getImagePath() {
         return imagePath;
     }
+    
+	@Override
+	public void setLocation(Location location) {
+		this.location = location;	
+	}
 
 }

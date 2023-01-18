@@ -414,7 +414,7 @@ public class GameController{
 	}
 
 	public PlayerState getPlayerState() {
-		return player.playerState;
+		return this.player.getPlayerState();
 	}
 
 	public Location getKeyLocation() {
