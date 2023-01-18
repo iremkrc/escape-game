@@ -96,9 +96,8 @@ public class GameTypeFrame extends JFrame {
                         JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 if (choice == 0) {
                     try {
-                        game.loadGame(0);
-                        game.setBuildingModeDone(true);
                         new RunningModeFrame();
+                        game.loadGame(0);
                         dispose();
                     } catch (FileNotFoundException ex) {
                         throw new RuntimeException(ex);
@@ -106,9 +105,8 @@ public class GameTypeFrame extends JFrame {
 
                 } else if (choice == 1) {
                     try {
-                        game.loadGame(1);
-                        game.setBuildingModeDone(true);
                         new RunningModeFrame();
+                        game.loadGame(1);
                         dispose();
                     } catch (FileNotFoundException ex) {
                         throw new RuntimeException(ex);

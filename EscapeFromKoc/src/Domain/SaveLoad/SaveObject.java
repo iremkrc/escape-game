@@ -34,22 +34,17 @@ public class SaveObject {
         LinkedList<Building> buildings = currentGame.getBuildings();
         String buildingObjectsList_0 = gsonBuilder.toJson(buildings);//////////////ERROR ERROR ERROR ///////////////
         JsonArray buildingObjectsListJsonArray_0 = JsonParser.parseString(buildingObjectsList_0).getAsJsonArray();
-        save.add("building_mode_data", buildingObjectsListJsonArray_0);
-        System.out.println(save);
-        
+        save.add("building_mode_data", buildingObjectsListJsonArray_0);        
         
         int currentBuildingIndex = currentGame.getCurrentBuildingIndex();
         save.addProperty("currentBuildingIndex", currentBuildingIndex);
         
-        /* those do not work as I expect because player state is not correctly implemented in game controller. 
-        // add player state to saved data 
-        PlayerState pState = currentGame.getPlayerState();
-        String playerStateData = gsonBuilder.toJson(pState);
-        System.out.println("state data is: "+ playerStateData);
-        JsonObject pStateObject = JsonParser.parseString(playerStateData).getAsJsonObject();
-        save.add("playerState_data", pStateObject);
-      	*/
-        
+        int second = currentGame.getGameState().getTime();
+        System.out.println(second);
+        save.addProperty("time", second);
+
+        System.out.println(save);
+
         return save;
     }
 

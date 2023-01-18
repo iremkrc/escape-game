@@ -25,13 +25,11 @@ public class FileSaveLoadAdapter implements ISaveLoadAdapter {
     private FileSaveLoad fileSaveLoad;
     private SaveObject currSave;
     private GameController game;
-    private GameState gameState;
     public FileSaveLoadAdapter() {
 	   	System.out.println("I am about to FileSaveLoad...");
         this.fileSaveLoad = new FileSaveLoad();
         this.currSave = new SaveObject();
         this.game = GameController.getInstance();
-        this.gameState = new GameState();
     }
 
     @Override
@@ -101,10 +99,12 @@ public class FileSaveLoadAdapter implements ISaveLoadAdapter {
         }
         
         // set at what building did the user left off
-        this.gameState.setCurrentBuildingIndex(jo.get("currentBuildingIndex").getAsInt()); // this is where I left off, 
-        																					// I save game only exit button is clicked at the moment. 
-        																					// May be also just after building mode. 
-        																					// This line also is not working as I expect. 
+        this.game.getGameState().setCurrentBuildingIndex(jo.get("currentBuildingIndex").getAsInt()); // this is where I left off, 
+		// I save game only exit button is clicked at the moment. 
+		// May be also just after building mode. 
+		// This line also is not working as I expect. 
+
+        this.game.getGameState().setTime(jo.get("time").getAsInt());
         //game.setGameState(gameState);
         System.out.println(jo.get("currentBuildingIndex").getAsInt());
         
