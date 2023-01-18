@@ -28,7 +28,6 @@ public class AlienController {
 	    @Override  
 	    public void run() {  
 	    	if(!game.isPaused()) {
-				System.out.println("alien time: "+alienTime/2);
 				if((alienTime%20 == 0)) {
 					createAlienRandomly();
 					game.getGameState().setIsBottlePowerupActive(false);
@@ -84,6 +83,7 @@ public class AlienController {
 	
     public AlienController() {
         factory = new AlienFactory();
+        System.out.println("alien timer start");
         alienTimer.scheduleAtFixedRate(tt,0,500);
     }
 

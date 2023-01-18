@@ -20,9 +20,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Domain.Controllers.AlienController;
 import Domain.Controllers.GameController;
 import Domain.Controllers.LoginController;
 import Domain.Controllers.PlayerController;
+import Domain.Controllers.PowerupController;
 
 public class LoginFrame extends JFrame{
 	
@@ -44,9 +46,13 @@ public class LoginFrame extends JFrame{
 		super("Login Page");
 		this.loginController = new LoginController(GameController.getInstance());
 		this.game = GameController.getInstance();
-		
-					
+		game.setPaused(true);
+		game.setPlayer(new PlayerController());
+		game.getGameState().startGameTimer();
+		game.setAlienController(AlienController.getInstance());
+		game.setPowerupController(new PowerupController());
 
+					
 		setLayout(new BorderLayout());
 		
 		JPanel panel = new JPanel();
