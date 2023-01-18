@@ -105,7 +105,11 @@ public class FileSaveLoadAdapter implements ISaveLoadAdapter {
 		// This line also is not working as I expect. 
 
         this.game.getGameState().setTime(jo.get("time").getAsInt());
-        //game.setGameState(gameState);
+        
+        
+        this.game.getPlayerState().setHealth(jo.get("health").getAsInt());
+        
+        
         System.out.println(jo.get("currentBuildingIndex").getAsInt());
         
         System.out.println("\n Building size is"+game.getBuildings().size());

@@ -42,6 +42,9 @@ public class SaveObject {
         int second = currentGame.getGameState().getTime();
         System.out.println(second);
         save.addProperty("time", second);
+        
+        int health = currentGame.getPlayerHealth();
+        save.addProperty("health", health);
 
         System.out.println(save);
 
