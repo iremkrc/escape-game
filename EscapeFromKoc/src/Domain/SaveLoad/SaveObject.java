@@ -1,6 +1,8 @@
 package Domain.SaveLoad;
 
 import Domain.Alien.Alien;
+import Domain.Alien.TimeWastingAlien;
+import Domain.Alien.TimeWastingStrategy;
 import Domain.Controllers.GameController;
 import Domain.Controllers.LoginController;
 import Domain.Game.Building;
@@ -102,12 +104,17 @@ public class SaveObject {
             	Location alienLoc = alien.getLocation();
             	save.addProperty("alienLocX", alienLoc.getXLocation());
                 save.addProperty("alienLocY", alienLoc.getYLocation());
+                if(currentGame.getAlienController().getAlien().getType() == "TimeWasting") {
+                	String currentStrategy = ((TimeWastingAlien) alien).getStrategy().getType();
+                	save.addProperty("wastingStrategy", currentStrategy);
+                }
             }
         }else {
         	save.addProperty("alienExists", 0);
         	save.addProperty("alien", "noAlien");
         	save.addProperty("alienLocX", 0);
             save.addProperty("alienLocY", 0);
+            save.addProperty("wastingStrategy", "none");
         }
         
         save.addProperty("powerupTime", currentGame.getPowerupController().getPowerupTime());
