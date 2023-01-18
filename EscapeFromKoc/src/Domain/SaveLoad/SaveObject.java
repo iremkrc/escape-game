@@ -131,6 +131,7 @@ public class SaveObject {
 	public Document toDBObject() {
 		System.out.println("thisis some save \n\n" + this.generateSaveJson().toString() + " \n here ends ");
 		JsonObject temp = this.generateSaveJson();
-		return Document.parse(temp.toString());
+		return Document.parse(temp.toString()); // this returns null thus it does not work 
+													/// solve here and it will work. 
 	}
 }
