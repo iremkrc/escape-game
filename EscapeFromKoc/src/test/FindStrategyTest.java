@@ -1,6 +1,10 @@
 package test;
 
 import Domain.Alien.TimeWastingAlien;
+import Domain.Controllers.AlienController;
+import Domain.Controllers.GameController;
+import Domain.Controllers.PlayerController;
+import Domain.Controllers.PowerupController;
 
 import static java.lang.Thread.sleep;
 import static org.junit.Assert.*;
@@ -11,12 +15,18 @@ public class FindStrategyTest {
     TimeWastingAlien alien;
     int totalTime;
     int remainingTime;
+    GameController game;
 
      // This creates a Time-Wasting Alien and sets the total time to 100
     @org.junit.Before
     public void setUp() throws Exception {
-        alien = new TimeWastingAlien();
+        
         totalTime = 100;
+        game = GameController.getInstance();
+        game.setPlayer(new PlayerController());
+        game.setAlienController(new AlienController());
+        game.setPowerupController(new PowerupController());
+        alien = new TimeWastingAlien();
     }
 
     @org.junit.After
