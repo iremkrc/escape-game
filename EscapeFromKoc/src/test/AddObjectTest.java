@@ -56,14 +56,15 @@ public class AddObjectTest {
     	// Black Box Test
     	// This test tries adding objects to the same location
     	// The function should not add the second object in these cases
+    	// The second add object will remove the previously put object
 
         assertEquals(currBuild.getObjectList().size(),0); // get number of objects in a building
 
-        game.addObjectToCurrentBuilding(500,500); //BB Test add one object
+        game.addObjectToCurrentBuilding(400,400); //BB Test add one object
         assertEquals(currBuild.getObjectList().size(),1); // get number of objects in a building
 
-        game.addObjectToCurrentBuilding(500,500); //BB Test add object to the same place
-        assertEquals(currBuild.getObjectList().size(),1);
+        game.addObjectToCurrentBuilding(400,400); //BB Test add object to the same place
+        assertEquals(currBuild.getObjectList().size(),0);
     }
     
     @Test
@@ -102,8 +103,8 @@ public class AddObjectTest {
     	// This method tried to add more objects than the maximum amount
     	
         int ct = 0;
-        for(int i = 50; i<=500; i+=50) {
-        	for(int j = 50; j<=500; j+=50) {
+        for(int i = 40; i<=400; i+=40) {
+        	for(int j = 80; j<=400; j+=40) {
         		
         		System.out.println(ct);
         		System.out.println(currBuild.getObjectList().size());
@@ -124,16 +125,16 @@ public class AddObjectTest {
         // This method checks if the addObject function denies 
     	// adding object that creates unreachable grid loation
 
-        game.addObjectToCurrentBuilding(200,200); //add one object
+        game.addObjectToCurrentBuilding(160,160); //add one object
         assertEquals(currBuild.getObjectList().size(),1);
         
-        game.addObjectToCurrentBuilding(150,250); //add one object
+        game.addObjectToCurrentBuilding(120,200); //add one object
         assertEquals(currBuild.getObjectList().size(),2);
         
-        game.addObjectToCurrentBuilding(200,300); //add one object
+        game.addObjectToCurrentBuilding(160,240); //add one object
         assertEquals(currBuild.getObjectList().size(),3);
         
-        game.addObjectToCurrentBuilding(250,250); //add one object that cause unreachable place
+        game.addObjectToCurrentBuilding(200,200); //add one object that cause unreachable place
         assertEquals(currBuild.getObjectList().size(),3); // BB Test add object that creates unreachable area
         
         // Reset building
@@ -141,16 +142,16 @@ public class AddObjectTest {
         currBuild = game.getCurrentBuilding();
         game.getGameState().objCounts[0] = 20;
         
-        game.addObjectToCurrentBuilding(400,400); //add one object
+        game.addObjectToCurrentBuilding(320,320); //add one object
         assertEquals(currBuild.getObjectList().size(),1);
         
-        game.addObjectToCurrentBuilding(350,450); //add one object
+        game.addObjectToCurrentBuilding(280,360); //add one object
         assertEquals(currBuild.getObjectList().size(),2);
         
-        game.addObjectToCurrentBuilding(400,500); //add one object
+        game.addObjectToCurrentBuilding(320,400); //add one object
         assertEquals(currBuild.getObjectList().size(),3);
         
-        game.addObjectToCurrentBuilding(450,450); //add one object that cause unreachable place
+        game.addObjectToCurrentBuilding(360,360); //add one object that cause unreachable place
         assertEquals(currBuild.getObjectList().size(),3); // BB Test add object that creates unreachable area
         
         // Reset building
@@ -158,13 +159,13 @@ public class AddObjectTest {
         currBuild = game.getCurrentBuilding();
         game.getGameState().objCounts[0] = 20;
         
-        game.addObjectToCurrentBuilding(50,100); //add one object
+        game.addObjectToCurrentBuilding(40,80); //add one object
         assertEquals(currBuild.getObjectList().size(),1);
         
-        game.addObjectToCurrentBuilding(100,100); //add one object
+        game.addObjectToCurrentBuilding(80,80); //add one object
         assertEquals(currBuild.getObjectList().size(),2);
         
-        game.addObjectToCurrentBuilding(100,50); //add one object
+        game.addObjectToCurrentBuilding(80,40); //add one object
         assertEquals(currBuild.getObjectList().size(),2); // BB Test add object that creates unreachable area
         
     }
