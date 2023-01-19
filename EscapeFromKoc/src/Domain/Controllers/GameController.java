@@ -188,7 +188,7 @@ public class GameController{
 		if(type == "hint" && !gameState.isKeyFound()){
 			this.player.useHintPowerUp();
 		}
-		else if(type == "bottle" && !gameState.getIsBottlePowerupActive()){
+		else if(type == "bottle"){
 			this.player.useBottlePowerUp();
 		}
 		else if(type == "vest" && !gameState.getIsVestPowerupActive()){
