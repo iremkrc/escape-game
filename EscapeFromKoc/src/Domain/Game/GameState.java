@@ -16,6 +16,7 @@ public class GameState {
 	private boolean isOver = false;
 	private boolean hintActive = false;
 	private boolean isBottlePowerupActive = false;
+	private boolean isBottleDirectionSettable = false;
 	private boolean isVestPowerupActive = false;
 	private boolean isKeyFound = false;
 	private boolean Won = false;
@@ -136,6 +137,14 @@ public class GameState {
 
 	public void setBuildingModeDone(boolean buildingModeDone) {
 		this.buildingModeDone = buildingModeDone;
+	}
+	
+	public boolean isBottleDirectionSettable() {
+		return isBottleDirectionSettable;
+	}
+
+	public void setBottleDirectionSettable(boolean isBottleDirectionSettable) {
+		this.isBottleDirectionSettable = isBottleDirectionSettable;
 	}
 		
 }

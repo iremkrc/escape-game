@@ -45,13 +45,13 @@ public class BlindAlien implements Alien {
     	double yDistance = Math.abs(avatarLocation.getYLocation() - location.getYLocation());
         
         //System.out.println(game.getGameState().getIsBottlePowerupActive());
-        if(game.getGameState().getIsBottlePowerupActive()==false) {
+        if(!game.getGameState().getIsBottlePowerupActive()) {
             //alien randomly moves 
     		moveRandomly();
             if(xDistance + yDistance <= game.getGridSize()){
             	game.getPlayer().getPlayerState().setHealth(0);
             }
-    	}if(game.getGameState().getIsBottlePowerupActive()==true && game.getBottlePowerupDirection()!=null){
+    	}if(game.getGameState().getIsBottlePowerupActive() && !game.getGameState().isBottleDirectionSettable()){
             //alien goes in the direction of plastic bottle powerup
             System.out.println(game.getBottlePowerupDirection());
             if(!moveToDirection(game.getBottlePowerupDirection())) {

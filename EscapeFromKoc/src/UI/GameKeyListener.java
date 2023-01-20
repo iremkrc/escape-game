@@ -61,16 +61,28 @@ public class GameKeyListener implements KeyListener{
         }
         
         if(arg0.getKeyCode()==KeyEvent.VK_A){
-            escapeFromKocGame.setBottlePowerupDirection("West");
+        	if(escapeFromKocGame.getGameState().isBottleDirectionSettable()) {
+        		escapeFromKocGame.setBottlePowerupDirection("West");
+        		escapeFromKocGame.getGameState().setBottleDirectionSettable(false);
+        	}
         }
         else if(arg0.getKeyCode()==KeyEvent.VK_D){
-            escapeFromKocGame.setBottlePowerupDirection("East");
+        	if(escapeFromKocGame.getGameState().isBottleDirectionSettable()) {
+        		escapeFromKocGame.setBottlePowerupDirection("East");
+        		escapeFromKocGame.getGameState().setBottleDirectionSettable(false);
+        	}
         }
         else if(arg0.getKeyCode()==KeyEvent.VK_W){
-            escapeFromKocGame.setBottlePowerupDirection("North");
+        	if(escapeFromKocGame.getGameState().isBottleDirectionSettable()) {
+        		escapeFromKocGame.setBottlePowerupDirection("North");
+        		escapeFromKocGame.getGameState().setBottleDirectionSettable(false);
+        	}
         }
         else if(arg0.getKeyCode()==KeyEvent.VK_X){
-            escapeFromKocGame.setBottlePowerupDirection("South");
+        	if(escapeFromKocGame.getGameState().isBottleDirectionSettable()) {
+        		escapeFromKocGame.setBottlePowerupDirection("South");
+        		escapeFromKocGame.getGameState().setBottleDirectionSettable(false);
+        	}
         }
     }
     
