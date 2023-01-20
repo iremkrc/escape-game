@@ -52,7 +52,7 @@ public class PickKeyTest {
         currBuild = new Building("Student Center",1,10,10,50);
         nextBuilding = new Building("CASE",1,10,10,50);
 
-        currBuild.addObject(70,60);
+        currBuild.addObject(240,200);
         currBuild.incrementCurrentObjectCount();
         currBuild.getObjectList().get(0).setContainsKey(true); // add key under the object.
         game.setKeyFound(false);
@@ -64,7 +64,7 @@ public class PickKeyTest {
 
         game.setBuildings(buildings);
         game.setCurrentBuilding(0);
-        game.getPlayer().getAvatar().setLocation(0,0);
+        game.getPlayer().getAvatar().setLocation(80,40);
     }
 
     /**
@@ -75,13 +75,15 @@ public class PickKeyTest {
     @Test
     public void testWithCorrectLocationAndClick() {
         //pickKeyOnTopOfObjectTest
-        game.getPlayer().getAvatar().setLocation(75.0, 60.0);
-        int x = 72; // mouseX
-        int y  = 72; // mouseY
+        game.getPlayer().getAvatar().setLocation(240.0, 240.0);
+        //buildings.get(0).addObject(40, 40);
+        //buildings.get(0).getObjectList().get(1).setContainsKey(true);
+        int x = 240; // mouseX
+        int y  = 200; // mouseY
         game.pickKey(x,y); // this should be able to find the key
-
+        System.out.println(game.currentBuilding.getDoor());
         // BB Testing
-        assertEquals(game.getCurrentBuilding().getBuildingName(), "CASE"); // if key picked new building should be loaded.
+        assertTrue(game.currentBuilding.getDoor().getIsOpen()); // if key picked new building should be loaded.
     }
 
     /**
