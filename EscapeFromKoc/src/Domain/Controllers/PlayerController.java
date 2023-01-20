@@ -56,6 +56,7 @@ public class PlayerController {
 		if(this.getPlayerState().inventory.checkInventory("bottle")){
 			this.getPlayerState().inventory.decrementPowerups("bottle");
 			escapeFromKocGame.getGameState().setIsBottlePowerupActive(true);
+			escapeFromKocGame.getGameState().setBottleDirectionSettable(true);
 			System.out.println("Bottle Power-up Activated");
 		}
 	}
