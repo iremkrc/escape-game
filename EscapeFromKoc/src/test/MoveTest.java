@@ -13,7 +13,7 @@ public class MoveTest {
 	// This class implements tests to check the "move" method inside the Avatar class
     // Black-Box and GlassBox techniques are used in all test cases.
 	
-	private GameController escapeFromKocGame;
+	private GameController escapeFromKocGame = new GameController();
 	private PlayerController player = new PlayerController();
 	private int width = player.getAvatar().getWidth();
 	
@@ -21,7 +21,7 @@ public class MoveTest {
     // and the method checks for any collýsýons and posýtýon change
 	@Test
 	public void moveLeftCollisionTest() {
-		player.getAvatar().setLocation(60, 60);
+		player.getAvatar().setLocation(40, 40);
 		
 		Location initLocation = player.getAvatar().getLocation();
 		double initX = initLocation.getXLocation();
@@ -43,7 +43,7 @@ public class MoveTest {
     // and the method checks for any collýsýons and posýtýon change
 	@Test
 	public void moveRightCollisionTest() {
-		player.getAvatar().setLocation(500-width, 500-width);
+		player.getAvatar().setLocation(720, 520);
 		
 		Location initLocation = player.getAvatar().getLocation();
 		double initX = initLocation.getXLocation();
@@ -65,7 +65,7 @@ public class MoveTest {
     // and the method checks for any collýsýons and posýtýon change
 	@Test
 	public void moveUpCollisionTest() {
-		player.getAvatar().setLocation(60, 60);
+		player.getAvatar().setLocation(40, 40);
 		
 		Location initLocation = player.getAvatar().getLocation();
 		double initX = initLocation.getXLocation();
@@ -87,7 +87,7 @@ public class MoveTest {
     // and the method checks for any collýsýons and posýtýon change
 	@Test
 	public void moveDownCollisionTest() {
-		player.getAvatar().setLocation(500-width, 500-width);
+		player.getAvatar().setLocation(720, 520);
 		
 		Location initLocation = player.getAvatar().getLocation();
 		double initX = initLocation.getXLocation();
@@ -115,6 +115,7 @@ public class MoveTest {
 		Location initLocation = player.getAvatar().getLocation();
 		double initX = initLocation.getXLocation();
 		double initY = initLocation.getYLocation();
+		System.out.println(initX + "," +  initY);
 		
 		player.getAvatar().move("down");
 		
