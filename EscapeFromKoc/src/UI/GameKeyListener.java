@@ -16,9 +16,9 @@ public class GameKeyListener implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent arg0) {
-        if(arg0.getKeyCode()==KeyEvent.VK_P) escapeFromKocGame.setPaused(true);
+       // if(arg0.getKeyCode()==KeyEvent.VK_P) escapeFromKocGame.setPaused(true);
 
-        else if(arg0.getKeyCode()==KeyEvent.VK_R) escapeFromKocGame.setPaused(false);
+        //else if(arg0.getKeyCode()==KeyEvent.VK_R) escapeFromKocGame.setPaused(false);
 
         if((arg0.getKeyCode()==KeyEvent.VK_1||arg0.getKeyCode()==KeyEvent.VK_2||
                 arg0.getKeyCode()==KeyEvent.VK_3||arg0.getKeyCode()==KeyEvent.VK_4)) {
