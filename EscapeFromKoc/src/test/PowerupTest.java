@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import Domain.Controllers.AlienController;
 import Domain.Controllers.GameController;
 import Domain.Controllers.PlayerController;
 import Domain.Controllers.PowerupController;
@@ -25,6 +26,11 @@ public class PowerupTest {
     	
     	//this test tries to catch time power-up    	
     	//the catch powerup method increments game time by 5 
+    	
+    	GameController game = GameController.getInstance();
+        game.setPlayer(new PlayerController());
+        game.setAlienController(new AlienController());
+        game.setPowerupController(new PowerupController());
     
     	IPowerup timePowerup = PowerupFactory.getInstance().createPowerup("time");
     	timePowerup.setLocation(200,100,25,25);
@@ -47,6 +53,10 @@ public class PowerupTest {
 
 		//this test tries to catch life power-up    	
     	//the catch powerup method increments the life of the player
+    	GameController game = GameController.getInstance();
+        game.setPlayer(new PlayerController());
+        game.setAlienController(new AlienController());
+        game.setPowerupController(new PowerupController());
     	
     	IPowerup lifePowerup = PowerupFactory.getInstance().createPowerup("life");
     	lifePowerup.setLocation(200,100,25,25);
@@ -67,6 +77,10 @@ public class PowerupTest {
 
 		//this test tries to catch vest power-up    	
     	//the catch powerup method collects the powerup and sets it to null, powerup is deleted
+    	GameController game = GameController.getInstance();
+        game.setPlayer(new PlayerController());
+        game.setAlienController(new AlienController());
+        game.setPowerupController(new PowerupController());
     	
     	IPowerup vestPowerup = PowerupFactory.getInstance().createPowerup("vest");
     	vestPowerup.setLocation(200,100,25,25);
@@ -86,6 +100,11 @@ public class PowerupTest {
 
 		//this test tries to catch life power-up    	
     	//the catch powerup method is called, but the life of the player is not modified, as the power-up is not collected since it is not next to the player
+    	
+    	GameController game = GameController.getInstance();
+        game.setPlayer(new PlayerController());
+        game.setAlienController(new AlienController());
+        game.setPowerupController(new PowerupController());
     	
     	IPowerup lifePowerup = PowerupFactory.getInstance().createPowerup("life"); // or for any other power-up type
     	lifePowerup.setLocation(200,100,25,25);
@@ -107,6 +126,11 @@ public class PowerupTest {
 		//this test tries to catch bottle power-up    	
     	//checks if the power-up is incremented by 1 in the inventory
     	
+    	GameController game = GameController.getInstance();
+        game.setPlayer(new PlayerController());
+        game.setAlienController(new AlienController());
+        game.setPowerupController(new PowerupController());
+    	
     	IPowerup bottlePowerup = PowerupFactory.getInstance().createPowerup("bottle");
     	bottlePowerup.setLocation(200,100,25,25);
     	
@@ -126,6 +150,11 @@ public class PowerupTest {
 		//this test tries to catch vest power-up    	
     	//checks if the power-up is incremented by 1 in the inventory
     	
+    	GameController game = GameController.getInstance();
+        game.setPlayer(new PlayerController());
+        game.setAlienController(new AlienController());
+        game.setPowerupController(new PowerupController());
+    	
     	IPowerup vestPowerup = PowerupFactory.getInstance().createPowerup("vest");
     	vestPowerup.setLocation(200,100,25,25);
     	
@@ -144,6 +173,11 @@ public class PowerupTest {
 
 		//this test tries to catch hint power-up    	
     	//checks if the power-up is incremented by 1 in the inventory
+    	
+    	GameController game = GameController.getInstance();
+        game.setPlayer(new PlayerController());
+        game.setAlienController(new AlienController());
+        game.setPowerupController(new PowerupController());
     	
     	IPowerup hintPowerup = PowerupFactory.getInstance().createPowerup("hint");
     	hintPowerup.setLocation(200,100,25,25);
