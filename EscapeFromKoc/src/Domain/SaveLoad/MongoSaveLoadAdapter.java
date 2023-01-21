@@ -54,7 +54,7 @@ public class MongoSaveLoadAdapter implements ISaveLoadAdapter {
 
 	@Override
 	public void load() throws JsonSyntaxException, JsonIOException, FileNotFoundException {
-		Document loadDoc = this.mongoSaveLoad.read((String) currSave.toDBObject().get("username"));
+		Document loadDoc = this.mongoSaveLoad.read((String) currSave.toDBObject().get("playerName"));
 		
 		if (loadDoc.equals(null)) {
 			// No document was found with given username
