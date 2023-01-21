@@ -5,3 +5,4 @@ BEGUM
 arda
 mete
 begum
+amir
