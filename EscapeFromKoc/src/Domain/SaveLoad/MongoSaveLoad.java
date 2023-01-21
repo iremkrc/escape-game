@@ -38,9 +38,10 @@ public class MongoSaveLoad {
     }
     
     public void insert(Document obj) {
-    	String username = (String) obj.get("username");
-		// Check if username was already used and update if exists
-		Document query = new Document("username", username);
+    	System.out.println("-------------------------------------------------------" + obj + "--------------------------------------------------------------------");
+    	String username = (String) obj.get("playerName");
+
+    	Document query = new Document("playerName", username);
 		long count = this.collection.count(query);
 		if (count > 0) {
 			Document toUpdate = new Document();
@@ -53,7 +54,7 @@ public class MongoSaveLoad {
 	}
 	
 	public Document read(String username) {
-		Document query = new Document("username", username);
+		Document query = new Document("playerName", username);
 		Document loadDocument = this.collection.find(query).first();
 		return loadDocument;
 	}
