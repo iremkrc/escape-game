@@ -1,14 +1,21 @@
 # bambi
 
-This repository includes COMP 302 (Software Engineering Course at Koç University) Term Project for Fall 2022. Semester
-Term Project was developing a game called EscapeFromKoc.
+This repository includes COMP 302 Term Project for Fall 2022. 
+Our Term Project was developing a game called EscapeFromKoc.
 
-This repository also includes related documents for the project. Project consisted of two phases and we did Requirements Analysis (R), Modeling (M) and Design (D) for each phases. Also, our test cases are included.
+This repository includes documents of the project. Test cases are included as well.
 
 Group Members:
 
-Begüm Yalçın
-Arda Gürsul
-Mete Erdoğan
-Birkan Çelik
-İrem Karaca
+- Begüm Yalçın
+- Arda Gürsul
+- Mete Erdoğan
+- Birkan Çelik
+- İrem Karaca
+
+How To Play
+- Sign up and login as a user
+- Read the instructions from the help button
+- Play the game as you wish
+- Don't forget to save your progress using the exit button
+- We wish good luck to you all
