@@ -47,11 +47,24 @@ public class MongoSaveLoad {
 			Document toUpdate = new Document();
 			toUpdate.append("$set", obj);
 			this.collection.replaceOne(query, obj);
+			this.collection.deleteOne(query);
 		} else {
 			this.collection.insertOne(obj);			
 		}
 		System.out.println("Saved to mongodb");
 	}
+   
+    public void deleteGameData(Document obj) {
+    	String username = (String) obj.get("playerName");
+
+    	Document query = new Document("playerName", username);
+		long count = this.collection.count(query);
+		if (count > 0) {
+			
+			this.collection.deleteOne(query);
+		}
+		
+    }
 	
 	public Document read(String username) {
 		Document query = new Document("playerName", username);

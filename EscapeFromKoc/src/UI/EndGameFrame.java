@@ -3,9 +3,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import Domain.Controllers.GameController;
@@ -29,6 +34,8 @@ public class EndGameFrame extends JFrame{
         initializeTopPanel(mainPanel, topPanel);
         initializeBottomPanel(mainPanel, bottomPanel);
         setVisible(true);
+        
+        game.deleteGame();
     }
 
     private void initializeMainPanel(JPanel mainPanel) {

@@ -129,5 +129,11 @@ public class FileSaveLoadAdapter implements ISaveLoadAdapter {
         	this.game.getPowerupController().getPowerup().setLocation(new Location(jo.get("powerupLocX").getAsDouble(),jo.get("powerupLocY").getAsDouble()));
         }
     }
+
+	public void delete() {
+		// TODO Auto-generated method stub
+		this.fileSaveLoad.delete();
+		
+	}
 }
 
