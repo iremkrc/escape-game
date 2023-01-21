@@ -92,7 +92,9 @@ public class GameTypeFrame extends JFrame {
                         new RunningModeFrame();
                         dispose();
                     } catch (FileNotFoundException ex) {
-                        throw new RuntimeException(ex);
+                    	new BuildingModeFrame();
+                        dispose();
+                        //throw new RuntimeException(ex);
                     }
 
                 } else if (choice == 1) {
@@ -100,8 +102,10 @@ public class GameTypeFrame extends JFrame {
                         game.loadGame(1);
                         new RunningModeFrame();
                         dispose();
-                    } catch (FileNotFoundException ex) {
-                        throw new RuntimeException(ex);
+                    } catch (Exception ex) {
+                    	new BuildingModeFrame();
+                        dispose();
+                        //throw new RuntimeException(ex);
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Invalid choice. Exiting...");
