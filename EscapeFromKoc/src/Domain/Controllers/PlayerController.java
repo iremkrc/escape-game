@@ -93,4 +93,16 @@ public class PlayerController {
 		mongoSaveLoadService = new MongoSaveLoadAdapter();
 		mongoSaveLoadService.load();
 	}
+
+	public void deleteGameLocal() {
+		saveLoadService = new FileSaveLoadAdapter();
+		saveLoadService.delete();
+		
+	}
+
+	public void deleteGameDatabase() {
+		this.mongoSaveLoadService = new MongoSaveLoadAdapter();
+		mongoSaveLoadService.delete();
+		
+	}
 }

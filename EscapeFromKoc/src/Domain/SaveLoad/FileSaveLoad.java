@@ -37,6 +37,7 @@ public class FileSaveLoad {
         try (FileWriter file = new FileWriter("EscapeFromKoc/src/Domain/SaveLoad/Saves/"+ name +".json")) {
         	System.out.println("I am about to write file");
             file.write(save.toString());
+            
           	file.flush();
         	file.close();
 
@@ -63,6 +64,16 @@ public class FileSaveLoad {
 
     }
 
+	public void delete() {
+		  String playerName = login.getLoginName();
+	      String name = "save_" + playerName;
+	      File myFile =  new File("EscapeFromKoc/src/Domain/SaveLoad/Saves/"+name + ".json");
+	      myFile.delete();
+	      
+		
+	}
 
+    
+    
 
 }

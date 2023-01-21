@@ -6,3 +6,6 @@ arda
 mete
 begum
 amir
+ahmet
+fatma
+gözde

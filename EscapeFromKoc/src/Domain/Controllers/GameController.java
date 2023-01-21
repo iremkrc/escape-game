@@ -337,6 +337,14 @@ public class GameController{
 		// saveGame to
 	}
 	
+	public void deleteGame() {
+		player.deleteGameLocal();
+
+		// delete game from mongoDB
+		player.deleteGameDatabase();
+
+	}
+	
 	public void loadGame(int mode) throws FileNotFoundException {
 		if(mode == 0){
 			player.loadGameLocal();

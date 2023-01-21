@@ -147,4 +147,8 @@ public class MongoSaveLoadAdapter implements ISaveLoadAdapter {
         	this.game.getPowerupController().getPowerup().setLocation(new Location(jo.get("powerupLocX").getAsDouble(),jo.get("powerupLocY").getAsDouble()));
         }
 	}
+
+	public void delete() {
+		this.mongoSaveLoad.deleteGameData(this.currSave.toDBObject());
+	}
 }
