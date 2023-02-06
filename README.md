@@ -38,3 +38,31 @@ This is a classical escape game. The aim is to find keys in all buildings. Once 
 
 <img width="1112" alt="Screen Shot 2023-02-06 at 20 39 26" src="https://user-images.githubusercontent.com/66200657/217044851-3bcb95af-d8f9-486a-9a4f-4db757a754d3.png">
 
+
+## Running Mode
+- The player walks around using the arrow keys. The avatar is Bambi -this was our group name and our initials.
+- You need to go next to an object and click on it to search for the key. Once you find the key, a key will be appeared for a second and the door will be opened.
+
+### Aliens
+- Let me introduce the enemies: aliens. I have no idea what they are doing in Koç University but here we are.
+- All of the aliens appear randomly in the buildings every 10 seconds and the type of the appearing aliens are again selected randomly.
+- There are three types of aliens:
+1. Shooter Alien
+1. Blind Alien 
+2. Time-wasting Alien
+
+### Shooter Alien
+- This type of alien is blue -cyan actually.
+
+![Adsız tasarım](https://user-images.githubusercontent.com/66200657/217061155-7281bdf9-aa7d-483a-a652-167dea81d6a6.png)
+
+
+### Blind Alien
+- This type of alien is pink -magenta actually.
+
+![Adsız tasarım-3](https://user-images.githubusercontent.com/66200657/217061168-0880600c-bd63-4804-87c2-39095d96da71.png)
+
+### Time-wasting Alien
+- This type of alien is green -yes, just green.
+
+![Adsız tasarım-6](https://user-images.githubusercontent.com/66200657/217061587-47ec07de-20a1-412a-91a2-4890f7ddf471.png)
