@@ -49,7 +49,7 @@ public class BlindAlien implements Alien {
             //alien randomly moves 
     		moveRandomly();
             if(xDistance + yDistance <= game.getGridSize()){
-            	game.getPlayer().getPlayerState().setHealth(0);
+            	game.getPlayer().getPlayerState().setHealth(game.getPlayer().getPlayerState().getHealth() - 1);
             }
     	}if(game.getGameState().getIsBottlePowerupActive() && !game.getGameState().isBottleDirectionSettable()){
             //alien goes in the direction of plastic bottle powerup
@@ -58,7 +58,7 @@ public class BlindAlien implements Alien {
             	game.getGameState().setIsBottlePowerupActive(false);
             }
             if(xDistance + yDistance <= game.getGridSize()){
-            	game.getPlayer().getPlayerState().setHealth(0);
+            	game.getPlayer().getPlayerState().setHealth(game.getPlayer().getPlayerState().getHealth() - 1);
             }    
         }       
     }

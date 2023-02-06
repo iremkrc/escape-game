@@ -36,7 +36,7 @@ public class LayoutPanel extends JPanel {
         	alienLoc = alien.getLocation();
             if(!alien.isEmpty()) {
             	if(alien.getType()=="Shooter") {
-            		g.setColor(Color.darkGray);
+            		g.setColor(new Color(255, 114, 89, 142));
             		g.fillRect((int)alienLoc.getXLocation()-3*game.getGridSize(), (int)alienLoc.getYLocation()-3*game.getGridSize(), 7*game.getGridSize(), 7*game.getGridSize());
             	}
             }
@@ -60,7 +60,7 @@ public class LayoutPanel extends JPanel {
         }
         
         if(game.getGameState().getHintActive()){
-            g.setColor(Color.RED);
+            g.setColor(new Color(255, 253, 159, 197));
             g.fillRect((int) game.getHintLocation().xLocation,(int) game.getHintLocation().yLocation, 4*game.getGridSize(), 4*game.getGridSize());
             //g.drawRect((int) game.getHintLocation().xLocation,(int) game.getHintLocation().yLocation, 4*game.getGridSize(), 4*game.getGridSize());
             g.setColor(Color.black); 

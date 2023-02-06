@@ -7,11 +7,11 @@ public class GameState {
 	private final int buildingCount = 6;
 	private boolean buildingModeDone = false;
 	public String[] buildingNames = {"Student Center","CASE","SOS","SCI","ENG","SNA"}; //
-	public int[] objCounts = {1,1,1,1,1,1};  //5,7,10,14,19,25
+	public int[] objCounts = {5,7,10,14,19,25};  //5,7,10,14,19,25
 	public static final int height = 12;
 	public static final int width = 18;
 	public static final int gridSize = 40;
-	public int timeGivenForEachObject = 100; // the given time for the building is this times the object count //10
+	public int timeGivenForEachObject = 10; // the given time for the building is this times the object count //10
 	private boolean paused = false;
 	private boolean isOver = false;
 	private boolean hintActive = false;
