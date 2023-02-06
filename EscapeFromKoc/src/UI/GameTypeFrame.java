@@ -1,12 +1,8 @@
 package UI;
 
-import Domain.Controllers.AlienController;
 import Domain.Controllers.GameController;
-import Domain.Controllers.PlayerController;
-import Domain.Controllers.PowerupController;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +12,7 @@ public class GameTypeFrame extends JFrame {
     private JButton startNewGameButton, resumeGameButton;
     private JPanel mainPanel;
     private GameController game;
+    private static final Color BACKGROUND_COLOR = new Color(255, 216, 169);
     public GameTypeFrame() {
         super("Game Mode Selection");
         this.game = GameController.getInstance();
@@ -27,17 +24,17 @@ public class GameTypeFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setBackground(BACKGROUND_COLOR);
+        //mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        this.getContentPane().setBackground(BACKGROUND_COLOR);
 
-        startNewGameButton = new JButton(" \tStart New Game\t ");
+
+
+
+        startNewGameButton = new JButton("Start New Game");
         // set size
         startNewGameButton.setSize(120,120);
-        // setBackground
-        startNewGameButton.setBackground(new Color(241,170,106));
-        // Set border
-        startNewGameButton.setBorder(new LineBorder(new Color(241,170,106), 2, true));
-        // Set font
-        startNewGameButton.setFont(new Font("Open Sans", Font.BOLD, 24));
+        startNewGameButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
 
         // Add mouse listener to button
         startNewGameButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -60,16 +57,10 @@ public class GameTypeFrame extends JFrame {
             }
         });
 
-        resumeGameButton = new JButton("\tResume Game \t\t");
+        resumeGameButton = new JButton(" Resume Game  ");
         // set size
         resumeGameButton.setSize(120,120);
-        // setBackground
-        resumeGameButton.setBackground(new Color(241,170,106));
-        // Set border
-        resumeGameButton.setBorder(new LineBorder(new Color(241,170,106), 2, true));
-        resumeGameButton.setBorderPainted(true);
-        // Set font
-        resumeGameButton.setFont(new Font("Open Sans", Font.BOLD, 24));
+        resumeGameButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
         // Add mouse listener to button
         resumeGameButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -124,6 +115,7 @@ public class GameTypeFrame extends JFrame {
         gbc.gridx = 1;
         gbc.gridy = 0;
         mainPanel.add(resumeGameButton,gbc);
+        mainPanel.setBackground(BACKGROUND_COLOR);
         add(mainPanel);
     }
 }

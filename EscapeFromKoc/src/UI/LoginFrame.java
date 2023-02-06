@@ -5,13 +5,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -40,7 +33,8 @@ public class LoginFrame extends JFrame{
 	
 	private LoginController loginController;
 	private GameController game;
-	
+
+	private static final Color BACKGROUND_COLOR = new Color(255, 216, 169);
 	public LoginFrame() {
 		
 		super("Login Page");
@@ -57,6 +51,7 @@ public class LoginFrame extends JFrame{
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
+		panel.setBackground(BACKGROUND_COLOR);
 		
 		setBounds(300, 200, 1000, 600);
 		add(panel);
@@ -70,15 +65,14 @@ public class LoginFrame extends JFrame{
 		
 		userNameField = new JTextField();
 		userNameField.setBounds(350, 80, 300, 50);
-		userNameField.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+		userNameField.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
 		panel.add(userNameField);
 		
 		loginButton = new JButton("Login");
 		loginButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
 		loginButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
 		loginButton.setBounds(435, 140, 120, 50);
-		loginButton.setForeground(Color.WHITE);
-		loginButton.setBackground(Color.BLACK);
+
 		loginButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -117,15 +111,14 @@ public class LoginFrame extends JFrame{
 		
 		signNameField = new JTextField();
 		signNameField.setBounds(350, 360, 300, 50);
-		signNameField.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+		signNameField.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
 		panel.add(signNameField);
 		
 		signUp = new JButton("Sign Up");
 		signUp.setAlignmentX(JButton.CENTER_ALIGNMENT);
 		signUp.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
 		signUp.setBounds(420, 420, 150, 50);
-		signUp.setForeground(Color.WHITE);
-		signUp.setBackground(Color.BLACK);
+
 		signUp.addActionListener(new ActionListener() {
 			
 			@Override
@@ -147,10 +140,7 @@ public class LoginFrame extends JFrame{
 			}
 		});
 		panel.add(signUp);	
-		
-		
-		
-		
+
 		this.setVisible(true); // to make everything visible including the jtextfield s
 		
 	}
