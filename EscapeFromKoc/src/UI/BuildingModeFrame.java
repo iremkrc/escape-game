@@ -1,6 +1,6 @@
 package UI;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,17 +14,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.Timer;
-import javax.swing.UIManager;
 
 import Domain.Controllers.AlienController;
 import Domain.Controllers.GameController;
@@ -64,18 +54,24 @@ public class BuildingModeFrame extends JFrame{
 
 		BuildingLabel = new JLabel("Current Building: " + game.currentBuilding.getBuildingName());
 		BuildingLabel.setBounds(465, 50, 70, 20);
+		BuildingLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
+
 		mainPanel.add(BuildingLabel);
 		mainPanel.setOpaque(true);
 
 		TotalObjectLabel = new JLabel("Needed Object Amount: " + game.currentBuilding.getIntendedObjectCount());
 		TotalObjectLabel.setBounds(465, 50, 70, 20);
+		TotalObjectLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
 		mainPanel.add(TotalObjectLabel);
 
 		ObjectsLeftLabel = new JLabel("Current Object Amount: " + game.currentBuilding.getCurrentObjectCount());
 		ObjectsLeftLabel.setBounds(465, 50, 70, 20);
+		ObjectsLeftLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
 		mainPanel.add(ObjectsLeftLabel);
+		mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
 		passNextButton = new JButton("Pass to Next Building");
+		passNextButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
 		passNextButton.setBounds(455, 140, 90, 25);
 		mainPanel.setBackground(BACKGROUND_COLOR);
 		passNextButton.addActionListener(new ActionListener() {
@@ -109,21 +105,6 @@ public class BuildingModeFrame extends JFrame{
 		passNextButton.setFocusable(false);
 		mainPanel.add(passNextButton);
 		passNextButton.setEnabled(false);
-
-		//help button
-
-		helpButton = new JButton("Help");
-		helpButton.setBounds(455, 140, 90, 25);
-		helpButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("help button");
-				String menuMessage = "The player walks around using the arrow keys. \nHe/she can go to the east, west, north and south but cannot pass through walls.\nHe/she can only open the exit door of a building if he/she finds the key. \nThe game starts from the Student Center. \nFinding the keys one by one, the player's aim is to travel to these buildings in the given order: \nCASE building, SOS building, SCI building, ENG building and SNA building.\nOnce the player finds the exit key from the SNA building, the game ends and the player wins. \nTo find the keys, the player uses a left click on the objects with the mouse. \nIf the key is there, it appears for a second and then, the door is opened. \nTo click the objects, the player should be next to the objects. \nPlayer has a bag to collect the power ups and keep them for later use. \nPlayer can collect powerups. \nPowerups include protection vest powerup, life powerup, extra life powerup, plastic bottle powerup and hint powerup. \nThere are 3 types of aliens: blind alien, shooter alien and time wasting alien. \nBlind alien, which is represented by pink color, cannot see the player. He randomly walks around. However, this alien is sensitive to the voices. \nWhen the player has the plastic bottle power-up, if she/he throws the bottle, he/she can fool the alien.\nTime wasting alien, which is represented by green color, does not kill the player but it changes the location of the key randomly every 5 seconds. \nShooter alien, which is represented by blue color, appears in a random location in the building and shoots a bullet every second. \nIf the player is close to the shooter alien less than 4 squares, then he/she will lose a life. \nAlso, if the player wears a protection vest, then he/she can get close to the shooter alien without losing a life.";
-				UIManager.put("OptionPane.minimumSize",new Dimension(500,500));
-				JOptionPane.showMessageDialog(null, menuMessage, "HOW TO PLAY?", JOptionPane.PLAIN_MESSAGE);
-			}
-		});
-		mainPanel.add(helpButton);
-		helpButton.setFocusable(false);
 
 		//add game panel
 		final BuildingLayoutPanel buildPanel = new BuildingLayoutPanel("Building Mode");
