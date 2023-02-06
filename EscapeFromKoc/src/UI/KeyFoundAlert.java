@@ -9,7 +9,7 @@ public class KeyFoundAlert {
 		    return true;
 		}else {
 			int dialogButton = JOptionPane.YES_NO_OPTION;
-			int result = JOptionPane.showConfirmDialog(null, "Key is found! You can continue with the next building.\n If No, you can surrender and continue suffering in Koç!",null, dialogButton);
+			int result = JOptionPane.showConfirmDialog(null, "Key is found! You can continue with the next building.\n If No, you can surrender and continue suffering in Koc!",null, dialogButton);
 		    if (result == JOptionPane.YES_OPTION) {
 		    	return true;
 		    }else {

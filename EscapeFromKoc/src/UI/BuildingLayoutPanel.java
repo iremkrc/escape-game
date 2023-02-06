@@ -15,11 +15,14 @@ import java.util.LinkedList;
 
 public class BuildingLayoutPanel extends JPanel {
     GameController game;
+	private static final Color BACKGROUND_COLOR = new Color(255, 255, 255);
+
 	public BuildingLayoutPanel(String title) {
         super();
         game = GameController.getInstance();
         setSize(1800, 1500);
         setVisible(true);
+		setBackground(BACKGROUND_COLOR);
         GameMouseListener mlisteners = new GameMouseListener(game);
 		addMouseListener(mlisteners);
     }
@@ -39,7 +42,7 @@ public class BuildingLayoutPanel extends JPanel {
 	    	Location loc = obj.getLocation();
 	        //g.setColor(Color.lightGray);
 	        //g.fillRect((int)loc.getXLocation(), (int)loc.getYLocation(), obj.getWidth(), obj.getHeight());
-	        //g.setColor(Color.black);
+	        g.setColor(Color.BLACK);
 	        Image image = new ImageIcon(obj.getImageDir()).getImage();
 	        g.drawImage(image, (int) loc.getXLocation(), (int) loc.getYLocation(), obj.getWidth(), obj.getHeight(), null);
 	    }

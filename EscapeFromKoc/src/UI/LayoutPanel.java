@@ -24,6 +24,7 @@ public class LayoutPanel extends JPanel {
         game = GameController.getInstance();
         //setSize(2000, 1500);
         setVisible(true);
+        setBackground(Color.WHITE);
         GameMouseListener mlisteners = new GameMouseListener(game);
 		addMouseListener(mlisteners);		
     }
@@ -103,7 +104,7 @@ public class LayoutPanel extends JPanel {
     	Door door = game.currentBuilding.getDoor();
 	    Image doorImage = new ImageIcon(game.currentBuilding.getDoor().getDoorImgDirectory()).getImage();
         g.drawImage(doorImage, (int) door.getLocation().getXLocation(), (int) door.getLocation().getYLocation(), door.getWidth(), door.getHeight(), null);
-  
+
         if(game.getKeyFoundBool()) {
         	image = new ImageIcon("./EscapeFromKoc/src/UI/Utilities/Images/key.png").getImage();
             g.drawImage(image, (int) loc.getXLocation()+avatar.getWidth()/2, (int) loc.getYLocation()+avatar.getWidth()/2, avatar.getWidth(), Math.round(avatar.getHeight()/2), null);
