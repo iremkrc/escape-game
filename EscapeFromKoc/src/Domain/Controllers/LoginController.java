@@ -32,6 +32,7 @@ public class LoginController {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+        System.out.println(userNameList);
         return userNameList;
     }
     public boolean isRegistered(String userName) {
