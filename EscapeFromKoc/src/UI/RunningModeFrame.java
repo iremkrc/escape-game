@@ -9,14 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-import javax.swing.UIManager;
+import javax.swing.*;
 
 import Domain.Controllers.AlienController;
 import Domain.Controllers.GameController;
@@ -60,46 +53,59 @@ public class RunningModeFrame extends JFrame{
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		mainPanel.setLayout(new BorderLayout());
+		mainPanel.setBackground(Color.WHITE);
 		add(mainPanel,BorderLayout.CENTER);
 
 		///--------------------
 		//east inventory panel
 		JPanel inventoryPanel=new JPanel();  
-        inventoryPanel.setBounds(300,600,300,200);  
-        inventoryPanel.setBackground(Color.gray);  
+        inventoryPanel.setBounds(300,600,200,100);
+        inventoryPanel.setBackground(new Color(195, 197, 255));
 		setResizable(false);
 		inventoryPanel.setLayout(new BoxLayout(inventoryPanel, BoxLayout.Y_AXIS));
+		inventoryPanel.setBounds(0, 0, 100, 300);
 		mainPanel.add(inventoryPanel,BorderLayout.EAST);
 
-		powerUpCountLabel = new JLabel("-   Inventory Power-up List   -");
-		powerUpCountLabel1 = new JLabel("Hint: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("hint")); 
-		powerUpCountLabel2 = new JLabel("Protection Vest: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("vest"));
-		powerUpCountLabel3 = new JLabel("Bottle: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("bottle"));
-		
+		powerUpCountLabel = new JLabel("\n  --- Inventory Power-up List --- \n");
+		powerUpCountLabel1 = new JLabel("\nHint: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("hint"));
+		powerUpCountLabel2 = new JLabel("\nProtection Vest: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("vest"));
+		powerUpCountLabel3 = new JLabel("\nBottle: " + game.getPlayer().getPlayerState().inventory.getPowerupCount("bottle"));
+		powerUpCountLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+		powerUpCountLabel1.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+		powerUpCountLabel2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+		powerUpCountLabel3.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+
+		inventoryPanel.add(Box.createRigidArea(new Dimension(0, 50)));
 		inventoryPanel.add(powerUpCountLabel);
+		inventoryPanel.add(Box.createRigidArea(new Dimension(0, 100)));
 		inventoryPanel.add(powerUpCountLabel1);
+		inventoryPanel.add(Box.createRigidArea(new Dimension(0, 100)));
 		inventoryPanel.add(powerUpCountLabel2);
+		inventoryPanel.add(Box.createRigidArea(new Dimension(0, 100)));
 		inventoryPanel.add(powerUpCountLabel3);
 
 		//top stats panel
 		JPanel statsPanel=new JPanel();  
-        statsPanel.setBounds(300,600,1000,800);  
-        statsPanel.setBackground(Color.gray);  
+        statsPanel.setBounds(300,600,1000,1000);
+        statsPanel.setBackground(new Color(195, 255, 253));
 		setResizable(false);
 		statsPanel.setLayout(new GridLayout(1,3));
 		add(statsPanel,BorderLayout.NORTH);
 
 		BuildingLabel = new JLabel("Building: "+ game.currentBuilding.getBuildingName());
+		BuildingLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
 		BuildingLabel.setBounds(465, 50, 200, 20);
 		statsPanel.add(BuildingLabel,BorderLayout.EAST);
 
 		LifeLabel = new JLabel("Life: "+ game.getPlayerHealth());
 		LifeLabel.setBounds(600, 50, 200, 20);
+		LifeLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
 		statsPanel.add(LifeLabel,BorderLayout.CENTER);
 
 		second = game.getGameState().getTime();
 		TimeLabel = new JLabel("Time: "+ second+"s");
 		TimeLabel.setBounds(500, 50, 200,20);
+		TimeLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
 		statsPanel.add(TimeLabel,BorderLayout.WEST);
 
 		//-----------------------------------------------------------------
@@ -161,12 +167,13 @@ public class RunningModeFrame extends JFrame{
 		helpButton.setFocusable(false);
 		
 		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+		mainPanel.setBackground(Color.WHITE);
 		//-----------------------------------------------------------------
 		//add game panel
 		final LayoutPanel gamePanel = new LayoutPanel("Running Mode");
 		gamePanel.setOpaque(false);
 		mainPanel.add(gamePanel, BorderLayout.CENTER);
-		
+		mainPanel.setBackground(Color.WHITE);
 		setVisible(true); 
 		pack();
 
