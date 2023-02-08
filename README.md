@@ -55,18 +55,19 @@ This is a classical escape game. The aim is to find keys in all buildings. Once 
 #### Shooter Alien
 - This type of alien is blue -cyan actually.
 
-![Adsız tasarım](https://user-images.githubusercontent.com/66200657/217061155-7281bdf9-aa7d-483a-a652-167dea81d6a6.png)
+![shooter_alien_img](https://user-images.githubusercontent.com/66200657/217061155-7281bdf9-aa7d-483a-a652-167dea81d6a6.png)
 
 - It appears in a random location in the building and shoots a bullet every second.
 - The shoot range is marked with red color. Once you are inside the red area, you are shot every second. However, you are safe at the outside of the red area.
 - If you are shot, you will lose a life.
 
----- oyun gorseli gelecek
+<img width="1292" alt="Screen Shot 2023-02-06 at 19 52 05" src="https://user-images.githubusercontent.com/66200657/217528993-6afdbe82-3ea1-4eda-8c88-288a892a2361.png">
+
 
 #### Blind Alien
 - This type of alien is pink -magenta actually.
 
-![Adsız tasarım-3](https://user-images.githubusercontent.com/66200657/217061168-0880600c-bd63-4804-87c2-39095d96da71.png)
+![blind_alien_img](https://user-images.githubusercontent.com/66200657/217061168-0880600c-bd63-4804-87c2-39095d96da71.png)
 
 - It walks around randomly.
 - To be killed by blind alien, you should be next to it.
@@ -76,7 +77,7 @@ This is a classical escape game. The aim is to find keys in all buildings. Once 
 #### Time-wasting Alien
 - This type of alien is green -yes, just green.
 
-![Adsız tasarım-6](https://user-images.githubusercontent.com/66200657/217061587-47ec07de-20a1-412a-91a2-4890f7ddf471.png)
+![timewasting_alien_img](https://user-images.githubusercontent.com/66200657/217061587-47ec07de-20a1-412a-91a2-4890f7ddf471.png)
 
 - It does not kill the player, but it changes the location of the key randomly.
 - If less than 30% of the total time remains when this alien appears, the alien will conclude that the player is not in a good situation, and player might lose the game. So, it will change the location of the key only once and disappear.
@@ -90,27 +91,37 @@ This is a classical escape game. The aim is to find keys in all buildings. Once 
 - Once you collect, you can see them on the inventory -right side of the game screen.
 
 #### Extra Time
+<img src="https://user-images.githubusercontent.com/66200657/217525124-1fef9752-c2aa-4b38-86b2-5ec781079067.png" alt= "time_powerup_img" width="100" height="100">   
 - When the user collects an extra time power-up extra 5 seconds are added to the timer.
 
 
 #### Hint
+
+ 
+<img src="https://user-images.githubusercontent.com/66200657/217525792-023d73a8-c223-4dc0-bf06-4e3480db4df9.png" alt= "hint_powerup_img" width="100" height="100">
+
 - This power-up gives a hint about the location of the key.
 - To use it, hit the H button on the keyboard.
 - It will be shown that, the key is inside the yellow area.
 
------gorsel
+<img width="1292" alt="Screen Shot 2023-02-08 at 15 17 18" src="https://user-images.githubusercontent.com/66200657/217528714-0a2348bb-08ac-4cb5-a5e8-e54e7645100c.png">
 
 #### Protection Vest
+<img src="https://user-images.githubusercontent.com/66200657/217525966-183066b6-687c-4a44-b00a-6e67b53efe1e.png" alt= "vest_powerup_img" width="100" height="100">
+
 - This power-up protects you from being shot by the shooter alien.
 - To use it, hit the P button on the keyboard.
 - When you wear it, its protection lasts for 20 seconds.
 
 #### Plastic Bottle
+<img src="https://user-images.githubusercontent.com/66200657/217526052-2bf80e0d-31c7-4c63-aa2f-4e0ba6edd528.png" alt= "bottle_powerup_img" width="100" height="100">
+
 - This power up is used to fool the blind alien. 
 - To use it,  first hit the B button and then one of the following buttons A, D, W, or X to decide on the bottle’s direction (A: west, D: east, W: north, X:south).
 - Once you use it, the blind alien will walk to the direction you chose until the alien hits somewhere.
 
 #### Extra Life
-- This power-up adds one extra life to the player’s lives.
 
-powerup görselleri gelecek
+<img src="https://user-images.githubusercontent.com/66200657/217526109-52837d60-6cc3-4d5e-ae04-1a07557364d0.png" alt= "life_powerup_img" width="100" height="100">
+
+- This power-up adds one extra life to the player’s lives.
