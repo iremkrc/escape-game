@@ -42,27 +42,75 @@ This is a classical escape game. The aim is to find keys in all buildings. Once 
 ## Running Mode
 - The player walks around using the arrow keys. The avatar is Bambi -this was our group name and our initials.
 - You need to go next to an object and click on it to search for the key. Once you find the key, a key will be appeared for a second and the door will be opened.
+- There is a time limit also. The time is limited by 5 seconds for each object presented in the building.
 
 ### Aliens
 - Let me introduce the enemies: aliens. I have no idea what they are doing in Koç University but here we are.
-- All of the aliens appear randomly in the buildings every 10 seconds and the type of the appearing aliens are again selected randomly.
+- All aliens appear randomly in the buildings every 10 seconds and the type of the appearing aliens are again selected randomly.
 - There are three types of aliens:
 1. Shooter Alien
 1. Blind Alien 
 2. Time-wasting Alien
 
-### Shooter Alien
+#### Shooter Alien
 - This type of alien is blue -cyan actually.
 
 ![Adsız tasarım](https://user-images.githubusercontent.com/66200657/217061155-7281bdf9-aa7d-483a-a652-167dea81d6a6.png)
 
+- It appears in a random location in the building and shoots a bullet every second.
+- The shoot range is marked with red color. Once you are inside the red area, you are shot every second. However, you are safe at the outside of the red area.
+- If you are shot, you will lose a life.
 
-### Blind Alien
+---- oyun gorseli gelecek
+
+#### Blind Alien
 - This type of alien is pink -magenta actually.
 
 ![Adsız tasarım-3](https://user-images.githubusercontent.com/66200657/217061168-0880600c-bd63-4804-87c2-39095d96da71.png)
 
-### Time-wasting Alien
+- It walks around randomly.
+- To be killed by blind alien, you should be next to it.
+- Once you are killed, you will lose a life.
+
+
+#### Time-wasting Alien
 - This type of alien is green -yes, just green.
 
 ![Adsız tasarım-6](https://user-images.githubusercontent.com/66200657/217061587-47ec07de-20a1-412a-91a2-4890f7ddf471.png)
+
+- It does not kill the player, but it changes the location of the key randomly.
+- If less than 30% of the total time remains when this alien appears, the alien will conclude that the player is not in a good situation, and player might lose the game. So, it will change the location of the key only once and disappear.
+- If more than 70% of the total time remains, the alien will conclude that the player is doing well. So it will make the situation challenging by changing the location of the key every 3 seconds.
+- If the remaining time is between 30% - 70%, it will get confused and indecisive, so it will stay in the place in which it appears, then disappear after 2 seconds without doing anything.
+
+
+### Power-ups
+- Don't worry! There is also power-ups that can help you.
+- To collect them, you need to click on the power-up -your location doesn't matter.
+- Once you collect, you can see them on the inventory -right side of the game screen.
+
+#### Extra Time
+- When the user collects an extra time power-up extra 5 seconds are added to the timer.
+
+
+#### Hint
+- This power-up gives a hint about the location of the key.
+- To use it, hit the H button on the keyboard.
+- It will be shown that, the key is inside the yellow area.
+
+-----gorsel
+
+#### Protection Vest
+- This power-up protects you from being shot by the shooter alien.
+- To use it, hit the P button on the keyboard.
+- When you wear it, its protection lasts for 20 seconds.
+
+#### Plastic Bottle
+- This power up is used to fool the blind alien. 
+- To use it,  first hit the B button and then one of the following buttons A, D, W, or X to decide on the bottle’s direction (A: west, D: east, W: north, X:south).
+- Once you use it, the blind alien will walk to the direction you chose until the alien hits somewhere.
+
+#### Extra Life
+- This power-up adds one extra life to the player’s lives.
+
+powerup görselleri gelecek
